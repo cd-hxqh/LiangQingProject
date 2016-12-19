@@ -21,7 +21,9 @@ import com.zcl.hxqh.liangqingmanagement.view.fragment.HyybFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.NavigationDrawerFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.QydFragment;
 
-
+/**
+ * MainActivity
+ */
 public class MainActivity extends BaseActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
