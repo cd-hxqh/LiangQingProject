@@ -1,0 +1,272 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+    <string-array name="drawer_tab_titles">
+        <item>流程审批</item>
+        <item>工单管理</item>
+        <item>库存盘点</item>
+        <item>项目管理</item>
+        <item>运维管理</item>
+        <item>资源管理</item>
+        <item>设置</item>
+    </string-array>
+
+    <string-array name="address_text">
+        <item>正式 http://eamapp.mywind.com.cn:9080</item>
+        <item>测试 http://qaseamapp.mywind.com.cn:9080</item>
+        <item>开发 http://deveam.mywind.com.cn:7001</item>
+        <!--<item>调试 http://192.168.100.220</item>-->
+        <!--<item>调试 http://qaseamapp.mywind.com.cn</item>-->
+    </string-array>
+
+    <string-array name="djtype_array">
+        <item>半年检</item>
+        <item>全年检</item>
+        <item>首年检</item>
+    </string-array>
+
+    <string-array name="pctype_array">
+        <item>风机安全排查</item>
+        <item>管理质量排查</item>
+    </string-array>
+
+    <string-array name="udjgtype_array">
+        <item>供应商</item>
+        <item>技术系统</item>
+        <item>运行系统</item>
+    </string-array>
+
+    <string-array name="culevel_array">
+        <item>一般</item>
+        <item>严重</item>
+        <item>非常严重</item>
+        <item>致命</item>
+    </string-array>
+
+    <string-array name="year_array">
+        <item>2016</item>
+        <item>2017</item>
+        <item>2018</item>
+        <item>2019</item>
+        <item>2020</item>
+        <item>2021</item>
+    </string-array>
+
+    <string-array name="month_array">
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+    <string-array name="servicetype_array">
+        <item>事故维修</item>
+        <item>正常维修</item>
+    </string-array>
+    <string-array name="number4_array">
+        <item>0#柴油</item>
+        <item>100#汽油</item>
+        <item>90#汽油</item>
+        <item>92#汽油</item>
+        <item>93#汽油</item>
+        <item>95#汽油</item>
+        <item>97#汽油</item>
+        <item>98#汽油</item>
+    </string-array>
+
+    <string-array name="prophase_array">
+        <item>调试期</item>
+        <item>前期</item>
+        <item>质保期</item>
+        <item>质保外</item>
+    </string-array>
+
+    <string-array name="type2_array">
+        <item>1.5MW轮毂工装</item>
+        <item>1.5MW叶根工装</item>
+        <item>1.5MW叶尖工装</item>
+        <item>1.5MW主机工装</item>
+        <item>1.5MW主机工装后支撑</item>
+        <item>2.0MW轮毂工装</item>
+        <item>2.0MW叶根工装</item>
+        <item>2.0MW叶尖工装</item>
+        <item>2.0MW主机工装</item>
+        <item>2.0MW主机工装后支撑</item>
+    </string-array>
+
+    <string-array name="weather_array">
+        <item>暴雪</item>
+        <item>大暴雨</item>
+        <item>大雪</item>
+        <item>大雨</item>
+        <item>多云</item>
+        <item>雷阵雨</item>
+        <item>晴</item>
+        <item>小雪</item>
+        <item>小雨</item>
+        <item>阴</item>
+    </string-array>
+
+    <string-array name="problemtype_array">
+        <item>备件</item>
+        <item>村民阻工</item>
+        <item>技术支持</item>
+        <item>人员</item>
+        <item>资料</item>
+    </string-array>
+
+    <string-array name="worktype_array">
+        <item>程序刷新</item>
+        <item>吊装指导</item>
+        <item>调试</item>
+        <item>定检</item>
+        <item>故障消除</item>
+        <item>接货</item>
+        <item>路勘</item>
+        <item>其他</item>
+        <item>土建指导</item>
+        <item>维护</item>
+        <item>巡检</item>
+        <item>验收</item>
+        <item>运行</item>
+        <item>整改</item>
+        <item>专项技改</item>
+    </string-array>
+
+    <string-array name="worktype2_array">
+        <item>程序刷新</item>
+        <item>吊装指导</item>
+        <item>调试</item>
+        <item>定检</item>
+        <item>故障消除</item>
+        <item>接货</item>
+        <item>路勘</item>
+        <item>其他</item>
+        <item>土建指导</item>
+        <item>维护</item>
+        <item>巡检</item>
+        <item>验收</item>
+        <item>运行</item>
+        <item>整改</item>
+        <item>专项技改</item>
+    </string-array>
+
+    <string-array name="compsta_array">
+        <item>未完成</item>
+        <item>已完成</item>
+    </string-array>
+
+    <string-array name="faulttype_array">
+        <item>电气</item>
+        <item>机械</item>
+        <item>塔筒</item>
+        <item>叶片</item>
+        <item>液压</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="status_array">
+        <item>新建</item>
+        <item>已提报</item>
+        <item>已关闭</item>
+    </string-array>
+
+    <string-array name="gz_status_array">
+        <item>新建</item>
+        <item>待审批</item>
+        <item>进行中</item>
+        <item>待反馈</item>
+        <item>等待物料</item>
+        <item>已反馈</item>
+        <item>物料已申请</item>
+        <item>驳回</item>
+        <item>已完成</item>
+        <item>已关闭</item>
+        <item>全部</item>
+        <item>本地记录</item>
+    </string-array>
+
+    <string-array name="dc_status_array">
+        <item>已审批</item>
+        <item>新建</item>
+        <item>待审批</item>
+        <item>已完成</item>
+        <item>全部</item>
+        <item>本地记录</item>
+    </string-array>
+
+    <string-array name="dj_status_array">
+        <item>新建</item>
+        <item>待审批</item>
+        <item>进行中</item>
+        <item>待反馈</item>
+        <item>等待物料</item>
+        <item>已反馈</item>
+        <item>物料已申请</item>
+        <item>驳回</item>
+        <item>已完成</item>
+        <item>已关闭</item>
+        <item>全部</item>
+        <item>全部</item>
+        <item>本地记录</item>
+    </string-array>
+
+    <string-array name="pc_status_array">
+        <item>新建</item>
+        <item>待汇报</item>
+        <item>已汇报</item>
+        <item>待整改</item>
+        <item>已完成</item>
+        <item>驳回</item>
+        <item>已关闭</item>
+        <item>全部</item>
+        <item>本地记录</item>
+    </string-array>
+
+    <string-array name="jg_status_array">
+        <item>新建</item>
+        <item>进行中</item>
+        <item>已完成</item>
+        <item>驳回</item>
+        <item>已关闭</item>
+        <item>全部</item>
+        <item>本地记录</item>
+    </string-array>
+
+    <string-array name="zys_status_array">
+        <item>新建</item>
+        <item>待审批</item>
+        <item>待整改</item>
+        <item>已完成</item>
+        <item>已关闭</item>
+        <item>已取消</item>
+        <item>全部</item>
+        <item>本地记录</item>
+    </string-array>
+
+    <string-array name="udinspos_status_array">
+        <item>新建</item>
+        <item>待执行</item>
+        <item>待审批</item>
+        <item>已完成</item>
+        <item>驳回</item>
+        <item>全部</item>
+        <item>本地记录</item>
+    </string-array>
+
+    <string-array name="udcardrivelog_wonum_array">
+        <item>工单跟踪</item>
+        <item>7_备件维修单</item>
+        <item>定检工单</item>
+        <item>排查工单</item>
+        <item>技改工单</item>
+        <item>故障工单</item>
+        <item>终验收工单</item>
+    </string-array>
+</resources>
