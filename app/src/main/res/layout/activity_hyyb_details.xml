@@ -12,8 +12,9 @@
         android:layout_height="wrap_content"></include>
 
     <ScrollView
+        android:id="@+id/scrollview_id"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/title_id"
         android:scrollbars="vertical">
 
@@ -55,8 +56,8 @@
 
                 <ImageView
                     android:id="@+id/imagecode_id"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="@dimen/dimens_30dp"
+                    android:layout_height="@dimen/dimens_30dp"
                     android:layout_marginLeft="@dimen/dimen_5"
                     android:src="@drawable/ic_code"
                     android:visibility="gone" />
@@ -68,7 +69,7 @@
                 android:layout_height="@dimen/dimens_line"
                 android:background="@drawable/line" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -86,12 +87,13 @@
                     android:id="@+id/hyyb_plannum"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:drawableRight="@drawable/ic_right"
                     android:gravity="right"
                     android:hint="@string/have_not_data"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
-            </LinearLayout>
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -207,6 +209,7 @@
                     android:id="@+id/hyyb_foodtypes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:drawableRight="@drawable/ic_right"
                     android:gravity="right"
                     android:hint="@string/have_not_data"
@@ -420,7 +423,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/dimen_10">
+                android:padding="@dimen/dimen_10"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -445,27 +449,30 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimens_line"
-                android:background="@drawable/line"></View>
+                android:background="@drawable/line"
+                android:visibility="gone"></View>
 
-            <RelativeLayout
-                android:id="@+id/carline_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp">
 
-                <Button
-                    android:id="@+id/carline_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:background="@color/blue_1"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:text="货运预报明细"
-                    android:textColor="@color/white" />
-            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 
+    <RelativeLayout
+        android:id="@+id/carline_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/carline_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@color/blue_1"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="货运预报明细"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimens_16sp" />
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -34,8 +34,8 @@ public class CarlineListAdapter extends BaseQuickAdapter<N_CARLINE> {
         CardView cardView = helper.getView(R.id.card_container);
         helper.setText(R.id.item_num_text, item.getSN());
         helper.setText(R.id.item_desc_text, item.getCARNO());
-        helper.setText(R.id.item_num_title, "序号");
-        helper.setText(R.id.item_desc_title, "车号");
+        helper.setText(R.id.item_num_title, "序号:");
+        helper.setText(R.id.item_desc_title, "车号:");
     }
 
 

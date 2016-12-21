@@ -333,7 +333,7 @@ public class N_sampleDetailsActivity extends BaseActivity {
         @Override
         public void onClick(View view) {
 
-            getOptionsValue("扦样类型", HttpManager.getALNDOMAIN(Constants.FRVIEW), typeText);
+            getOptionsValue("扦样类型", HttpManager.getALNDOMAIN(Constants.N_TYPES), typeText);
 
 
         }

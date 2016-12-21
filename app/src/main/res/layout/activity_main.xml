@@ -26,12 +26,12 @@
                 android:layout_gravity="center"
                 android:text="@string/cclqbzd_text"
                 android:textColor="@android:color/white"
-                android:textSize="20sp" />
+                android:textSize="@dimen/dimens_20sp" />
 
             <ImageView
                 android:id="@+id/title_add"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
+                android:layout_width="@dimen/dimens_30dp"
+                android:layout_height="@dimen/dimens_30dp"
                 android:layout_marginRight="@dimen/dimen_5"
                 android:layout_gravity="right"
                 android:src="@drawable/ic_add"

@@ -16,7 +16,8 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,7 +40,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:background="@color/transparent"
-                    android:drawablePadding="@dimen/dimen_5"
                     android:gravity="right"
                     android:hint="@string/have_not_data"
                     android:textColor="@color/light_black"
@@ -47,8 +47,8 @@
 
                 <ImageView
                     android:id="@+id/imagecode_id"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_marginLeft="@dimen/dimen_5"
                     android:src="@drawable/ic_code"
                     android:visibility="gone" />
@@ -64,7 +64,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/dimen_10">
+                android:padding="@dimen/dimen_10"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -87,14 +88,16 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimens_line"
-                android:background="@drawable/line"></View>
+                android:background="@drawable/line"
+                android:visibility="gone"></View>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/dimen_10">
+                android:padding="@dimen/dimen_10"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -117,7 +120,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimens_line"
-                android:background="@drawable/line"></View>
+                android:background="@drawable/line"
+                android:visibility="gone"></View>
 
 
             <LinearLayout
@@ -147,8 +151,8 @@
 
                 <ImageView
                     android:id="@+id/loc_image_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/dimens_30dp"
+                    android:layout_height="@dimen/dimens_30dp"
                     android:layout_marginLeft="@dimen/dimen_5"
                     android:src="@drawable/ic_right"
                     android:visibility="gone" />
@@ -178,8 +182,8 @@
                     android:id="@+id/n_qctasklinenum_text_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/sb__transparent"
                     android:layout_weight="3"
+                    android:background="@color/sb__transparent"
                     android:gravity="right"
                     android:hint="@string/have_not_data"
                     android:textColor="@color/light_black"
@@ -187,8 +191,8 @@
 
                 <ImageView
                     android:id="@+id/n_qctasklinenum_image_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/dimens_30dp"
+                    android:layout_height="@dimen/dimens_30dp"
                     android:layout_marginLeft="@dimen/dimen_5"
                     android:src="@drawable/ic_right"
                     android:visibility="gone" />
@@ -250,7 +254,6 @@
                     android:id="@+id/cartasknum_text_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_right"
                     android:gravity="right"
                     android:hint="@string/have_not_data"
                     android:textColor="@color/light_black"
@@ -292,8 +295,8 @@
 
                 <ImageView
                     android:id="@+id/carno_image_id"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="@dimen/dimens_30dp"
+                    android:layout_height="@dimen/dimens_30dp"
                     android:layout_marginLeft="@dimen/dimen_5"
                     android:src="@drawable/ic_nfc"
                     android:visibility="gone" />
@@ -342,11 +345,10 @@
             <RelativeLayout
                 android:id="@+id/is_huoche_id"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_40dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/dimen_10"
-                android:paddingRight="@dimen/dimen_10">
+                android:padding="@dimen/dimen_10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -359,8 +361,8 @@
 
                 <CheckBox
                     android:id="@+id/trainyn_text_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/dimens_30dp"
+                    android:layout_height="@dimen/dimens_30dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:gravity="right"
@@ -453,9 +455,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:drawablePadding="@dimen/dimen_5"
+                    android:drawablePadding="@dimen/dimen_10"
                     android:drawableRight="@drawable/ic_data"
-
                     android:gravity="center|right"
                     android:hint="@string/have_not_data"
                     android:textColor="@color/light_black"

@@ -37,7 +37,6 @@ import com.zcl.hxqh.liangqingmanagement.bean.Results;
 import com.zcl.hxqh.liangqingmanagement.dialog.FlippingLoadingDialog;
 import com.zcl.hxqh.liangqingmanagement.model.N_CAR;
 import com.zcl.hxqh.liangqingmanagement.model.N_CARLINE;
-import com.zcl.hxqh.liangqingmanagement.until.AccountUtils;
 import com.zcl.hxqh.liangqingmanagement.until.MessageUtils;
 import com.zcl.hxqh.liangqingmanagement.view.widght.SwipeRefreshLayout;
 import com.zcl.hxqh.liangqingmanagement.webserviceclient.AndroidClientService;
@@ -163,15 +162,9 @@ public class N_carlineListActivity extends BaseActivity implements SwipeRefreshL
 
         refresh_layout.setRefreshing(true);
         initAdapter(new ArrayList<N_CARLINE>());
-//        items = new ArrayList<>();
         getData(searchText);
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//
-//    }
 
     private void setSearchEdit() {
         SpannableString msp = new SpannableString("XX搜索");
@@ -278,10 +271,10 @@ public class N_carlineListActivity extends BaseActivity implements SwipeRefreshL
                 new OnBtnClickL() {
                     @Override
                     public void onBtnClick() {
-                        if (hyybListAdapter!=null&&hyybListAdapter.getItemCount()!=0) {
+                        if (hyybListAdapter != null && hyybListAdapter.getItemCount() != 0) {
                             getLoadingDialog("正在提交");
                             startAsyncTask();
-                        }else {
+                        } else {
                             MessageUtils.showMiddleToast(N_carlineListActivity.this, "没有可提交数据");
                         }
                         dialog.dismiss();
@@ -312,11 +305,7 @@ public class N_carlineListActivity extends BaseActivity implements SwipeRefreshL
                 super.onPostExecute(s);
                 mLoadingDialog.dismiss();
                 MessageUtils.showMiddleToast(N_carlineListActivity.this, s);
-//                if (s.equals("修改成功")) {
-//                    finish();
-//                }
-
-
+                finish();
             }
         }.execute();
 
@@ -328,6 +317,7 @@ public class N_carlineListActivity extends BaseActivity implements SwipeRefreshL
      * 获取数据*
      */
     private void initAdapter(final List<N_CARLINE> list) {
+        nodatalayout.setVisibility(View.GONE);
         hyybListAdapter = new CarlineListAdapter(N_carlineListActivity.this, R.layout.list_item, list);
         recyclerView.setAdapter(hyybListAdapter);
         hyybListAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
@@ -337,7 +327,7 @@ public class N_carlineListActivity extends BaseActivity implements SwipeRefreshL
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("n_carline", items.get(position));
                 bundle.putSerializable("n_car", n_car);
-                bundle.putInt("position",position);
+                bundle.putInt("position", position);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 0);
             }
@@ -372,10 +362,10 @@ public class N_carlineListActivity extends BaseActivity implements SwipeRefreshL
 
     @Override
     public void onRefresh() {
-        if (items==null||items.size()==1) {
+        if (items == null || items.size() == 1) {
             page = 1;
             getData(searchText);
-        }else {
+        } else {
             refresh_layout.setRefreshing(false);
         }
     }
@@ -384,7 +374,7 @@ public class N_carlineListActivity extends BaseActivity implements SwipeRefreshL
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         N_CARLINE n_carline = new N_CARLINE();
-        if (data!=null) {
+        if (data != null) {
             switch (requestCode) {
                 case 0://修改
                     n_carline = (N_CARLINE) data.getSerializableExtra("n_carline");

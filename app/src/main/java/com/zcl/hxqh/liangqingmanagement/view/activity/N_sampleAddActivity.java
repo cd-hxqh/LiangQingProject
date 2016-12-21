@@ -204,7 +204,7 @@ public class N_sampleAddActivity extends BaseActivity {
         locText = (EditText) findViewById(R.id.loc_text_id);
         locImageView = (ImageView) findViewById(R.id.loc_image_id);
         n_qctasklinenumText = (EditText) findViewById(R.id.n_qctasklinenum_text_id);
-        linenumImageView=(ImageView)findViewById(R.id.n_qctasklinenum_image_id);
+        linenumImageView = (ImageView) findViewById(R.id.n_qctasklinenum_image_id);
         objText = (TextView) findViewById(R.id.obj_text_id);
         cartasknumText = (TextView) findViewById(R.id.cartasknum_text_id);
         cartasknumLayout = (LinearLayout) findViewById(R.id.cartasknum_layout_id);
@@ -245,7 +245,7 @@ public class N_sampleAddActivity extends BaseActivity {
         linenumImageView.setVisibility(View.VISIBLE);
         linenumImageView.setOnClickListener(n_qctasklinenumTextOnClickListner);
         objText.setOnClickListener(objTextOnClickListner);
-        cartasknumText.setOnClickListener(cartasknumTextOnClickListner);
+//        cartasknumText.setOnClickListener(cartasknumTextOnClickListner);
 
 
         enterdateText.setOnClickListener(new MydateListener());
@@ -324,9 +324,9 @@ public class N_sampleAddActivity extends BaseActivity {
     private View.OnClickListener submitBtnBtnOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (isSubmit()) {
+//            if (isSubmit()) {
                 submitNormalDialog();
-            }
+//            }
         }
     };
 
@@ -335,15 +335,9 @@ public class N_sampleAddActivity extends BaseActivity {
      * 判断必填选项
      **/
     private boolean isSubmit() {
-        if (typeText.getText().toString().isEmpty()) {
-            MessageUtils.showMiddleToast(N_sampleAddActivity.this, "扦样类型不能为空");
+        if (carnoText.getText().toString().isEmpty()) {
+            MessageUtils.showMiddleToast(N_sampleAddActivity.this, "车号不能为空");
             return false;
-        }
-        if (typeText.getText().toString().equals("入库检验") || typeText.getText().toString().equals("出库检验")) {
-            if (carnoText.getText().toString().isEmpty()) {
-                MessageUtils.showMiddleToast(N_sampleAddActivity.this, "车号不能为空");
-                return false;
-            }
 
         }
         return true;

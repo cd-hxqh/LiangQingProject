@@ -48,9 +48,9 @@ public class HttpManager {
      */
     public static String getN_CAR(String value, String enterby, int curpage, int showcount) {
         if (value.equals("")) {
-            return "{'appid':'" + Constants.N_CAR_APPID + "','objectname':'" + Constants.N_CAR_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'CARNUM'}";
+            return "{'appid':'" + Constants.N_CAR_APPID + "','objectname':'" + Constants.N_CAR_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'CARNUM DESC'}";
         }
-        return "{'appid':'" + Constants.N_CAR_APPID + "','objectname':'" + Constants.N_CAR_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'CARNUM','sinorsearch':{'CARNUM':'" + value + "','DESCRIPTION':'" + value + "'}}";
+        return "{'appid':'" + Constants.N_CAR_APPID + "','objectname':'" + Constants.N_CAR_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'CARNUM DESC','sinorsearch':{'CARNUM':'" + value + "','DESCRIPTION':'" + value + "'}}";
     }
 
     /**
