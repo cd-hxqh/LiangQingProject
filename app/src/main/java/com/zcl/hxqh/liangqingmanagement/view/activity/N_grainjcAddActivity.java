@@ -2891,7 +2891,6 @@ public class N_grainjcAddActivity extends BaseActivity {
         n_grainjc.setMYCWZ("");
         n_grainjc.setOTHERSVIEW("");
         n_grainjc.setSHJYFZ("");
-        n_grainjc.setXCVIEW("");
         n_grainjc.setXFXVIEW("");
         n_grainjc.setYEM3("");
         n_grainjc.setSHMD("");

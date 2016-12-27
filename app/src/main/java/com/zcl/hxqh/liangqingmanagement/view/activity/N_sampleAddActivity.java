@@ -131,7 +131,10 @@ public class N_sampleAddActivity extends BaseActivity {
      * 一卡通号
      **/
     private TextView tagIdText;
-
+    /**
+     * 选择图标
+     **/
+    private ImageView tagImageView;
 
     /**
      * 车号
@@ -140,7 +143,7 @@ public class N_sampleAddActivity extends BaseActivity {
     /**
      * 选择图标
      **/
-    private ImageView imageView;
+    private ImageView carnoImageView;
     /**
      * 取样位置
      */
@@ -213,11 +216,15 @@ public class N_sampleAddActivity extends BaseActivity {
         isView = (View) findViewById(R.id.trainyn_view_id);
         trainynCheckBox = (CheckBox) findViewById(R.id.trainyn_text_id);
         tagIdText = (TextView) findViewById(R.id.tagid_text_id);
+        tagImageView = (ImageView) findViewById(R.id.carno_image_id);
         carnoText = (EditText) findViewById(R.id.carno_text_id);
-        imageView = (ImageView) findViewById(R.id.carno_image_id);
+        carnoImageView = (ImageView) findViewById(R.id.carno_imageview_id);
+
         fromlocText = (EditText) findViewById(R.id.fromloc_text_id);
         enterbyText = (TextView) findViewById(R.id.enterby_text_id);
         enterdateText = (TextView) findViewById(R.id.enterdate_text_id);
+
+        linenumImageView.setVisibility(View.GONE);
 
 
         ViewGroup container = (ViewGroup) findViewById(R.id.container);
@@ -242,18 +249,19 @@ public class N_sampleAddActivity extends BaseActivity {
         typeText.setOnClickListener(typeTextOnClickListner);
         locImageView.setVisibility(View.VISIBLE);
         locImageView.setOnClickListener(locTextOnClickListener);
-        linenumImageView.setVisibility(View.VISIBLE);
-        linenumImageView.setOnClickListener(n_qctasklinenumTextOnClickListner);
-        objText.setOnClickListener(objTextOnClickListner);
-//        cartasknumText.setOnClickListener(cartasknumTextOnClickListner);
+//        linenumImageView.setVisibility(View.VISIBLE);
+//        linenumImageView.setOnClickListener(n_qctasklinenumTextOnClickListner);
+//        objText.setOnClickListener(objTextOnClickListner);
 
 
         enterdateText.setOnClickListener(new MydateListener());
 
 
         trainynCheckBox.setOnCheckedChangeListener(trainynCheckBoxOnCheckedChangeListener);
-        imageView.setVisibility(View.VISIBLE);
-        imageView.setOnClickListener(imageViewOnClickListener);
+        tagImageView.setVisibility(View.VISIBLE);
+        tagImageView.setOnClickListener(imageViewOnClickListener);
+
+        carnoImageView.setOnClickListener(carnoimageViewOnClickListener);
 
 
     }
@@ -265,15 +273,9 @@ public class N_sampleAddActivity extends BaseActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
-                cartasknumLayout.setVisibility(View.GONE);
-                cartasknum.setVisibility(View.GONE);
-//                imageView.setVisibility(View.VISIBLE);
-                carnoText.setOnClickListener(imageViewOnClickListener);
-                cartasknumText.setText("");
+                carnoImageView.setVisibility(View.VISIBLE);
             } else {
-//                imageView.setVisibility(View.GONE);
-                cartasknumLayout.setVisibility(View.VISIBLE);
-                cartasknum.setVisibility(View.VISIBLE);
+                carnoImageView.setVisibility(View.GONE);
             }
         }
     };
@@ -290,6 +292,17 @@ public class N_sampleAddActivity extends BaseActivity {
             //跳转至NFC扫描界面
             Intent intent = new Intent(N_sampleAddActivity.this, Nfc_Activity.class);
             startActivityForResult(intent, 0);
+
+        }
+    };
+    /**
+     * 选择值车号
+     **/
+    private View.OnClickListener carnoimageViewOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            getN_WAGONSValue(HttpManager.getN_WAGONS("已到库并确认"), carnoText);
+
 
         }
     };
@@ -325,7 +338,7 @@ public class N_sampleAddActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
 //            if (isSubmit()) {
-                submitNormalDialog();
+            submitNormalDialog();
 //            }
         }
     };
@@ -675,7 +688,7 @@ public class N_sampleAddActivity extends BaseActivity {
 
     private void NormalListDialogCustomAttr2(final TextView textView, final ArrayList<N_WAGONS> item) {
         final NormalListDialog dialog = new NormalListDialog(N_sampleAddActivity.this, mMenuItems);
-        dialog.title("车皮跟踪")//
+        dialog.title("车号选项")//
                 .titleTextSize_SP(18)//
                 .titleBgColor(Color.parseColor("#2da861"))//
                 .itemPressColor(Color.parseColor("#41c378"))//
@@ -821,8 +834,61 @@ public class N_sampleAddActivity extends BaseActivity {
                 break;
             case 1001:
                 String loc = data.getExtras().getString("loc");
+                //根据货位号获取任务检查单号
+
+                getN_QCTASKLINENUMInfo(loc);
+
                 locText.setText(loc);
                 break;
+        }
+    }
+
+    /**
+     * 根据N_QCTASKLINENUM**获取车辆信息
+     **/
+
+    private void getN_QCTASKLINENUMInfo(final String loc) {
+        getLoadingDialog("请稍后...");
+
+        new AsyncTask<String, String, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                String reviseresult = AndroidClientService.addN_SAMPLE1LOC(N_sampleAddActivity.this, loc);
+                return reviseresult;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                showN_QCTASKLINENUMInfo(s);
+                mLoadingDialog.dismiss();
+
+
+            }
+        }.execute();
+
+    }
+
+    /**
+     * 获取任务检查单号
+     **/
+
+    private void showN_QCTASKLINENUMInfo(String info) {
+        if (!info.equals("")) {
+            try {
+                JSONArray jsonArray = new JSONArray(info);
+                JSONObject jsonObject = jsonArray.getJSONObject(0);
+
+                String n_qctasklinenum = jsonObject.getString("n_qctasklinenum");
+                String foodtype = jsonObject.getString("foodtype");
+
+                n_qctasklinenumText.setText(n_qctasklinenum);
+                objText.setText(foodtype);
+
+            } catch (JSONException e) {
+                MessageUtils.showMiddleToast(N_sampleAddActivity.this, "请核实检验任务编号");
+                e.printStackTrace();
+            }
         }
     }
 

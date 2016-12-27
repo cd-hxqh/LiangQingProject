@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -229,13 +228,13 @@ public class N_sampleDetailsActivity extends BaseActivity {
                 trainynCheckBox.setChecked(true);
                 cartasknumLayout.setVisibility(View.GONE);
                 cartasknum.setVisibility(View.GONE);
-                imageView.setVisibility(View.VISIBLE);
+//                imageView.setVisibility(View.VISIBLE);
                 isLayout.setVisibility(View.GONE);
                 isView.setVisibility(View.GONE);
             } else {
                 cartasknumLayout.setVisibility(View.VISIBLE);
                 cartasknum.setVisibility(View.VISIBLE);
-                imageView.setVisibility(View.GONE);
+//                imageView.setVisibility(View.GONE);
                 isLayout.setVisibility(View.VISIBLE);
                 isView.setVisibility(View.VISIBLE);
                 trainynCheckBox.setChecked(false);
@@ -262,38 +261,38 @@ public class N_sampleDetailsActivity extends BaseActivity {
 
         typeText.setOnClickListener(typeTextOnClickListner);
         n_qctasklinenumText.setOnClickListener(n_qctasklinenumTextOnClickListner);
-        objText.setOnClickListener(objTextOnClickListner);
+//        objText.setOnClickListener(objTextOnClickListner);
         cartasknumText.setOnClickListener(cartasknumTextOnClickListner);
 
 
         enterdateText.setOnClickListener(new MydateListener());
 
 
-        trainynCheckBox.setOnCheckedChangeListener(trainynCheckBoxOnCheckedChangeListener);
-        imageView.setOnClickListener(imageViewOnClickListener);
+//        trainynCheckBox.setOnCheckedChangeListener(trainynCheckBoxOnCheckedChangeListener);
+//        imageView.setOnClickListener(imageViewOnClickListener);
 
 
     }
 
 
-    /**
-     * 是否火车
-     **/
-    private CompoundButton.OnCheckedChangeListener trainynCheckBoxOnCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (isChecked) {
-                cartasknumLayout.setVisibility(View.GONE);
-                cartasknum.setVisibility(View.GONE);
-                imageView.setVisibility(View.VISIBLE);
-                cartasknumText.setText("");
-            } else {
-                imageView.setVisibility(View.GONE);
-                cartasknumLayout.setVisibility(View.VISIBLE);
-                cartasknum.setVisibility(View.VISIBLE);
-            }
-        }
-    };
+//    /**
+//     * 是否火车
+//     **/
+//    private CompoundButton.OnCheckedChangeListener trainynCheckBoxOnCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+//        @Override
+//        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//            if (isChecked) {
+//                cartasknumLayout.setVisibility(View.GONE);
+//                cartasknum.setVisibility(View.GONE);
+//                imageView.setVisibility(View.VISIBLE);
+//                cartasknumText.setText("");
+//            } else {
+//                imageView.setVisibility(View.GONE);
+//                cartasknumLayout.setVisibility(View.VISIBLE);
+//                cartasknum.setVisibility(View.VISIBLE);
+//            }
+//        }
+//    };
 
 
     /**

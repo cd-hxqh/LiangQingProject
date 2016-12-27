@@ -2567,7 +2567,7 @@ public class N_grainjcDetailsActivity extends BaseActivity {
             n_grainjc.setSMVIEW(smview);
         }
         String smyp = smypText.getText().toString();
-        if (!smyp.equals(n_grainjc.getSMYP()) && !smyp.equals("") || n_grainjc.getDESCRIPTION() == null) {
+        if (!smyp.equals(n_grainjc.getSMYP()) && !smyp.equals("") || n_grainjc.getSMYP() == null) {
             n_grainjc.setSMYP(smyp);
         }
         String smjl = smjlText.getText().toString();
@@ -3066,7 +3066,6 @@ public class N_grainjcDetailsActivity extends BaseActivity {
         n_grainjc.setMYCWZ("");
         n_grainjc.setOTHERSVIEW("");
         n_grainjc.setSHJYFZ("");
-        n_grainjc.setXCVIEW("");
         n_grainjc.setXFXVIEW("");
         n_grainjc.setYEM3("");
         n_grainjc.setSHMD("");
