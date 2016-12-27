@@ -20,6 +20,7 @@ import com.zcl.hxqh.liangqingmanagement.view.fragment.CclqjcdFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.HyybFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.NavigationDrawerFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.QydFragment;
+import com.zcl.hxqh.liangqingmanagement.view.fragment.WilineFragment;
 
 /**
  * MainActivity
@@ -55,6 +56,10 @@ public class MainActivity extends BaseActivity
      * 货运预报单*
      */
     private HyybFragment hyybFragment;
+    /**
+     * 考勤管理*
+     */
+    private WilineFragment wilinefragment;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -156,6 +161,14 @@ public class MainActivity extends BaseActivity
                     hyybFragment.setArguments(bundle);
                 }
                 fragmentTransaction.replace(R.id.container, hyybFragment).commit();
+                break;
+            case 3: //考勤管理
+                if (wilinefragment == null) {
+                    wilinefragment = new WilineFragment();
+                    Bundle bundle = new Bundle();
+                    wilinefragment.setArguments(bundle);
+                }
+                fragmentTransaction.replace(R.id.container, wilinefragment).commit();
                 break;
         }
 

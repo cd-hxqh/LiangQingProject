@@ -63,6 +63,18 @@ public class HttpManager {
         return "{'appid':'" + Constants.N_CAR_APPID + "','objectname':'" + Constants.N_CARLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'CARNUM','condition':{'CARNUM':'=" + carnum + "'},'sinorsearch':{'CARNUM':'" + value + "','CARNO':'" + value + "'}}";
     }
 
+
+    /**
+     * 设置考勤管理的接口
+     */
+    public static String getN_WTLINE(String value,int curpage, int showcount) {
+        if (value.equals("")) {
+            return "{'appid':'" + Constants.N_WTLINE_APPID + "','objectname':'" + Constants.N_WTLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'N_WTLINEID DESC'}";
+        }
+        return "{'appid':'" + Constants.N_WTLINE_APPID + "','objectname':'" + Constants.N_WTLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'N_WTLINEID DESC','sinorsearch':{'NAME':'" + value + "'}}";
+    }
+
+
     /**
      * 选项值
      */

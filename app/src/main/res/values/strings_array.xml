@@ -4,6 +4,9 @@
         <item>仓储粮情标准单</item>
         <item>扦样单</item>
         <item>货运预报</item>
+        <item>考勤管理</item>
+        <item>人员查询</item>
+        <item>车辆查询</item>
     </string-array>
 
     <string-array name="xxz_titles">

@@ -98,6 +98,13 @@
             android:label="N_carlineAddActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".view.activity.N_wtlineDetailsActivity"
+            android:label="N_wtlineDetailsActivity"
+            android:screenOrientation="portrait" />
+
+
+
+        <activity
             android:name=".view.activity.CarPlanChooseActivity"
             android:label="CarPlanChooseActivity"
             android:screenOrientation="portrait" />

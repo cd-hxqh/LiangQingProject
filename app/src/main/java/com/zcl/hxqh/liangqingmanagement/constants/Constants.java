@@ -88,10 +88,15 @@ public class Constants {
     //车皮跟踪的表名
     public static final String N_WAGONS_NAME = "N_WAGONS";
 
-    //车辆作业的表名
+    //车辆作业的appid
     public static final String N_STOREINFO_APPID= "N_STOREINFO";
     //车皮跟踪的表名
     public static final String N_STOREINFO_NAME = "N_STOREINFO";
+
+    //考勤管理的appid
+    public static final String N_WTLINE_APPID= "N_WTLINE";
+    //考勤管理的表名
+    public static final String N_WTLINE_NAME = "N_WTLINE";
 
 
 
