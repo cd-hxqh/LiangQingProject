@@ -28,8 +28,8 @@
 
     <!-- Permission for Unit Test -->
     <uses-permission android:name="android.permission.GET_TASKS" />
-
     <uses-permission android:name="android.permission.NFC" />
+
     <uses-feature android:name="android.hardware.nfc" />
 
     <application
@@ -101,9 +101,6 @@
             android:name=".view.activity.N_wtlineDetailsActivity"
             android:label="N_wtlineDetailsActivity"
             android:screenOrientation="portrait" />
-
-
-
         <activity
             android:name=".view.activity.CarPlanChooseActivity"
             android:label="CarPlanChooseActivity"
@@ -126,9 +123,12 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".view.activity.Nfc_Activity"></activity>
-
-        <activity android:name=".view.activity.ChooseActivity"></activity>
+        <activity android:name=".view.activity.Nfc_Activity" />
+        <activity android:name=".view.activity.ChooseActivity" />
+        <activity
+            android:name=".view.activity.N_wtlineAddActivity"
+            android:label="@string/title_activity_n_wtline_add"
+            android:theme="@style/SampleTheme"></activity>
     </application>
 
 </manifest>

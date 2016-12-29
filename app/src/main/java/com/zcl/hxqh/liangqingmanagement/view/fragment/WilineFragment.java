@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telephony.TelephonyManager;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
@@ -32,7 +33,9 @@ import com.zcl.hxqh.liangqingmanagement.model.N_WTLINE;
 import com.zcl.hxqh.liangqingmanagement.view.activity.N_wtlineDetailsActivity;
 import com.zcl.hxqh.liangqingmanagement.view.widght.SwipeRefreshLayout;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -189,7 +192,13 @@ public class WilineFragment extends BaseFragment implements SwipeRefreshLayout.O
      * 获取数据*
      */
     private void getData(String search) {
-        HttpManager.getDataPagingInfo(getActivity(), HttpManager.getN_WTLINE(search, page, 20), new HttpRequestHandler<Results>() {
+
+        String imei = ((TelephonyManager) getActivity().getSystemService(getActivity().TELEPHONY_SERVICE))
+                .getDeviceId();
+
+        Log.i(TAG, "imei=" + imei)
+        ;
+        HttpManager.getDataPagingInfo(getActivity(), HttpManager.getN_WTLINE(search, getCurrentTime(), imei, page, 20), new HttpRequestHandler<Results>() {
             @Override
             public void onSuccess(Results results) {
                 Log.i(TAG, "data=" + results);
@@ -253,6 +262,16 @@ public class WilineFragment extends BaseFragment implements SwipeRefreshLayout.O
      */
     private void addData(final List<N_WTLINE> list) {
         wulineListAdapter.addData(list);
+    }
+
+
+    /**
+     * 获取系统当前时间
+     **/
+    private String getCurrentTime() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        String time = df.format(new Date());
+        return time;
     }
 
 

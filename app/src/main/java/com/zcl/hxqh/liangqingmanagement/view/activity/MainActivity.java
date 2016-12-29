@@ -104,27 +104,34 @@ public class MainActivity extends BaseActivity
     @Override
     protected void initView() {
         addImage.setOnClickListener(addImageOnClickListener);
+        if (mSelectPos == 3) {
+            addImage.setImageResource(R.drawable.ic_dk);
+        }
     }
 
 
     private View.OnClickListener addImageOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-                switch (mSelectPos){
-                    case 0://跳转到粮情检查单新建
-                        Intent intent =new Intent(MainActivity.this,N_grainjcAddActivity.class);
-                        startActivityForResult(intent,0);
+            switch (mSelectPos) {
+                case 0://跳转到粮情检查单新建
+                    Intent intent = new Intent(MainActivity.this, N_grainjcAddActivity.class);
+                    startActivityForResult(intent, 0);
 
-                        break;
-                    case 1://跳转到扦样单新建
-                        Intent intent1 =new Intent(MainActivity.this,N_sampleAddActivity.class);
-                        startActivityForResult(intent1,0);
-                        break;
-                    case 2://跳转到货运预报新建
-                        Intent intent2 =new Intent(MainActivity.this,N_carAddActivity.class);
-                        startActivityForResult(intent2,0);
-                        break;
-                }
+                    break;
+                case 1://跳转到扦样单新建
+                    Intent intent1 = new Intent(MainActivity.this, N_sampleAddActivity.class);
+                    startActivityForResult(intent1, 0);
+                    break;
+                case 2://跳转到货运预报新建
+                    Intent intent2 = new Intent(MainActivity.this, N_carAddActivity.class);
+                    startActivityForResult(intent2, 0);
+                    break;
+                case 3://跳转到考勤信息新建
+                    Intent intent3 = new Intent(MainActivity.this, N_wtlineAddActivity.class);
+                    startActivityForResult(intent3, 0);
+                    break;
+            }
         }
     };
 
@@ -163,6 +170,7 @@ public class MainActivity extends BaseActivity
                 fragmentTransaction.replace(R.id.container, hyybFragment).commit();
                 break;
             case 3: //考勤管理
+                addImage.setImageResource(R.drawable.ic_dk);
                 if (wilinefragment == null) {
                     wilinefragment = new WilineFragment();
                     Bundle bundle = new Bundle();
@@ -170,6 +178,7 @@ public class MainActivity extends BaseActivity
                 }
                 fragmentTransaction.replace(R.id.container, wilinefragment).commit();
                 break;
+
         }
 
     }
@@ -182,7 +191,7 @@ public class MainActivity extends BaseActivity
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle("");
         title.setText(mTitle);
-        if (mSelectPos == 0||mSelectPos==1||mSelectPos==2) {
+        if (mSelectPos == 0 || mSelectPos == 1 || mSelectPos == 2) {
             addImage.setVisibility(View.VISIBLE);
         }
     }

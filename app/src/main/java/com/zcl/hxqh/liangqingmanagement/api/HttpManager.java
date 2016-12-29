@@ -67,11 +67,11 @@ public class HttpManager {
     /**
      * 设置考勤管理的接口
      */
-    public static String getN_WTLINE(String value,int curpage, int showcount) {
+    public static String getN_WTLINE(String value,String start,String ip,int curpage, int showcount) {
         if (value.equals("")) {
-            return "{'appid':'" + Constants.N_WTLINE_APPID + "','objectname':'" + Constants.N_WTLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'N_WTLINEID DESC'}";
+            return "{'appid':'" + Constants.N_WTLINE_APPID + "','objectname':'" + Constants.N_WTLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'N_WTLINEID DESC','condition':{'START':'=" + start + "','IP':'="+ip+"'}}";
         }
-        return "{'appid':'" + Constants.N_WTLINE_APPID + "','objectname':'" + Constants.N_WTLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'N_WTLINEID DESC','sinorsearch':{'NAME':'" + value + "'}}";
+        return "{'appid':'" + Constants.N_WTLINE_APPID + "','objectname':'" + Constants.N_WTLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'N_WTLINEID DESC','condition':{'START':'=" + start + "','IP':'="+ip+"'},'sinorsearch':{'NAME':'" + value + "'}}";
     }
 
 

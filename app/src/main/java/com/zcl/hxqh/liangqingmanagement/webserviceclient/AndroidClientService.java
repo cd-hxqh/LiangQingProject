@@ -220,4 +220,37 @@ public class AndroidClientService {
         return obj;
     }
 
+
+
+    /**
+     * 考勤管理
+     */
+    public static String addN_WTLINE(final Context cxt,String cardid,String ip) {
+
+        String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.carwebserviceURL;
+
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "n_carAttendDance");
+        soapReq.addProperty("cardid", cardid);//封装数据
+        soapReq.addProperty("ip", ip);//封装数据
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }
+        String obj = null;
+        try {
+            obj = soapEnvelope.getResponse().toString();
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return obj;
+    }
+
 }
