@@ -20,6 +20,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zcl.hxqh.liangqingmanagement.R;
@@ -35,6 +36,7 @@ import com.zcl.hxqh.liangqingmanagement.view.widght.SwipeRefreshLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -71,6 +73,7 @@ public class WilineFragment extends BaseFragment implements SwipeRefreshLayout.O
      * 编辑框*
      */
     private EditText search;
+    private RelativeLayout editLayout;
     /**
      * 查询条件*
      */
@@ -107,6 +110,7 @@ public class WilineFragment extends BaseFragment implements SwipeRefreshLayout.O
         refresh_layout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
         nodatalayout = (LinearLayout) view.findViewById(R.id.have_not_data_id);
         search = (EditText) view.findViewById(R.id.search_edit);
+        editLayout = (RelativeLayout) view.findViewById(R.id.edit_layout);
     }
 
 
@@ -114,7 +118,8 @@ public class WilineFragment extends BaseFragment implements SwipeRefreshLayout.O
      * 设置事件监听*
      */
     private void initView() {
-        setSearchEdit();
+//        setSearchEdit();
+        editLayout.setVisibility(View.GONE);
 
         layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -198,7 +203,7 @@ public class WilineFragment extends BaseFragment implements SwipeRefreshLayout.O
 
         Log.i(TAG, "imei=" + imei)
         ;
-        HttpManager.getDataPagingInfo(getActivity(), HttpManager.getN_WTLINE(search, getCurrentTime(), imei, page, 20), new HttpRequestHandler<Results>() {
+        HttpManager.getDataPagingInfo(getActivity(), HttpManager.getN_WTLINE(search, getCurrentTime(),getYesterdayTime(), imei, page, 20), new HttpRequestHandler<Results>() {
             @Override
             public void onSuccess(Results results) {
                 Log.i(TAG, "data=" + results);
@@ -243,18 +248,18 @@ public class WilineFragment extends BaseFragment implements SwipeRefreshLayout.O
      * 获取数据*
      */
     private void initAdapter(final List<N_WTLINE> list) {
-        wulineListAdapter = new WulineListAdapter(getActivity(), R.layout.list_item, list);
+        wulineListAdapter = new WulineListAdapter(getActivity(), R.layout.line_list_item, list);
         recyclerView.setAdapter(wulineListAdapter);
-        wulineListAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent(getActivity(), N_wtlineDetailsActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("n_wtline", items.get(position));
-                intent.putExtras(bundle);
-                startActivityForResult(intent, 0);
-            }
-        });
+//        wulineListAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                Intent intent = new Intent(getActivity(), N_wtlineDetailsActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("n_wtline", items.get(position));
+//                intent.putExtras(bundle);
+//                startActivityForResult(intent, 0);
+//            }
+//        });
     }
 
     /**
@@ -273,6 +278,14 @@ public class WilineFragment extends BaseFragment implements SwipeRefreshLayout.O
         String time = df.format(new Date());
         return time;
     }
-
+    /**
+     * 获取系统当前时间
+     **/
+    private String getYesterdayTime() {
+        Calendar cal   =   Calendar.getInstance();
+        cal.add(Calendar.DATE,   -1);
+        String yesterday = new SimpleDateFormat( "yyyy-MM-dd ").format(cal.getTime());
+        return yesterday;
+    }
 
 }

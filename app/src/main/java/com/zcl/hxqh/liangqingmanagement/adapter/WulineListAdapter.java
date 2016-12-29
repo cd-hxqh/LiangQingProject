@@ -32,9 +32,15 @@ public class WulineListAdapter extends BaseQuickAdapter<N_WTLINE> {
     protected void convert(BaseViewHolder helper, N_WTLINE item) {
         CardView cardView = helper.getView(R.id.card_container);
         helper.setText(R.id.item_num_title, "姓名/车号:");
-        helper.setText(R.id.item_num_text, item.getNAME());
-        helper.setText(R.id.item_desc_title, "作业开始时间:");
-        helper.setText(R.id.item_desc_text, item.getSTART());
+        helper.setText(R.id.kq_name_text_id, item.getNAME());
+        helper.setText(R.id.start_text_title, "开始时间:");
+        helper.setText(R.id.start_text_id, item.getSTART());
+        helper.setText(R.id.end_text_title, "结束时间:");
+        helper.setText(R.id.end_text_id, item.getEND());
+        helper.setText(R.id.status_text_title, "状态:");
+        helper.setText(R.id.status_text_id, item.getSTATUS());
+        helper.setText(R.id.cardid_text_title, "一卡通编号:");
+        helper.setText(R.id.cardid_text_id, item.getCARDID());
     }
 
 

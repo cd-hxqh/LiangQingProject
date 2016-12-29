@@ -28,10 +28,12 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,8 +41,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.flyco.animation.BaseAnimatorSet;
+import com.flyco.animation.BounceEnter.BounceTopEnter;
+import com.flyco.animation.SlideExit.SlideBottomExit;
+import com.flyco.dialog.listener.OnBtnClickL;
+import com.flyco.dialog.widget.NormalDialog;
 import com.zcl.hxqh.liangqingmanagement.R;
+import com.zcl.hxqh.liangqingmanagement.dialog.FlippingLoadingDialog;
 import com.zcl.hxqh.liangqingmanagement.until.MessageUtils;
+import com.zcl.hxqh.liangqingmanagement.webserviceclient.AndroidClientService;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -96,6 +105,13 @@ public class Nfc_Activity extends BaseActivity {
 
     private boolean vibrate;
 
+    private BaseAnimatorSet mBasIn;
+    private BaseAnimatorSet mBasOut;
+
+    protected FlippingLoadingDialog mLoadingDialog;
+
+    private String type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +120,11 @@ public class Nfc_Activity extends BaseActivity {
         findViewById();
         initView();
 
+        mBasIn = new BounceTopEnter();
+        mBasOut = new SlideBottomExit();
+        if (getIntent().hasExtra("type")) {
+            type = getIntent().getStringExtra("type");
+        }
 
         resolveIntent(getIntent());
 
@@ -238,10 +259,16 @@ public class Nfc_Activity extends BaseActivity {
                 tagId = dumpTagData(tag);
 
             }
-            Intent bIntent = getIntent();
-            bIntent.putExtra("tagId", tagId);
-            setResult(1002, intent);
-            finish();
+            if (type!=null&&type.equals("wiline")){
+                String imei = ((TelephonyManager) getSystemService(TELEPHONY_SERVICE))
+                        .getDeviceId();
+                submitNormalDialog(tagId,imei);
+            }else {
+                Intent bIntent = getIntent();
+                bIntent.putExtra("tagId", tagId);
+                setResult(1002, intent);
+                finish();
+            }
 //            buildTagViews(tagId);
         }
     }
@@ -369,5 +396,68 @@ public class Nfc_Activity extends BaseActivity {
         }
     }
 
+    /**
+     * 提交数据*
+     */
+    private void submitNormalDialog(final String tagId, final String imei) {
 
+        final NormalDialog dialog = new NormalDialog(Nfc_Activity.this);
+        dialog.title("提交数据");
+        dialog.content("一卡通编号:"+tagId+"\n考勤机ID:"+imei)//
+                .showAnim(mBasIn)//
+                .dismissAnim(mBasOut)//
+                .show();
+
+        dialog.setOnBtnClickL(
+                new OnBtnClickL() {
+
+
+                    @Override
+                    public void onBtnClick() {
+                        dialog.dismiss();
+                    }
+                },
+                new OnBtnClickL() {
+                    @Override
+                    public void onBtnClick() {
+                        getLoadingDialog("正在提交");
+
+                        startAsyncTask(tagId, imei);
+
+                        dialog.dismiss();
+                    }
+                });
+    }
+
+
+    private FlippingLoadingDialog getLoadingDialog(String msg) {
+        if (mLoadingDialog == null)
+            mLoadingDialog = new FlippingLoadingDialog(this, msg);
+        return mLoadingDialog;
+    }
+
+
+    /**
+     * 提交数据*
+     */
+    private void startAsyncTask(final String cardId, final String id) {
+        new AsyncTask<String, String, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+
+                String reviseresult = AndroidClientService.addN_WTLINE(Nfc_Activity.this, cardId, id);
+                return reviseresult;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                mLoadingDialog.dismiss();
+                MessageUtils.showMiddleToast(Nfc_Activity.this, s);
+                finish();
+
+
+            }
+        }.execute();
+    }
 }

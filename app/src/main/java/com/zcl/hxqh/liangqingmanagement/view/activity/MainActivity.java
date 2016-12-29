@@ -2,10 +2,12 @@ package com.zcl.hxqh.liangqingmanagement.view.activity;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,14 +15,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.flyco.animation.BaseAnimatorSet;
+import com.flyco.animation.BounceEnter.BounceTopEnter;
+import com.flyco.animation.SlideExit.SlideBottomExit;
+import com.flyco.dialog.listener.OnBtnClickL;
+import com.flyco.dialog.widget.NormalDialog;
 import com.zcl.hxqh.liangqingmanagement.AppManager;
 import com.zcl.hxqh.liangqingmanagement.R;
+import com.zcl.hxqh.liangqingmanagement.dialog.FlippingLoadingDialog;
 import com.zcl.hxqh.liangqingmanagement.until.MessageUtils;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.CclqjcdFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.HyybFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.NavigationDrawerFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.QydFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.WilineFragment;
+import com.zcl.hxqh.liangqingmanagement.webserviceclient.AndroidClientService;
 
 /**
  * MainActivity
@@ -70,13 +79,18 @@ public class MainActivity extends BaseActivity
     private String[] mFavoriteTabPaths;
     private String[] mMainTitles;
 
+    private BaseAnimatorSet mBasIn;
+    private BaseAnimatorSet mBasOut;
+
+
+    protected FlippingLoadingDialog mLoadingDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViewById();
         initView();
-
 
     }
 
@@ -128,7 +142,8 @@ public class MainActivity extends BaseActivity
                     startActivityForResult(intent2, 0);
                     break;
                 case 3://跳转到考勤信息新建
-                    Intent intent3 = new Intent(MainActivity.this, N_wtlineAddActivity.class);
+                    Intent intent3 = new Intent(MainActivity.this, Nfc_Activity.class);
+                    intent3.putExtra("type","wiline");
                     startActivityForResult(intent3, 0);
                     break;
             }
@@ -193,6 +208,9 @@ public class MainActivity extends BaseActivity
         title.setText(mTitle);
         if (mSelectPos == 0 || mSelectPos == 1 || mSelectPos == 2) {
             addImage.setVisibility(View.VISIBLE);
+            addImage.setImageResource(R.drawable.ic_add);
+        } else if (mSelectPos == 3) {
+            addImage.setImageResource(R.drawable.ic_dk);
         }
     }
 
@@ -229,6 +247,21 @@ public class MainActivity extends BaseActivity
             exitTime = System.currentTimeMillis();
         } else {
             AppManager.AppExit(MainActivity.this);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+
+            case 1002:
+                String tagId = data.getExtras().getString("tagId");
+
+//                cardIdTextView.setText(tagId);
+//                submitNormalDialog(tagId,imei);
+                break;
+
         }
     }
 
