@@ -27,6 +27,7 @@ import com.zcl.hxqh.liangqingmanagement.until.MessageUtils;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.CclqjcdFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.HyybFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.NavigationDrawerFragment;
+import com.zcl.hxqh.liangqingmanagement.view.fragment.PersonFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.QydFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.WilineFragment;
 import com.zcl.hxqh.liangqingmanagement.webserviceclient.AndroidClientService;
@@ -69,6 +70,10 @@ public class MainActivity extends BaseActivity
      * 考勤管理*
      */
     private WilineFragment wilinefragment;
+    /**
+     * 人员查询*
+     */
+    private PersonFragment personFragment;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -118,7 +123,7 @@ public class MainActivity extends BaseActivity
     @Override
     protected void initView() {
         addImage.setOnClickListener(addImageOnClickListener);
-        if (mSelectPos == 3) {
+        if (mSelectPos == 3 || mSelectPos == 4) {
             addImage.setImageResource(R.drawable.ic_dk);
         }
     }
@@ -143,7 +148,7 @@ public class MainActivity extends BaseActivity
                     break;
                 case 3://跳转到考勤信息新建
                     Intent intent3 = new Intent(MainActivity.this, Nfc_Activity.class);
-                    intent3.putExtra("type","wiline");
+                    intent3.putExtra("type", "wiline");
                     startActivityForResult(intent3, 0);
                     break;
             }
@@ -193,6 +198,15 @@ public class MainActivity extends BaseActivity
                 }
                 fragmentTransaction.replace(R.id.container, wilinefragment).commit();
                 break;
+            case 4:
+                addImage.setImageResource(R.drawable.ic_dk);
+                if (personFragment == null) {
+                    personFragment = new PersonFragment();
+                    Bundle bundle = new Bundle();
+                    personFragment.setArguments(bundle);
+                }
+                fragmentTransaction.replace(R.id.container, personFragment).commit();
+                break;
 
         }
 
@@ -209,7 +223,7 @@ public class MainActivity extends BaseActivity
         if (mSelectPos == 0 || mSelectPos == 1 || mSelectPos == 2) {
             addImage.setVisibility(View.VISIBLE);
             addImage.setImageResource(R.drawable.ic_add);
-        } else if (mSelectPos == 3) {
+        } else if (mSelectPos == 3 || mSelectPos == 4) {
             addImage.setImageResource(R.drawable.ic_dk);
         }
     }
