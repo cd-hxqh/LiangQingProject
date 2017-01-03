@@ -2,12 +2,10 @@ package com.zcl.hxqh.liangqingmanagement.view.activity;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,21 +14,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.flyco.animation.BaseAnimatorSet;
-import com.flyco.animation.BounceEnter.BounceTopEnter;
-import com.flyco.animation.SlideExit.SlideBottomExit;
-import com.flyco.dialog.listener.OnBtnClickL;
-import com.flyco.dialog.widget.NormalDialog;
 import com.zcl.hxqh.liangqingmanagement.AppManager;
 import com.zcl.hxqh.liangqingmanagement.R;
 import com.zcl.hxqh.liangqingmanagement.dialog.FlippingLoadingDialog;
 import com.zcl.hxqh.liangqingmanagement.until.MessageUtils;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.CclqjcdFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.HyybFragment;
+import com.zcl.hxqh.liangqingmanagement.view.fragment.N_cartaskFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.NavigationDrawerFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.PersonFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.QydFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.WilineFragment;
-import com.zcl.hxqh.liangqingmanagement.webserviceclient.AndroidClientService;
 
 /**
  * MainActivity
@@ -74,6 +68,11 @@ public class MainActivity extends BaseActivity
      * 人员查询*
      */
     private PersonFragment personFragment;
+
+    /**
+     * 车辆查询
+     **/
+    private N_cartaskFragment n_cartaskFragment;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -207,6 +206,14 @@ public class MainActivity extends BaseActivity
                 }
                 fragmentTransaction.replace(R.id.container, personFragment).commit();
                 break;
+            case 5: //车辆查询
+                if (n_cartaskFragment == null) {
+                    n_cartaskFragment = new N_cartaskFragment();
+                    Bundle bundle = new Bundle();
+                    n_cartaskFragment.setArguments(bundle);
+                }
+                fragmentTransaction.replace(R.id.container, n_cartaskFragment).commit();
+                break;
 
         }
 
@@ -225,6 +232,8 @@ public class MainActivity extends BaseActivity
             addImage.setImageResource(R.drawable.ic_add);
         } else if (mSelectPos == 3 || mSelectPos == 4) {
             addImage.setImageResource(R.drawable.ic_dk);
+        } else if (mSelectPos == 5) {
+            addImage.setVisibility(View.GONE);
         }
     }
 
@@ -264,19 +273,5 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode) {
-
-            case 1002:
-                String tagId = data.getExtras().getString("tagId");
-
-//                cardIdTextView.setText(tagId);
-//                submitNormalDialog(tagId,imei);
-                break;
-
-        }
-    }
 
 }

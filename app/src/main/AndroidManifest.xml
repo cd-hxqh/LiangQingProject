@@ -134,6 +134,10 @@
             android:name=".view.activity.CarNoXZActivity"
             android:label="CarNoXZActivity"
             android:theme="@style/SampleTheme"></activity>
+        <activity
+            android:name=".view.activity.N_cartaskDetailsActivity"
+            android:label="N_cartaskDetailsActivity"
+            android:theme="@style/SampleTheme"></activity>
     </application>
 
 </manifest>

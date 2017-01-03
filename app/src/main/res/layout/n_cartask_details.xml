@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/dimen_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cardid_text"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/dimens_16sp" />
+
+        <TextView
+            android:id="@+id/cardid_text_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="right"
+            android:hint="@string/have_not_data"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/dimens_16sp" />
+
+        <ImageView
+            android:id="@+id/nfc_image_id"
+            android:layout_width="@dimen/dimens_30dp"
+            android:layout_height="@dimen/dimens_30dp"
+            android:layout_marginLeft="@dimen/dimen_5"
+            android:src="@drawable/ic_nfc" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_line"
+        android:background="@drawable/line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/dimen_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/carline_carno"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/dimens_16sp" />
+
+        <TextView
+            android:id="@+id/carline_carno_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:gravity="right"
+            android:hint="@string/have_not_data"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/dimens_16sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_line"
+        android:background="@drawable/line"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/dimen_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/idcardnum_text"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/dimens_16sp" />
+
+        <TextView
+            android:id="@+id/idcardnum_text_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:gravity="right"
+            android:hint="@string/have_not_data"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/dimens_16sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_line"
+        android:background="@drawable/line"></View>
+
+
+    <include layout="@layout/work_list"></include>
+
+
+</LinearLayout>

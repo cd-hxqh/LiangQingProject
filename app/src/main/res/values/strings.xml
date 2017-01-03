@@ -310,5 +310,13 @@
     <string name="ip_text">考勤机ID:</string>
     <string name="title_activity_n_wtline_add">N_wtlineAddActivity</string>
     <string name="add_xinjian">考勤录入</string>
+    <string name="idcardnum_text">身份证:</string>
+    <string name="cljl_text">车辆记录详情</string>
+    <string name="intime_text">进门时间:</string>
+    <string name="outtime_text">出门时间:</string>
+    <string name="tasktype_text">作业性质:</string>
+    <string name="foodtypes_text">品种:</string>
+    <string name="loc1_text">作业货位号:</string>
+    <string name="fromstation_text">收货/提货单位:</string>
 
 </resources>

@@ -108,6 +108,13 @@ public class HttpManager {
 
     }
 
+    /**
+     * 车辆作业单
+     */
+    public static String getN_CARTASK(String tagId,int curpage, int showcount) {
+        return "{'appid':'" + Constants.N_CARTASK_NAME + "','objectname':'" + Constants.N_CARTASK_NAME +"','curpage':" + curpage + ",'showcount':" + showcount +  ",'option':'read','orderby':'INTIME DESC','condition':{'TAGID':'=" + tagId +"'}}";
+    }
+
 
     /**
      * 设置保管员货位的接口
