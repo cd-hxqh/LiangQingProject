@@ -98,6 +98,11 @@ public class Constants {
     //考勤管理的表名
     public static final String N_WTLINE_NAME = "N_WTLINE";
 
+    //人员查询的appid
+    public static final String PERSON_APPID = "PERSON";
+    //人员查询的表名
+    public static final String PERSON_NAME = "PERSON";
+
 
 
 

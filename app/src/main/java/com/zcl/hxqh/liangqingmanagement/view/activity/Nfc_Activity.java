@@ -263,6 +263,11 @@ public class Nfc_Activity extends BaseActivity {
                 String imei = ((TelephonyManager) getSystemService(TELEPHONY_SERVICE))
                         .getDeviceId();
                 submitNormalDialog(tagId,imei);
+            }else if (type!=null&&type.equals("person")){
+                Intent bIntent = getIntent();
+                bIntent.putExtra("tagId", tagId);
+                setResult(1003, intent);
+                finish();
             }else {
                 Intent bIntent = getIntent();
                 bIntent.putExtra("tagId", tagId);

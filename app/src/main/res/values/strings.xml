@@ -319,4 +319,13 @@
     <string name="loc1_text">作业货位号:</string>
     <string name="fromstation_text">收货/提货单位:</string>
 
+    <!--人员查询-->
+    <string name="person_details">基本信息</string>
+    <string name="work_history">用工记录</string>
+    <string name="attence_history">考勤记录</string>
+    <string name="person_cardnum">一卡通编号:</string>
+    <string name="person_name">姓名:</string>
+    <string name="person_idnum">身份证:</string>
+    <string name="person_worktype">工种:</string>
+    <string name="person_phone">电话:</string>
 </resources>

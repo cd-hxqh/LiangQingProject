@@ -122,7 +122,7 @@ public class MainActivity extends BaseActivity
     @Override
     protected void initView() {
         addImage.setOnClickListener(addImageOnClickListener);
-        if (mSelectPos == 3 || mSelectPos == 4) {
+        if (mSelectPos == 3 ) {
             addImage.setImageResource(R.drawable.ic_dk);
         }
     }
@@ -197,8 +197,7 @@ public class MainActivity extends BaseActivity
                 }
                 fragmentTransaction.replace(R.id.container, wilinefragment).commit();
                 break;
-            case 4:
-                addImage.setImageResource(R.drawable.ic_dk);
+            case 4: //人员查询
                 if (personFragment == null) {
                     personFragment = new PersonFragment();
                     Bundle bundle = new Bundle();
@@ -230,8 +229,11 @@ public class MainActivity extends BaseActivity
         if (mSelectPos == 0 || mSelectPos == 1 || mSelectPos == 2) {
             addImage.setVisibility(View.VISIBLE);
             addImage.setImageResource(R.drawable.ic_add);
-        } else if (mSelectPos == 3 || mSelectPos == 4) {
+        } else if (mSelectPos == 3 ) {
+            addImage.setVisibility(View.VISIBLE);
             addImage.setImageResource(R.drawable.ic_dk);
+        }else if (mSelectPos == 4 ) {
+            addImage.setVisibility(View.GONE);
         } else if (mSelectPos == 5) {
             addImage.setVisibility(View.GONE);
         }

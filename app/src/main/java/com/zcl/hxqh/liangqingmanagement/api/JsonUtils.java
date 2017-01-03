@@ -17,6 +17,7 @@ import com.zcl.hxqh.liangqingmanagement.model.N_STOREINFO;
 import com.zcl.hxqh.liangqingmanagement.model.N_TASKPLAN;
 import com.zcl.hxqh.liangqingmanagement.model.N_WAGONS;
 import com.zcl.hxqh.liangqingmanagement.model.N_WTLINE;
+import com.zcl.hxqh.liangqingmanagement.model.PERSON;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -533,6 +534,51 @@ public class JsonUtils {
 
     }
 
+    /**
+     * 人员查询
+     */
+    public static ArrayList<PERSON> parsingPERSON(Context ctx, String data) {
+        ArrayList<PERSON> list = null;
+        PERSON n_car = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            JSONObject jsonObject;
+            list = new ArrayList<PERSON>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                n_car = new PERSON();
+                jsonObject = jsonArray.getJSONObject(i);
+                Field[] field = n_car.getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
+                for (int j = 0; j < field.length; j++) {     //遍历所有属性
+                    field[j].setAccessible(true);
+                    String name = field[j].getName();    //获取属性的名字
+                    if (jsonObject.has(name) && jsonObject.getString(name) != null && !jsonObject.getString(name).equals("")) {
+                        try {
+                            // 调用getter方法获取属性值
+                            Method getOrSet = n_car.getClass().getMethod("get" + name);
+                            Object value = getOrSet.invoke(n_car);
+                            if (value == null) {
+                                //调用setter方法设属性值
+                                Class[] parameterTypes = new Class[1];
+                                parameterTypes[0] = field[j].getType();
+                                getOrSet = n_car.getClass().getDeclaredMethod("set" + name, parameterTypes);
+                                getOrSet.invoke(n_car, jsonObject.getString(name));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+                list.add(n_car);
+            }
+            return list;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 
     /**
      * 封装N_GRAINJC

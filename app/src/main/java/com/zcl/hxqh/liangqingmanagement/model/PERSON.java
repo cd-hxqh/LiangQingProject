@@ -6,8 +6,8 @@ package com.zcl.hxqh.liangqingmanagement.model;
  */
 public class PERSON extends Entity{
     public String DISPLAYNAME;//姓名
-    public String N_CARDNUM;//车号
-    public String N_IDNUM;//一卡通编号
+    public String N_CARDNUM;//一卡通编号
+    public String N_IDNUM;//身份证
     public String N_PHONE;//电话
     public String N_WORKTYPE;//工种
 

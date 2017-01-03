@@ -74,6 +74,19 @@ public class HttpManager {
         return "{'appid':'" + Constants.N_WTLINE_APPID + "','objectname':'" + Constants.N_WTLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'N_WTLINEID DESC','condition':{'START':'=" + start + "','IP':'="+ip+"'},'sinorsearch':{'NAME':'" + value + "'}}";
     }
 
+    /**
+     * 设置人员查询的接口
+     */
+    public static String getPERSON(String n_cardnum, int curpage, int showcount) {
+        return "{'appid':'" + Constants.PERSON_APPID + "','objectname':'" + Constants.PERSON_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','condition':{'N_CARDNUM':'" + n_cardnum + "'}}";
+    }
+
+    /**
+     * 设置考勤记录的接口
+     */
+    public static String getN_WTLINE2(String n_cardnum,int curpage, int showcount) {
+        return "{'appid':'" + Constants.N_WTLINE_APPID + "','objectname':'" + Constants.N_WTLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'N_WTLINEID DESC','condition':{'CARDID':'=" + n_cardnum + "'}}";
+    }
 
     /**
      * 选项值
