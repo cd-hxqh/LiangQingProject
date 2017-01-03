@@ -38,7 +38,6 @@ import com.zcl.hxqh.liangqingmanagement.model.ALNDOMAIN;
 import com.zcl.hxqh.liangqingmanagement.model.N_CARTASK;
 import com.zcl.hxqh.liangqingmanagement.model.N_QCTASKLINE;
 import com.zcl.hxqh.liangqingmanagement.model.N_SAMPLE;
-import com.zcl.hxqh.liangqingmanagement.model.N_WAGONS;
 import com.zcl.hxqh.liangqingmanagement.until.AccountUtils;
 import com.zcl.hxqh.liangqingmanagement.until.MessageUtils;
 import com.zcl.hxqh.liangqingmanagement.until.T;
@@ -105,6 +104,9 @@ public class N_sampleAddActivity extends BaseActivity {
 
     private ImageView locImageView;
 
+    private LinearLayout locLayout;
+    private View locView;
+
     /**
      * 检验任务编号
      */
@@ -131,6 +133,8 @@ public class N_sampleAddActivity extends BaseActivity {
      * 一卡通号
      **/
     private TextView tagIdText;
+    private LinearLayout tagIdLayout;
+    private View tagIdView;
     /**
      * 选择图标
      **/
@@ -140,6 +144,9 @@ public class N_sampleAddActivity extends BaseActivity {
      * 车号
      */
     private EditText carnoText;
+    private LinearLayout carnoLayout;
+    private View carnoView;
+
     /**
      * 选择图标
      **/
@@ -206,6 +213,9 @@ public class N_sampleAddActivity extends BaseActivity {
         typeText = (TextView) findViewById(R.id.type_text_id);
         locText = (EditText) findViewById(R.id.loc_text_id);
         locImageView = (ImageView) findViewById(R.id.loc_image_id);
+        locLayout = (LinearLayout) findViewById(R.id.loc_layout_id);
+        locView = (View) findViewById(R.id.loc_view_id);
+
         n_qctasklinenumText = (EditText) findViewById(R.id.n_qctasklinenum_text_id);
         linenumImageView = (ImageView) findViewById(R.id.n_qctasklinenum_image_id);
         objText = (TextView) findViewById(R.id.obj_text_id);
@@ -215,9 +225,16 @@ public class N_sampleAddActivity extends BaseActivity {
         isLayout = (RelativeLayout) findViewById(R.id.is_huoche_id);
         isView = (View) findViewById(R.id.trainyn_view_id);
         trainynCheckBox = (CheckBox) findViewById(R.id.trainyn_text_id);
+
         tagIdText = (TextView) findViewById(R.id.tagid_text_id);
+        tagIdLayout = (LinearLayout) findViewById(R.id.tagid_layout_id);
+        tagIdView = (View) findViewById(R.id.tagid_view_id);
         tagImageView = (ImageView) findViewById(R.id.carno_image_id);
+
         carnoText = (EditText) findViewById(R.id.carno_text_id);
+        carnoLayout = (LinearLayout) findViewById(R.id.carno_layout_id);
+        carnoView = (View) findViewById(R.id.carno_view_id);
+
         carnoImageView = (ImageView) findViewById(R.id.carno_imageview_id);
 
         fromlocText = (EditText) findViewById(R.id.fromloc_text_id);
@@ -273,9 +290,13 @@ public class N_sampleAddActivity extends BaseActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
+                locLayout.setVisibility(View.GONE);
+                locView.setVisibility(View.GONE);
                 carnoImageView.setVisibility(View.VISIBLE);
             } else {
                 carnoImageView.setVisibility(View.GONE);
+                locLayout.setVisibility(View.VISIBLE);
+                locView.setVisibility(View.VISIBLE);
             }
         }
     };
@@ -287,7 +308,6 @@ public class N_sampleAddActivity extends BaseActivity {
     private View.OnClickListener imageViewOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-//            getN_WAGONSValue(HttpManager.getN_WAGONS("已到库并确认"),carnoText);
 
             //跳转至NFC扫描界面
             Intent intent = new Intent(N_sampleAddActivity.this, Nfc_Activity.class);
@@ -301,8 +321,9 @@ public class N_sampleAddActivity extends BaseActivity {
     private View.OnClickListener carnoimageViewOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            getN_WAGONSValue(HttpManager.getN_WAGONS("已到库并确认"), carnoText);
-
+            //跳转至NFC扫描界面
+            Intent intent = new Intent(N_sampleAddActivity.this, CarNoXZActivity.class);
+            startActivityForResult(intent, 0);
 
         }
     };
@@ -530,43 +551,7 @@ public class N_sampleAddActivity extends BaseActivity {
     }
 
 
-    //车皮跟踪
-    private void getN_WAGONSValue(String url, final TextView textView) {
-        {
-            HttpManager.getData(this, url, new HttpRequestHandler<Results>() {
 
-
-                @Override
-                public void onSuccess(Results data) {
-
-                }
-
-                @Override
-                public void onSuccess(Results data, int totalPages, int currentPage) {
-                    ArrayList<N_WAGONS> item = JsonUtils.parsingN_WAGONS(N_sampleAddActivity.this, data.getResultlist());
-                    if (item == null || item.isEmpty()) {
-                        MessageUtils.showMiddleToast(N_sampleAddActivity.this, getString(R.string.qiangyang_type_text));
-                    } else {
-                        mMenuItems = new ArrayList<DialogMenuItem>();
-                        for (N_WAGONS n : item) {
-                            String numAnddesc = " 车号:" + n.getWAGONNUM();
-                            mMenuItems.add(new DialogMenuItem(numAnddesc, 0));
-                        }
-
-                        NormalListDialogCustomAttr2(textView, item);
-
-                    }
-
-                }
-
-                @Override
-                public void onFailure(String error) {
-
-                }
-            });
-
-        }
-    }
 
 
     /**
@@ -686,27 +671,6 @@ public class N_sampleAddActivity extends BaseActivity {
         });
     }
 
-    private void NormalListDialogCustomAttr2(final TextView textView, final ArrayList<N_WAGONS> item) {
-        final NormalListDialog dialog = new NormalListDialog(N_sampleAddActivity.this, mMenuItems);
-        dialog.title("车号选项")//
-                .titleTextSize_SP(18)//
-                .titleBgColor(Color.parseColor("#2da861"))//
-                .itemPressColor(Color.parseColor("#41c378"))//
-                .itemTextColor(Color.parseColor("#393d3f"))//
-                .itemTextSize(14)//
-                .cornerRadius(0)//
-                .widthScale(0.8f)//
-                .show(R.style.myDialogAnim);
-
-        dialog.setOnOperItemClickL(new OnOperItemClickL() {
-            @Override
-            public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
-                T.showShort(N_sampleAddActivity.this, mMenuItems.get(position).mOperName);
-                carnoText.setText(item.get(position).getWAGONNUM());
-                dialog.dismiss();
-            }
-        });
-    }
 
 
     //提交弹出框
@@ -829,16 +793,42 @@ public class N_sampleAddActivity extends BaseActivity {
                 break;
             case 1002:
                 String tagId = data.getExtras().getString("tagId");
-                tagIdText.setText(tagId);
-                getCarInfo(tagId);
+                if (!tagId.equals("")) {
+                    tagIdText.setText(tagId);
+                    getCarInfo(tagId);
+                    isLayout.setVisibility(View.GONE);
+                    isView.setVisibility(View.GONE);
+                    locLayout.setVisibility(View.GONE);
+                    locView.setVisibility(View.GONE);
+                    carnoText.setFocusable(false);
+                    carnoText.setEnabled(false);
+                }
                 break;
             case 1001:
                 String loc = data.getExtras().getString("loc");
                 //根据货位号获取任务检查单号
 
                 getN_QCTASKLINENUMInfo(loc);
+                if (!loc.equals("")) {
+                    locText.setText(loc);
+                    tagIdLayout.setVisibility(View.GONE);
+                    tagIdView.setVisibility(View.GONE);
+                    carnoLayout.setVisibility(View.GONE);
+                    carnoView.setVisibility(View.GONE);
+                    isLayout.setVisibility(View.GONE);
+                    isView.setVisibility(View.GONE);
+                }
 
-                locText.setText(loc);
+
+                break;
+            case 1003:
+                String wagonnum = data.getExtras().getString("wagonnum");
+                //根据是否火车与车号获取检验任务编号与扦样对象
+                carnoText.setText(wagonnum);
+                getN_QCTASKLINENUM1Info(wagonnum);
+
+
+
                 break;
         }
     }
@@ -854,6 +844,31 @@ public class N_sampleAddActivity extends BaseActivity {
             @Override
             protected String doInBackground(String... strings) {
                 String reviseresult = AndroidClientService.addN_SAMPLE1LOC(N_sampleAddActivity.this, loc);
+                return reviseresult;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                showN_QCTASKLINENUMInfo(s);
+                mLoadingDialog.dismiss();
+
+
+            }
+        }.execute();
+
+    }
+    /**
+     * 根据N_QCTASKLINENUM**获取车辆信息
+     **/
+
+    private void getN_QCTASKLINENUM1Info(final String carno) {
+        getLoadingDialog("请稍后...");
+
+        new AsyncTask<String, String, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                String reviseresult = AndroidClientService.addN_SAMPLE2LOC(N_sampleAddActivity.this, carno,"Y");
                 return reviseresult;
             }
 

@@ -155,6 +155,40 @@ public class AndroidClientService {
         return obj;
     }
 
+    /**
+     * 根据是否火车与车号获取任务检查单号
+     */
+    public static String addN_SAMPLE2LOC(final Context cxt,String carno,String train) {
+
+        String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.qywebservice1URL;
+
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "n_sample1carno");
+        soapReq.addProperty("carno", carno);//封装数据
+        soapReq.addProperty("train", train);//封装数据
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+            return null;
+        }
+        String obj = null;
+        try {
+            obj = soapEnvelope.getResponse().toString();
+            Log.i(TAG,"obj="+obj);
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return obj;
+    }
+
 
     /**
      *根据创建时间与货位号获取相关信息

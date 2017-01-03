@@ -125,9 +125,14 @@
 
         <activity android:name=".view.activity.Nfc_Activity" />
         <activity android:name=".view.activity.ChooseActivity" />
+
         <activity
             android:name=".view.activity.N_wtlineAddActivity"
             android:label="@string/title_activity_n_wtline_add"
+            android:theme="@style/SampleTheme"></activity>
+        <activity
+            android:name=".view.activity.CarNoXZActivity"
+            android:label="CarNoXZActivity"
             android:theme="@style/SampleTheme"></activity>
     </application>
 

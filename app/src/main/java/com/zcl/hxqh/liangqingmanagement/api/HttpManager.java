@@ -99,8 +99,13 @@ public class HttpManager {
     /**
      * 车皮跟踪
      */
-    public static String getN_WAGONS(String status) {
-        return "{'appid':'" + Constants.N_SAMPLE_APPID + "','objectname':'" + Constants.N_WAGONS_NAME + "','option':'read','condition':{'STATUS':'=" + status + "'}}";
+    public static String getN_WAGONS(String value,String status, int curpage, int showcount) {
+        if (value.equals("")) {
+            return "{'appid':'" + Constants.N_SAMPLE_APPID + "','objectname':'" + Constants.N_WAGONS_NAME  + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','condition':{'STATUS':'" + status + "'}}";
+        }
+        return "{'appid':'" + Constants.N_SAMPLE_APPID + "','objectname':'" + Constants.N_WAGONS_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WAGONNUM DESC','condition':{'STATUS':'" + status +"'},'sinorsearch':{'WAGONNUM':'" + value + "'}}";
+
+
     }
 
 
