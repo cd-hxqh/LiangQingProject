@@ -87,6 +87,13 @@ public class HttpManager {
     public static String getN_WTLINE2(String n_cardnum,int curpage, int showcount) {
         return "{'appid':'" + Constants.N_WTLINE_APPID + "','objectname':'" + Constants.N_WTLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'N_WTLINEID DESC','condition':{'CARDID':'=" + n_cardnum + "'}}";
     }
+    /**
+     * 设置用工记录的接口
+     */
+    public static String getWTLABOR(String cardnum,int curpage, int showcount) {
+        return "{'appid':'" + Constants.WTLABORVIEW_APPID + "','objectname':'" + Constants.WTLABORVIEW_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'STARTTIME DESC','condition':{'CARDNUM':'=" + cardnum + "'}}";
+//        return "{'appid':'" + Constants.WTLABORVIEW_APPID + "','objectname':'" + Constants.WTLABORVIEW_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'STARTTIME DESC'}";
+    }
 
     /**
      * 选项值

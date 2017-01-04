@@ -138,6 +138,10 @@
             android:name=".view.activity.N_cartaskDetailsActivity"
             android:label="N_cartaskDetailsActivity"
             android:theme="@style/SampleTheme"></activity>
+        <activity
+            android:name=".view.activity.WtlaborDetailsActivity"
+            android:label="WtlaborDetailsActivity"
+            android:theme="@style/SampleTheme"></activity>
     </application>
 
 </manifest>

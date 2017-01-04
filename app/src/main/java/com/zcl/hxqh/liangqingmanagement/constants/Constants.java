@@ -102,6 +102,10 @@ public class Constants {
     public static final String PERSON_APPID = "PERSON";
     //人员查询的表名
     public static final String PERSON_NAME = "PERSON";
+    //用工记录的appid
+    public static final String WTLABORVIEW_APPID = "WTLABORVIEW";
+    //用工记录的表名
+    public static final String WTLABORVIEW_NAME = "WTLABORVIEW";
 
 
 

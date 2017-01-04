@@ -18,6 +18,7 @@ import com.zcl.hxqh.liangqingmanagement.model.N_TASKPLAN;
 import com.zcl.hxqh.liangqingmanagement.model.N_WAGONS;
 import com.zcl.hxqh.liangqingmanagement.model.N_WTLINE;
 import com.zcl.hxqh.liangqingmanagement.model.PERSON;
+import com.zcl.hxqh.liangqingmanagement.model.WTLABOR;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -252,6 +253,51 @@ public class JsonUtils {
 
                 }
                 list.add(n_wtline);
+            }
+            return list;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+    /**
+     * 用工记录
+     */
+    public static ArrayList<WTLABOR> parsingWTLABOR(Context ctx, String data) {
+        ArrayList<WTLABOR> list = null;
+        WTLABOR wtlabor = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            JSONObject jsonObject;
+            list = new ArrayList<WTLABOR>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                wtlabor = new WTLABOR();
+                jsonObject = jsonArray.getJSONObject(i);
+                Field[] field = wtlabor.getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
+                for (int j = 0; j < field.length; j++) {     //遍历所有属性
+                    field[j].setAccessible(true);
+                    String name = field[j].getName();    //获取属性的名字
+                    if (jsonObject.has(name) && jsonObject.getString(name) != null && !jsonObject.getString(name).equals("")) {
+                        try {
+                            // 调用getter方法获取属性值
+                            Method getOrSet = wtlabor.getClass().getMethod("get" + name);
+                            Object value = getOrSet.invoke(wtlabor);
+                            if (value == null) {
+                                //调用setter方法设属性值
+                                Class[] parameterTypes = new Class[1];
+                                parameterTypes[0] = field[j].getType();
+                                getOrSet = wtlabor.getClass().getDeclaredMethod("set" + name, parameterTypes);
+                                getOrSet.invoke(wtlabor, jsonObject.getString(name));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+                list.add(wtlabor);
             }
             return list;
         } catch (JSONException e) {

@@ -3,39 +3,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:fillViewport="true"
     android:orientation="vertical">
 
 
     <LinearLayout
 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title_relativelayout_id"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_40dp"
-            android:layout_marginLeft="@dimen/dimen_5"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="@dimen/dimen_10">
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/person_cardnum"
+                android:text="@string/cardid_text"
                 android:textColor="@color/light_black"
                 android:textSize="@dimen/dimens_16sp" />
 
             <TextView
-                android:id="@+id/person_cardnum"
-                android:layout_width="match_parent"
+                android:id="@+id/cardid_text_id"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:gravity="right"
                 android:hint="@string/have_not_data"
-                android:drawableRight="@drawable/ic_nfc"
                 android:textColor="@color/light_black"
                 android:textSize="@dimen/dimens_16sp" />
+
+            <ImageView
+                android:id="@+id/nfc_image_id"
+                android:layout_width="@dimen/dimens_30dp"
+                android:layout_height="@dimen/dimens_30dp"
+                android:layout_marginLeft="@dimen/dimen_5"
+                android:src="@drawable/ic_nfc" />
         </LinearLayout>
 
         <View
@@ -46,12 +53,12 @@
             android:background="@drawable/line"></View>
 
         <LinearLayout
-            android:id="@+id/grainsnun_layout_id"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_40dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_5"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="@dimen/dimen_10">
 
             <TextView
                 android:layout_width="100dp"
@@ -61,7 +68,7 @@
                 android:textSize="@dimen/dimens_16sp" />
 
             <TextView
-                android:id="@+id/person_name"
+                android:id="@+id/person_name_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -73,15 +80,15 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimens_line"
-            android:layout_below="@+id/num_linearlayout_id"
             android:background="@drawable/line"></View>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_40dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_5"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="@dimen/dimen_10">
 
             <TextView
                 android:layout_width="100dp"
@@ -91,7 +98,7 @@
                 android:textSize="@dimen/dimens_16sp" />
 
             <TextView
-                android:id="@+id/person_idnum"
+                android:id="@+id/person_idnum_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -107,10 +114,11 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_40dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_5"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="@dimen/dimen_10">
 
             <TextView
                 android:layout_width="100dp"
@@ -120,7 +128,7 @@
                 android:textSize="@dimen/dimens_16sp" />
 
             <TextView
-                android:id="@+id/person_worktype"
+                android:id="@+id/person_worktype_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -130,16 +138,17 @@
         </LinearLayout>
 
         <View
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/dimens_line"
             android:background="@drawable/line"></View>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_40dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_5"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="@dimen/dimen_10">
 
             <TextView
                 android:layout_width="100dp"
@@ -149,7 +158,7 @@
                 android:textSize="@dimen/dimens_16sp" />
 
             <TextView
-                android:id="@+id/person_phone"
+                android:id="@+id/person_phone_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/sb__transparent"
@@ -160,9 +169,45 @@
         </LinearLayout>
 
         <View
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/dimens_line"
             android:background="@drawable/line"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_40dp"
+            android:background="@color/light_gray">
+
+
+            <TextView
+                android:id="@+id/work_history"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/work_history" />
+
+            <TextView
+                android:id="@+id/attence_history"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/attence_history" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/cursor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="matrix"
+            android:src="@drawable/line" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></android.support.v4.view.ViewPager>
 
 
     </LinearLayout>
