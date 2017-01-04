@@ -358,9 +358,9 @@ public class N_sampleAddActivity extends BaseActivity {
     private View.OnClickListener submitBtnBtnOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-//            if (isSubmit()) {
-            submitNormalDialog();
-//            }
+            if (isSubmit()) {
+                submitNormalDialog();
+            }
         }
     };
 
@@ -369,11 +369,18 @@ public class N_sampleAddActivity extends BaseActivity {
      * 判断必填选项
      **/
     private boolean isSubmit() {
-        if (carnoText.getText().toString().isEmpty()) {
-            MessageUtils.showMiddleToast(N_sampleAddActivity.this, "车号不能为空");
+        if (samplenumText.getText().toString().isEmpty()) {
+            MessageUtils.showMiddleToast(N_sampleAddActivity.this, "样品编号不能为空");
             return false;
 
+        } else if (!locText.getText().toString().equals("") || trainynCheckBox.isChecked()) {
+            if (n_qctasklinenumText.getText().toString().equals("")) {
+                MessageUtils.showMiddleToast(N_sampleAddActivity.this, "检验任务编号不能为空");
+                return false;
+            }
         }
+
+
         return true;
     }
 
@@ -551,9 +558,6 @@ public class N_sampleAddActivity extends BaseActivity {
     }
 
 
-
-
-
     /**
      * 显示选项框
      **/
@@ -670,7 +674,6 @@ public class N_sampleAddActivity extends BaseActivity {
             }
         });
     }
-
 
 
     //提交弹出框
@@ -828,7 +831,6 @@ public class N_sampleAddActivity extends BaseActivity {
                 getN_QCTASKLINENUM1Info(wagonnum);
 
 
-
                 break;
         }
     }
@@ -843,7 +845,7 @@ public class N_sampleAddActivity extends BaseActivity {
         new AsyncTask<String, String, String>() {
             @Override
             protected String doInBackground(String... strings) {
-                String reviseresult = AndroidClientService.addN_SAMPLE1LOC(N_sampleAddActivity.this, loc);
+                String reviseresult = AndroidClientService.addN_SAMPLE1LOC(N_sampleAddActivity.this, loc, AccountUtils.getloginUserName(N_sampleAddActivity.this));
                 return reviseresult;
             }
 
@@ -858,6 +860,7 @@ public class N_sampleAddActivity extends BaseActivity {
         }.execute();
 
     }
+
     /**
      * 根据N_QCTASKLINENUM**获取车辆信息
      **/
@@ -868,7 +871,7 @@ public class N_sampleAddActivity extends BaseActivity {
         new AsyncTask<String, String, String>() {
             @Override
             protected String doInBackground(String... strings) {
-                String reviseresult = AndroidClientService.addN_SAMPLE2LOC(N_sampleAddActivity.this, carno,"Y");
+                String reviseresult = AndroidClientService.addN_SAMPLE2LOC(N_sampleAddActivity.this, carno, "Y", AccountUtils.getloginUserName(N_sampleAddActivity.this));
                 return reviseresult;
             }
 

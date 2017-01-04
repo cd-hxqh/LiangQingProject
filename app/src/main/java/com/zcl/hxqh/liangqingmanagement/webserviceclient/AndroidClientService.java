@@ -125,7 +125,7 @@ public class AndroidClientService {
     /**
      * 根据货位号获取任务检查单号
      */
-    public static String addN_SAMPLE1LOC(final Context cxt,String loc) {
+    public static String addN_SAMPLE1LOC(final Context cxt,String loc,String enterby) {
 
         String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.qywebservice1URL;
 
@@ -134,6 +134,7 @@ public class AndroidClientService {
         soapEnvelope.dotNet = true;
         SoapObject soapReq = new SoapObject(NAMESPACE, "n_sample1loc");
         soapReq.addProperty("loc", loc);//封装数据
+        soapReq.addProperty("enterby", enterby);//封装数据
         soapEnvelope.setOutputSoapObject(soapReq);
         HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
         try {
@@ -158,7 +159,7 @@ public class AndroidClientService {
     /**
      * 根据是否火车与车号获取任务检查单号
      */
-    public static String addN_SAMPLE2LOC(final Context cxt,String carno,String train) {
+    public static String addN_SAMPLE2LOC(final Context cxt,String carno,String train,String enterby) {
 
         String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.qywebservice1URL;
 
@@ -168,6 +169,7 @@ public class AndroidClientService {
         SoapObject soapReq = new SoapObject(NAMESPACE, "n_sample1carno");
         soapReq.addProperty("carno", carno);//封装数据
         soapReq.addProperty("train", train);//封装数据
+        soapReq.addProperty("enterby", enterby);//封装数据
         soapEnvelope.setOutputSoapObject(soapReq);
         HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
         try {
