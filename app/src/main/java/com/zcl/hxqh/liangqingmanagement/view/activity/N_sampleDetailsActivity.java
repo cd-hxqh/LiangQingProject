@@ -824,7 +824,7 @@ public class N_sampleDetailsActivity extends BaseActivity {
         new AsyncTask<String, String, String>() {
             @Override
             protected String doInBackground(String... strings) {
-                String reviseresult = AndroidClientService.addAndUpdateN_SAMPLE1(N_sampleDetailsActivity.this, tagId);
+                String reviseresult = AndroidClientService.addAndUpdateN_SAMPLE1(N_sampleDetailsActivity.this, tagId,AccountUtils.getloginUserName(N_sampleDetailsActivity.this));
                 return reviseresult;
             }
 

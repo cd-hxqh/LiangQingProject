@@ -921,7 +921,7 @@ public class N_sampleAddActivity extends BaseActivity {
         new AsyncTask<String, String, String>() {
             @Override
             protected String doInBackground(String... strings) {
-                String reviseresult = AndroidClientService.addAndUpdateN_SAMPLE1(N_sampleAddActivity.this, tagId);
+                String reviseresult = AndroidClientService.addAndUpdateN_SAMPLE1(N_sampleAddActivity.this, tagId, AccountUtils.getloginUserName(N_sampleAddActivity.this));
                 return reviseresult;
             }
 
@@ -952,10 +952,12 @@ public class N_sampleAddActivity extends BaseActivity {
                 String carno = jsonObject.getString("carno");
                 String foodtype = jsonObject.getString("foodtype");
                 String trainyn = jsonObject.getString("trainyn");
+                String qctasklinenum = jsonObject.getString("n_qctasklinenum");
 
                 cartasknumText.setText(cartasknum);
                 carnoText.setText(carno);
                 objText.setText(foodtype);
+                n_qctasklinenumText.setText(qctasklinenum);
                 isLayout.setVisibility(View.GONE);
                 isView.setVisibility(View.GONE);
 

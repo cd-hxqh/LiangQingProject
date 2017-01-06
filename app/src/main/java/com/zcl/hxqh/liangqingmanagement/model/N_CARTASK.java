@@ -16,6 +16,7 @@ public class N_CARTASK extends Entity{
     public String FOODTYPES;//品种
     public String LOC;//作业货位号
     public String N_CAR_THDW;//收货/提货单位
+    public String DRIVER;//车主
 
     public String getCARTASKNUM() {
         return CARTASKNUM;
@@ -103,5 +104,14 @@ public class N_CARTASK extends Entity{
 
     public void setTAGID(String TAGID) {
         this.TAGID = TAGID;
+    }
+
+
+    public String getDRIVER() {
+        return DRIVER;
+    }
+
+    public void setDRIVER(String DRIVER) {
+        this.DRIVER = DRIVER;
     }
 }

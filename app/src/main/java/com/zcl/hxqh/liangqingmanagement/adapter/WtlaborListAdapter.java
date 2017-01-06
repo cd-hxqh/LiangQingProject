@@ -31,10 +31,12 @@ public class WtlaborListAdapter extends BaseQuickAdapter<WTLABOR> {
     @Override
     protected void convert(BaseViewHolder helper, WTLABOR item) {
         CardView cardView = helper.getView(R.id.card_container);
-        helper.setText(R.id.item_num_title, "用工申请单:");
-        helper.setText(R.id.item_num_text, item.getAPPLYNUM());
-        helper.setText(R.id.item_desc_title, "工作地点:");
-        helper.setText(R.id.item_desc_text, item.getPLACE());
+        helper.setText(R.id.start_text_title, "工作地点:");
+        helper.setText(R.id.start_text_id, item.getPLACE());
+        helper.setText(R.id.end_text_title, "开始时间:");
+        helper.setText(R.id.end_text_id, item.getSTARTTIME());
+        helper.setText(R.id.status_text_title, "状态:");
+        helper.setText(R.id.status_text_id, item.getSTATUS());
     }
 
 

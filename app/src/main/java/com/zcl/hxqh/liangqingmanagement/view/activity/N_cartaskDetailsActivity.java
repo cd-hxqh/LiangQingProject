@@ -24,17 +24,33 @@ public class N_cartaskDetailsActivity extends BaseActivity {
      */
     private TextView titleTextView;
 
-    /**进门时间**/
+    /**
+     * 进门时间
+     **/
     private TextView intimeTextView;
-    /**出门时间**/
+    /**
+     * 出门时间
+     **/
     private TextView outtimeTextView;
-    /**作业性质**/
+    /**
+     * 姓名
+     **/
+    private TextView pname;
+    /**
+     * 作业性质
+     **/
     private TextView tasktypeTextView;
-    /**品种**/
+    /**
+     * 品种
+     **/
     private TextView foodtypesTextView;
-    /**作业货位号**/
+    /**
+     * 作业货位号
+     **/
     private TextView locTextView;
-    /**收货/提货单位**/
+    /**
+     * 收货/提货单位
+     **/
     private TextView fromstationTextView;
 
 
@@ -62,12 +78,13 @@ public class N_cartaskDetailsActivity extends BaseActivity {
         backImageView = (ImageView) findViewById(R.id.title_back_id);
         titleTextView = (TextView) findViewById(R.id.title_name);
 
-        intimeTextView=(TextView)findViewById(R.id.intime_text_id);
-        outtimeTextView=(TextView)findViewById(R.id.outtime_text_id);
-        tasktypeTextView=(TextView)findViewById(R.id.tasktype_text_id);
-        foodtypesTextView=(TextView)findViewById(R.id.foodtypes_text_id);
-        locTextView=(TextView)findViewById(R.id.loc_text_id);
-        fromstationTextView=(TextView)findViewById(R.id.fromstation_text_id);
+        intimeTextView = (TextView) findViewById(R.id.intime_text_id);
+        outtimeTextView = (TextView) findViewById(R.id.outtime_text_id);
+        pname = (TextView) findViewById(R.id.pname_text_id);
+        tasktypeTextView = (TextView) findViewById(R.id.tasktype_text_id);
+        foodtypesTextView = (TextView) findViewById(R.id.foodtypes_text_id);
+        locTextView = (TextView) findViewById(R.id.loc_text_id);
+        fromstationTextView = (TextView) findViewById(R.id.fromstation_text_id);
     }
 
 
@@ -78,6 +95,7 @@ public class N_cartaskDetailsActivity extends BaseActivity {
 
         intimeTextView.setText(n_cartask.getINTIME());
         outtimeTextView.setText(n_cartask.getOUTTIME());
+        pname.setText(n_cartask.getDRIVER());
         tasktypeTextView.setText(n_cartask.getTASKTYPE());
         foodtypesTextView.setText(n_cartask.getFOODTYPES());
         locTextView.setText(n_cartask.getLOC());

@@ -162,7 +162,8 @@ public class N_cartaskFragment extends BaseFragment implements SwipeRefreshLayou
                 tagId = data.getExtras().getString("tagId");
                 tagidTextView.setText(tagId);
                 refresh_layout.setRefreshing(true);
-                getData(tagId);
+                getData("1762571946");
+//                getData(tagId);
 
                 break;
 

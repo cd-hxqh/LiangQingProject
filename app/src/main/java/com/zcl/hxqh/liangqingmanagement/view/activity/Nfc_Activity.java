@@ -112,6 +112,8 @@ public class Nfc_Activity extends BaseActivity {
 
     private String type;
 
+    private int mark;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,6 +126,11 @@ public class Nfc_Activity extends BaseActivity {
         mBasOut = new SlideBottomExit();
         if (getIntent().hasExtra("type")) {
             type = getIntent().getStringExtra("type");
+        }
+        if (getIntent().hasExtra("mark")) {
+            mark = getIntent().getExtras().getInt("mark");
+
+            Log.i("mark", "mark=" + mark);
         }
 
         resolveIntent(getIntent());
@@ -259,16 +266,21 @@ public class Nfc_Activity extends BaseActivity {
                 tagId = dumpTagData(tag);
 
             }
-            if (type!=null&&type.equals("wiline")){
+            if (type != null && type.equals("wiline")) {
                 String imei = ((TelephonyManager) getSystemService(TELEPHONY_SERVICE))
                         .getDeviceId();
-                submitNormalDialog(tagId,imei);
-            }else if (type!=null&&type.equals("person")){
+                submitNormalDialog(tagId, imei);
+            } else if (type != null && type.equals("person")) {
                 Intent bIntent = getIntent();
                 bIntent.putExtra("tagId", tagId);
                 setResult(1003, intent);
                 finish();
-            }else {
+            } else if (mark == 1001) { //人员查询
+                Intent bIntent = getIntent();
+                bIntent.putExtra("tagId", tagId);
+                bIntent.setClass(Nfc_Activity.this, PersonDetailsActivity.class);
+                startActivityForResult(intent, 0);
+            } else {
                 Intent bIntent = getIntent();
                 bIntent.putExtra("tagId", tagId);
                 setResult(1002, intent);
@@ -408,7 +420,7 @@ public class Nfc_Activity extends BaseActivity {
 
         final NormalDialog dialog = new NormalDialog(Nfc_Activity.this);
         dialog.title("提交数据");
-        dialog.content("一卡通编号:"+tagId+"\n考勤机ID:"+imei)//
+        dialog.content("一卡通编号:" + tagId + "\n考勤机ID:" + imei)//
                 .showAnim(mBasIn)//
                 .dismissAnim(mBasOut)//
                 .show();

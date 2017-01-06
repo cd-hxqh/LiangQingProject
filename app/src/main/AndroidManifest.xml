@@ -142,6 +142,10 @@
             android:name=".view.activity.WtlaborDetailsActivity"
             android:label="WtlaborDetailsActivity"
             android:theme="@style/SampleTheme"></activity>
+        <activity
+            android:name=".view.activity.PersonDetailsActivity"
+            android:label="PersonDetailsActivity"
+            android:theme="@style/SampleTheme"></activity>
     </application>
 
 </manifest>

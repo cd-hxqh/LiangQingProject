@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+
     android:orientation="vertical">
 
     <include layout="@layout/title_main"></include>
@@ -10,12 +11,13 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical">
+        android:fillViewport="true"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/container"
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
@@ -28,74 +30,48 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/intime_text"
+                    android:text="@string/cardid_text"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
 
                 <TextView
-                    android:id="@+id/intime_text_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/transparent"
-                    android:gravity="right"
-                    android:hint="@string/have_not_data"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/dimens_16sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimens_line"
-                android:background="@drawable/line" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/dimen_10">
-
-                <TextView
+                    android:id="@+id/cardid_text_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/outtime_text"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/dimens_16sp" />
-
-                <TextView
-                    android:id="@+id/outtime_text_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/transparent"
+                    android:layout_weight="3"
                     android:gravity="right"
                     android:hint="@string/have_not_data"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
+
             </LinearLayout>
 
             <View
+                android:id="@+id/view_1_id"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimens_line"
+                android:layout_below="@+id/num_linearlayout_id"
                 android:background="@drawable/line"></View>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_5"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="@dimen/dimen_10">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="@string/person_name"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
 
                 <TextView
-                    android:id="@+id/pname_text_id"
+                    android:id="@+id/person_name_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/transparent"
                     android:gravity="right"
                     android:hint="@string/have_not_data"
                     android:textColor="@color/light_black"
@@ -110,19 +86,20 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_5"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="@dimen/dimen_10">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/tasktype_text"
+                    android:text="@string/person_idnum"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
 
                 <TextView
-                    android:id="@+id/tasktype_text_id"
+                    android:id="@+id/person_idnum_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
@@ -136,26 +113,53 @@
                 android:layout_height="@dimen/dimens_line"
                 android:background="@drawable/line"></View>
 
-
             <LinearLayout
-                android:id="@+id/loc_layout_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
+                android:layout_marginLeft="@dimen/dimen_5"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="@dimen/dimen_10">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/foodtypes_text"
+                    android:text="@string/person_worktype"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
 
                 <TextView
-                    android:id="@+id/foodtypes_text_id"
+                    android:id="@+id/person_worktype_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:hint="@string/have_not_data"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_line"
+                android:background="@drawable/line"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_5"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_10">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/person_phone"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+
+                <TextView
+                    android:id="@+id/person_phone_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/sb__transparent"
@@ -163,41 +167,6 @@
                     android:hint="@string/have_not_data"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
-
-
-            </LinearLayout>
-
-            <View
-                android:id="@+id/loc_view_id"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimens_line"
-                android:background="@drawable/line"></View>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/dimen_10">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/loc1_text"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/dimens_16sp" />
-
-                <EditText
-                    android:id="@+id/loc_text_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/sb__transparent"
-                    android:gravity="right"
-                    android:hint="@string/have_not_data"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/dimens_16sp" />
-
             </LinearLayout>
 
             <View
@@ -207,34 +176,39 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/dimen_10">
+                android:layout_height="@dimen/dimen_40dp"
+                android:background="@color/light_gray">
+
 
                 <TextView
+                    android:id="@+id/work_history"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="@string/fromstation_text"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/dimens_16sp" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/work_history" />
 
                 <TextView
-                    android:id="@+id/fromstation_text_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:hint="@string/have_not_data"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/dimens_16sp" />
+                    android:id="@+id/attence_history"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/attence_history" />
 
             </LinearLayout>
 
-            <View
+            <ImageView
+                android:id="@+id/cursor"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimens_line"
-                android:background="@drawable/line"></View>
+                android:layout_height="wrap_content"
+                android:scaleType="matrix"
+                android:src="@drawable/line" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 
 
         </LinearLayout>

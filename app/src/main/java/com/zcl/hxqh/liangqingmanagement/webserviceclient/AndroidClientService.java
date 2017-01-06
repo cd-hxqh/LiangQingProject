@@ -91,15 +91,16 @@ public class AndroidClientService {
     /**
      * 根据TAGID获取车号
      */
-    public static String addAndUpdateN_SAMPLE1(final Context cxt,String tagId) {
+    public static String addAndUpdateN_SAMPLE1(final Context cxt,String tagId,String enterby) {
 
         String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.qywebservice1URL;
 
         SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         soapEnvelope.implicitTypes = true;
         soapEnvelope.dotNet = true;
-        SoapObject soapReq = new SoapObject(NAMESPACE, "n_sample1addAccount");
-        soapReq.addProperty("json", "[{'tagid':'"+tagId+"'}]");//封装数据
+        SoapObject soapReq = new SoapObject(NAMESPACE, "n_sample1addAccoun");
+        soapReq.addProperty("tagid", tagId);//封装数据
+        soapReq.addProperty("enterby", enterby);//封装数据
         soapEnvelope.setOutputSoapObject(soapReq);
         HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
         try {
