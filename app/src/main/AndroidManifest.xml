@@ -146,6 +146,10 @@
             android:name=".view.activity.PersonDetailsActivity"
             android:label="PersonDetailsActivity"
             android:theme="@style/SampleTheme"></activity>
+        <activity
+            android:name=".view.activity.N_cartaskActivity"
+            android:label="N_cartaskActivity"
+            android:theme="@style/SampleTheme"></activity>
     </application>
 
 </manifest>

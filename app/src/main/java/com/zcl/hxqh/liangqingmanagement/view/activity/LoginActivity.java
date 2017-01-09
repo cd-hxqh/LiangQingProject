@@ -8,8 +8,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.tencent.bugly.Bugly;
@@ -35,15 +33,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private CheckBox checkBox; //记住密码
 
-    private RadioGroup radioGroup;
-    /**
-     * 内网*
-     */
-    private RadioButton neiwangRadio;
-    /**
-     * 外网*
-     */
-    private RadioButton waiwangRadio;
+//    private RadioGroup radioGroup;
+//    /**
+//     * 内网*
+//     */
+//    private RadioButton neiwangRadio;
+//    /**
+//     * 外网*
+//     */
+//    private RadioButton waiwangRadio;
 
     private boolean isRemember; //是否记住密码
 
@@ -92,9 +90,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             mPassword.setText(AccountUtils.getUserPassword(LoginActivity.this));
         }
 
-        radioGroup = (RadioGroup) findViewById(R.id.radiogroup_id);
-        waiwangRadio = (RadioButton) findViewById(R.id.waiwang_id);
-        neiwangRadio = (RadioButton) findViewById(R.id.neiwang_id);
+//        radioGroup = (RadioGroup) findViewById(R.id.radiogroup_id);
+//        waiwangRadio = (RadioButton) findViewById(R.id.waiwang_id);
+//        neiwangRadio = (RadioButton) findViewById(R.id.neiwang_id);
 
 
         checkBox = (CheckBox) findViewById(R.id.checkBox);
@@ -119,21 +117,21 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected void initView() {
         loginBtn.setOnClickListener(this);
 
-        waiwangRadio.setChecked(true);
-        radioGroup.setOnCheckedChangeListener(radioGroupOnCheckedChangeListener);
+//        waiwangRadio.setChecked(true);
+//        radioGroup.setOnCheckedChangeListener(radioGroupOnCheckedChangeListener);
     }
 
 
-    private RadioGroup.OnCheckedChangeListener radioGroupOnCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(RadioGroup group, int checkedId) {
-            if (checkedId == neiwangRadio.getId()) {
-                AccountUtils.setIpAddress(LoginActivity.this, Constants.HTTPZHENGSHI_API_IP);
-            } else if (checkedId == waiwangRadio.getId()) {
-                AccountUtils.setIpAddress(LoginActivity.this, Constants.HTTP_API_IP);
-            }
-        }
-    };
+//    private RadioGroup.OnCheckedChangeListener radioGroupOnCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
+//        @Override
+//        public void onCheckedChanged(RadioGroup group, int checkedId) {
+//            if (checkedId == neiwangRadio.getId()) {
+//                AccountUtils.setIpAddress(LoginActivity.this, Constants.HTTPZHENGSHI_API_IP);
+//            } else if (checkedId == waiwangRadio.getId()) {
+//                AccountUtils.setIpAddress(LoginActivity.this, Constants.HTTP_API_IP);
+//            }
+//        }
+//    };
 
 
     /**

@@ -338,25 +338,6 @@ public class PersonDetailsActivity extends BaseActivity implements SwipeRefreshL
     }
 
 
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode) {
-            case 1002:
-                tagId = data.getExtras().getString("tagId");
-                tagidTextView.setText(tagId);
-                getPersonData(tagId);
-                setBackground(0);
-                getLoadingDialog("正在获取数据").show();
-                getWTLABORData(tagId);
-                break;
-
-        }
-    }
-
-
     @Override
     public void onLoad() {
 

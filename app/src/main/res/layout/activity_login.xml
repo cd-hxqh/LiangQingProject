@@ -1,126 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
-    android:orientation="vertical">
+    android:background="@drawable/login_bg">
+
 
     <LinearLayout
-        android:id="@+id/email_login_form"
+        android:id="@+id/linearlayout1_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dimens_20"
-        android:orientation="vertical">
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dimens_20"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:src="@drawable/login_top" />
-
-
-        </LinearLayout>
-
-
-        <EditText
-            android:id="@+id/login_username_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimens_20"
-            android:layout_marginRight="@dimen/dimens_20"
-            android:layout_marginTop="@dimen/dimens_20"
-            android:background="@drawable/edittext_login"
-            android:drawableLeft="@drawable/ic_user"
-            android:drawablePadding="@dimen/dimen_5"
-            android:hint="@string/prompt_user"
-            android:singleLine="true"
-            android:textColor="@color/black" />
-
-        <EditText
-            android:id="@+id/login_password_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimens_20"
-            android:layout_marginRight="@dimen/dimens_20"
-            android:layout_marginTop="@dimen/dimen_10"
-            android:background="@drawable/edittext_login"
-            android:drawableLeft="@drawable/ic_password"
-            android:drawablePadding="@dimen/dimen_5"
-            android:hint="@string/prompt_password"
-            android:inputType="textPassword"
-            android:singleLine="true"
-            android:textColor="@color/black" />
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/checkBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimens_20"
-                android:button="@drawable/checkbox"
-                android:text="@string/rember_password"
-                android:textColor="@color/black" />
-
-            <RadioGroup
-                android:id="@+id/radiogroup_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/dimens_20"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/waiwang_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="外网"
-                    android:textColor="@color/black"
-                    android:layout_marginRight="@dimen/dimen_10"
-                    android:textSize="14sp" />
-
-                <RadioButton
-                    android:id="@+id/neiwang_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="内网"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-
-            </RadioGroup>
-
-        </RelativeLayout>
-
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginLeft="@dimen/dimens_20"
-            android:layout_marginRight="@dimen/dimens_20"
-            android:layout_marginTop="60dp"
-            android:background="@drawable/btn_enable_green"
-            android:paddingBottom="7dp"
-            android:paddingTop="7dp"
-            android:text="登录"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/login_top" />
 
 
     </LinearLayout>
 
 
-</LinearLayout>
+    <EditText
+        android:id="@+id/login_username_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearlayout1_id"
+        android:layout_marginLeft="@dimen/dimens_20"
+        android:layout_marginRight="@dimen/dimens_20"
+        android:layout_marginTop="@dimen/dimens_20"
+        android:background="@drawable/edittext_login"
+        android:drawableLeft="@drawable/ic_user"
+        android:drawablePadding="@dimen/dimen_5"
+        android:hint="@string/prompt_user"
+        android:singleLine="true"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/login_password_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_username_edit"
+        android:layout_marginLeft="@dimen/dimens_20"
+        android:layout_marginRight="@dimen/dimens_20"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:background="@drawable/edittext_login"
+        android:drawableLeft="@drawable/ic_password"
+        android:drawablePadding="@dimen/dimen_5"
+        android:hint="@string/prompt_password"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        android:textColor="@color/black" />
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_password_edit"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimens_20"
+            android:button="@drawable/checkbox"
+            android:text="@string/rember_password"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dimens_20"
+            android:text="连接设置"
+            android:textColor="@color/blue_1" />
+
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@id/relativeLayout_id"
+        android:layout_marginLeft="@dimen/dimens_20"
+        android:layout_marginRight="@dimen/dimens_20"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/btn_enable_green"
+        android:paddingBottom="7dp"
+        android:paddingTop="7dp"
+        android:text="登录"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dip"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="80dp"
+            android:paddingLeft="@dimen/dimen_50"
+            android:paddingRight="@dimen/dimen_50"
+            android:src="@drawable/ic_other" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout1_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/card_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/dimen_50"
+                android:drawableLeft="@drawable/new_login_a1_selector"
+                android:gravity="center"
+                android:text="员工卡登录"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/fast_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dimen_50"
+                android:drawableLeft="@drawable/new_login_a2_selector"
+                android:gravity="center_vertical"
+                android:text="快速登录"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>
