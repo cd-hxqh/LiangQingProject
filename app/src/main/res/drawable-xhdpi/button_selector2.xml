@@ -1,0 +1,6 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@color/press_button_color" android:state_pressed="false"/>
+    <item android:drawable="@color/nomal_button_color" android:state_pressed="true"/>
+
+</selector>

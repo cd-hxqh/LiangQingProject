@@ -40,6 +40,12 @@
     <string name="error_fav_topic">收藏话题错误</string>
     <string name="error_get_profile">无法获取用户个人资料</string>
     <string name="error_unknown">未知错误</string>
+    <string name="connect_setting_title">服务器连接设置</string>
+    <string name="internet_setting">网络设置</string>
+    <string name="update_adress">更新地址</string>
+    <string name="connect_test">测试连接</string>
+    <string name="connect_setting">连接设置</string>
+    <string name="hint_set_fast_password">请绘制手势密码</string>
 
     <string name="login_successful_hint">登陆成功</string>
     <string name="get_data_info_fail">获取信息失败</string>

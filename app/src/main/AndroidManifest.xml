@@ -58,6 +58,18 @@
             android:label="LoginActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".view.activity.ConnectSettingActivity"
+            android:label="ConnectSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.CardLoginActivity"
+            android:label="CardLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.FastLoginActivity"
+            android:label="FastLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".view.activity.MainActivity"
             android:label="MainActivity"
             android:screenOrientation="portrait" />

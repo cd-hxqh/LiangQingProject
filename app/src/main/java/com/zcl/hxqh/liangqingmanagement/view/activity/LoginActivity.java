@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tencent.bugly.Bugly;
@@ -32,6 +33,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private Button loginBtn;
 
     private CheckBox checkBox; //记住密码
+
+    private TextView connectsetting;//连接设置
+
+    private TextView cardloginText;//员工卡登录
+
+    private TextView fastloginText;//快速登录
 
 //    private RadioGroup radioGroup;
 //    /**
@@ -96,6 +103,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
 
         checkBox = (CheckBox) findViewById(R.id.checkBox);
+
+        connectsetting = (TextView) findViewById(R.id.connect_setting);
+        cardloginText = (TextView) findViewById(R.id.card_login);
+        fastloginText = (TextView) findViewById(R.id.fast_login);
     }
 
     /**
@@ -103,6 +114,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
      */
     private void setEvent() {
         checkBox.setOnCheckedChangeListener(cheBoxOnCheckedChangListener);
+        connectsetting.setOnClickListener(connectsettingOnClickListener);
+        cardloginText.setOnClickListener(cardloginOnClickListener);
+        fastloginText.setOnClickListener(fastloginOnClickListener);
     }
 
 
@@ -110,6 +124,32 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             isRemember = isChecked;
+        }
+    };
+
+    private View.OnClickListener connectsettingOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(LoginActivity.this,ConnectSettingActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    private View.OnClickListener cardloginOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(LoginActivity.this,CardLoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    };
+
+    private View.OnClickListener fastloginOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(LoginActivity.this,FastLoginActivity.class);
+            startActivity(intent);
+            finish();
         }
     };
 

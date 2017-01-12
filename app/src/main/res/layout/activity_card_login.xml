@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <ImageView
+        android:id="@+id/log_title"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:scaleType="center"
+        android:src="@drawable/login_top2"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/log_title"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/connect_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:autoLink="all"
+            android:text="@string/connect_setting"
+            android:layout_gravity="right"
+            android:textSize="18sp"
+            android:textColor="@color/blue_1"/>
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/bj_cardlogin"
+            android:id="@+id/imageView"></ImageView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="80dp"
+                android:paddingLeft="@dimen/dimen_50"
+                android:paddingRight="@dimen/dimen_50"
+                android:src="@drawable/ic_other" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout1_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+                    android:id="@+id/fast_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/dimen_50"
+                    android:drawableLeft="@drawable/new_login_a2_selector"
+                    android:gravity="center"
+                    android:text="快速登录"
+                    android:textColor="@color/light_black" />
+
+                <TextView
+                    android:id="@+id/password_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dimen_50"
+                    android:drawableLeft="@drawable/new_login_a3_selector"
+                    android:gravity="center_vertical"
+                    android:text="密码登录"
+                    android:textColor="@color/light_black" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>
