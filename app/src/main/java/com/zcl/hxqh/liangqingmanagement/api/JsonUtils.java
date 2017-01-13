@@ -18,6 +18,7 @@ import com.zcl.hxqh.liangqingmanagement.model.N_TASKPLAN;
 import com.zcl.hxqh.liangqingmanagement.model.N_WAGONS;
 import com.zcl.hxqh.liangqingmanagement.model.N_WTLINE;
 import com.zcl.hxqh.liangqingmanagement.model.PERSON;
+import com.zcl.hxqh.liangqingmanagement.model.WORKORDER;
 import com.zcl.hxqh.liangqingmanagement.model.WTLABOR;
 
 import org.json.JSONArray;
@@ -365,6 +366,52 @@ public class JsonUtils {
             list = new ArrayList<N_CARLINE>();
             for (int i = 0; i < jsonArray.length(); i++) {
                 n_car = new N_CARLINE();
+                jsonObject = jsonArray.getJSONObject(i);
+                Field[] field = n_car.getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
+                for (int j = 0; j < field.length; j++) {     //遍历所有属性
+                    field[j].setAccessible(true);
+                    String name = field[j].getName();    //获取属性的名字
+                    if (jsonObject.has(name) && jsonObject.getString(name) != null && !jsonObject.getString(name).equals("")) {
+                        try {
+                            // 调用getter方法获取属性值
+                            Method getOrSet = n_car.getClass().getMethod("get" + name);
+                            Object value = getOrSet.invoke(n_car);
+                            if (value == null) {
+                                //调用setter方法设属性值
+                                Class[] parameterTypes = new Class[1];
+                                parameterTypes[0] = field[j].getType();
+                                getOrSet = n_car.getClass().getDeclaredMethod("set" + name, parameterTypes);
+                                getOrSet.invoke(n_car, jsonObject.getString(name));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+                list.add(n_car);
+            }
+            return list;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    /**
+     * 缺陷工单
+     */
+    public static ArrayList<WORKORDER> parsingWORKORDER(Context ctx, String data) {
+        ArrayList<WORKORDER> list = null;
+        WORKORDER n_car = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            JSONObject jsonObject;
+            list = new ArrayList<WORKORDER>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                n_car = new WORKORDER();
                 jsonObject = jsonArray.getJSONObject(i);
                 Field[] field = n_car.getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
                 for (int j = 0; j < field.length; j++) {     //遍历所有属性

@@ -96,6 +96,16 @@ public class HttpManager {
     }
 
     /**
+     * 设置缺陷工单的接口
+     */
+    public static String getWORKORDER(String value, int curpage, int showcount) {
+        if (value.equals("")) {
+            return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.WORKORDER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WORKORDERID DESC'}";
+        }
+        return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.WORKORDER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WORKORDERID DESC','sinorsearch':{'SB':'" + value + "','DESCRIPTION':'" + value + "'}}";
+    }
+
+    /**
      * 选项值
      */
     public static String getALNDOMAIN(String DOMAINID) {

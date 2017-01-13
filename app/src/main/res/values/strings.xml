@@ -69,6 +69,7 @@
     <!-- hint -->
     <string name="hint_item_num_title">暂无编号</string>
     <string name="hint_item_desc_title">暂无描述</string>
+    <string name="hint_item_date_title">暂无日期</string>
     <string name="have_not_data">暂无数据</string>
     <!--标题-->
     <string name="cclqbzd_text_text">仓储粮情标准单</string>
@@ -340,4 +341,18 @@
     <string name="starttime_text">开始时间:</string>
     <string name="endtime_text">结束时间:</string>
     <string name="wtlabor_detail_text">用工记录详情</string>
+
+    <!--消缺工单-->
+    <string name="workorder_list_title">消缺工单列表</string>
+    <string name="workorder_sb">设备:</string>
+    <string name="workorder_sbwz">设备位置:</string>
+    <string name="workorder_description">缺陷描述:</string>
+    <string name="workorder_fxbm">发现部门:</string>
+    <string name="workorder_fxr">发现人:</string>
+    <string name="workorder_reportdate">发现时间:</string>
+    <string name="workorder_zrr">责任人:</string>
+    <string name="workorder_schedfinish">整改期限:</string>
+    <string name="workorder_n_recreq">整改要求:</string>
+    <string name="workorder_worktype">是否排查:</string>
+    <string name="workorder_remarkdesc">备注:</string>
 </resources>

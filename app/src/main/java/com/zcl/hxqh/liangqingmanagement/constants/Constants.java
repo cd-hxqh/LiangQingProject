@@ -106,7 +106,10 @@ public class Constants {
     public static final String WTLABORVIEW_APPID = "WTLABORVIEW";
     //用工记录的表名
     public static final String WTLABORVIEW_NAME = "WTLABORVIEW";
-
+    //缺陷工单的appid
+    public static final String WORKORDER_APPID = "WOCM";
+    //缺陷工单的表名
+    public static final String WORKORDER_NAME = "WORKORDER";
 
 
 

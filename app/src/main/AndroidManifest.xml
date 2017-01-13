@@ -118,6 +118,14 @@
             android:label="CarPlanChooseActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".view.activity.WorkorderListActivity"
+            android:label="WorkorderListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.WorkorderDetailsActivity"
+            android:label="WorkorderDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".view.activity.MipcaActivityCapture"
             android:label="MipcaActivityCapture"
             android:screenOrientation="portrait" />

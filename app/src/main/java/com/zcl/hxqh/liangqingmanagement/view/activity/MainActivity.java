@@ -25,6 +25,7 @@ import com.zcl.hxqh.liangqingmanagement.view.fragment.NavigationDrawerFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.PersonFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.QydFragment;
 import com.zcl.hxqh.liangqingmanagement.view.fragment.WilineFragment;
+import com.zcl.hxqh.liangqingmanagement.view.fragment.WorkOrderFragment;
 
 /**
  * MainActivity
@@ -73,6 +74,10 @@ public class MainActivity extends BaseActivity
      * 车辆查询
      **/
     private N_cartaskFragment n_cartaskFragment;
+    /**
+     * 消缺工单
+     **/
+    private WorkOrderFragment workOrderFragment;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -213,7 +218,14 @@ public class MainActivity extends BaseActivity
                 }
                 fragmentTransaction.replace(R.id.container, n_cartaskFragment).commit();
                 break;
-
+            case 6: //消缺工单
+                if (workOrderFragment == null) {
+                    workOrderFragment = new WorkOrderFragment();
+                    Bundle bundle = new Bundle();
+                    workOrderFragment.setArguments(bundle);
+                }
+                fragmentTransaction.replace(R.id.container, workOrderFragment).commit();
+                break;
         }
 
     }
