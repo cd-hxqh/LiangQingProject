@@ -29,16 +29,16 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@drawable/shape_corner_top" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_corner"
+                android:background="@drawable/shape_corner_bottom"
                 android:orientation="vertical">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="4dp"
-                    android:background="@color/blue_1" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
                     android:padding="10dp"
                     android:text="缺陷登记"
                     android:textColor="@color/blue_1"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -69,8 +69,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:background="@drawable/editsharp"
-                        android:drawableRight="@drawable/ic_right2"
                         android:drawablePadding="@dimen/dimen_5"
+                        android:drawableRight="@drawable/ic_right2"
                         android:gravity="right"
                         android:hint="@string/have_not_data"
                         android:textColor="@color/light_black"
@@ -99,8 +99,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:background="@drawable/editsharp"
-                        android:drawableRight="@drawable/ic_right2"
                         android:drawablePadding="@dimen/dimen_5"
+                        android:drawableRight="@drawable/ic_right2"
                         android:gravity="right"
                         android:hint="@string/have_not_data"
                         android:textColor="@color/light_black"
@@ -127,30 +127,32 @@
                         android:id="@+id/photo_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
-                        android:src="@drawable/ic_photo"/>
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_photo" />
                 </RelativeLayout>
-                
+
                 <EditText
+                    android:id="@+id/workorder_description"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/editsharp"/>
+                    android:background="@drawable/editsharp" />
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_corner_top" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shape_corner"
+                android:background="@drawable/shape_corner_bottom"
                 android:orientation="vertical">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="4dp"
-                    android:background="@color/blue_1" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -158,7 +160,8 @@
                     android:padding="10dp"
                     android:text="发现人登记"
                     android:textColor="@color/blue_1"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -174,19 +177,20 @@
                         android:textColor="@color/light_black"
                         android:textSize="@dimen/dimens_16sp" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/workorder_fxbm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:background="@drawable/ic_edit"
                         android:drawablePadding="@dimen/dimen_5"
                         android:gravity="right"
                         android:textColor="@color/light_black"
-                        android:layout_gravity="center"
                         android:textSize="@dimen/dimens_16sp" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -202,19 +206,20 @@
                         android:textColor="@color/light_black"
                         android:textSize="@dimen/dimens_16sp" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/workorder_fxr"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:background="@drawable/ic_edit"
                         android:drawablePadding="@dimen/dimen_5"
                         android:gravity="right"
                         android:textColor="@color/light_black"
-                        android:layout_gravity="center"
                         android:textSize="@dimen/dimens_16sp" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -236,8 +241,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:background="@drawable/editsharp"
-                        android:drawableRight="@drawable/ic_data2"
                         android:drawablePadding="@dimen/dimen_5"
+                        android:drawableRight="@drawable/ic_data2"
                         android:gravity="right"
                         android:hint="@string/have_not_data"
                         android:textColor="@color/light_black"
@@ -246,6 +251,181 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_corner_top" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_corner_bottom"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="整改信息"
+                    android:textColor="@color/blue_1"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dimen_10">
+
+                    <TextView
+                        android:id="@+id/zrr_title_id"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/workorder_zrr"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/dimens_16sp" />
+
+                    <EditText
+                        android:id="@+id/workorder_zrr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/editsharp"
+                        android:drawablePadding="@dimen/dimen_5"
+                        android:drawableRight="@drawable/ic_right2"
+                        android:gravity="right"
+                        android:hint="@string/have_not_data"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/dimens_16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dimen_10">
+
+                    <TextView
+                        android:id="@+id/schedfinish_title_id"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/workorder_schedfinish"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/dimens_16sp" />
+
+                    <EditText
+                        android:id="@+id/workorder_schedfinish"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/editsharp"
+                        android:drawablePadding="@dimen/dimen_5"
+                        android:drawableRight="@drawable/ic_data2"
+                        android:gravity="right"
+                        android:hint="@string/have_not_data"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/dimens_16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dimen_10">
+
+                    <TextView
+                        android:id="@+id/n_recreq_title_id"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/workorder_n_recreq"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/dimens_16sp" />
+
+                    <EditText
+                        android:id="@+id/workorder_n_recreq"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/editsharp"
+                        android:drawablePadding="@dimen/dimen_5"
+                        android:gravity="right"
+                        android:hint="@string/have_not_data"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/dimens_16sp" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dimen_10">
+
+                    <TextView
+                        android:id="@+id/worktype_title_id"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/workorder_worktype"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/dimens_16sp" />
+
+                    <CheckBox
+                        android:id="@+id/workorder_worktype"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                         />
+
+                </LinearLayout>
+            </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_corner_top" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_corner_bottom"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="备注信息"
+                android:textColor="@color/blue_1"
+                android:textSize="20sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dimen_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/workorder_remarkdesc"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/workorder_remarkdesc"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/editsharp" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

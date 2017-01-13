@@ -248,6 +248,8 @@ public class MainActivity extends BaseActivity
             addImage.setVisibility(View.GONE);
         } else if (mSelectPos == 5) {
             addImage.setVisibility(View.GONE);
+        }else if (mSelectPos == 6) {
+            addImage.setVisibility(View.GONE);
         }
     }
 

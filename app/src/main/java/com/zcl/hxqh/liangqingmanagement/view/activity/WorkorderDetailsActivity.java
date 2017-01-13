@@ -32,6 +32,7 @@ import com.zcl.hxqh.liangqingmanagement.dialog.FlippingLoadingDialog;
 import com.zcl.hxqh.liangqingmanagement.model.ALNDOMAIN;
 import com.zcl.hxqh.liangqingmanagement.model.N_CAR;
 import com.zcl.hxqh.liangqingmanagement.model.N_TASKPLAN;
+import com.zcl.hxqh.liangqingmanagement.model.WORKORDER;
 import com.zcl.hxqh.liangqingmanagement.until.MessageUtils;
 import com.zcl.hxqh.liangqingmanagement.until.T;
 import com.zcl.hxqh.liangqingmanagement.view.widght.ShareBottomDialog;
@@ -61,6 +62,8 @@ public class WorkorderDetailsActivity extends BaseActivity {
      **/
     private Button submitBtn;
 
+    private WORKORDER workorder;
+
 
     /**界面信息**/
 
@@ -86,7 +89,7 @@ public class WorkorderDetailsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hyyb_details);
+        setContentView(R.layout.activity_workorder_details);
         geiIntentData();
         findViewById();
         initView();
@@ -96,7 +99,7 @@ public class WorkorderDetailsActivity extends BaseActivity {
     }
 
     private void geiIntentData() {
-//        n_car = (N_CAR) getIntent().getSerializableExtra("n_car");
+        workorder = (WORKORDER) getIntent().getSerializableExtra("workorder");
     }
 
     @Override
@@ -115,7 +118,7 @@ public class WorkorderDetailsActivity extends BaseActivity {
     @Override
     protected void initView() {
         backImageView.setOnClickListener(backImageViewOnClickListener);
-        titleTextView.setText(R.string.hyyb_text);
+        titleTextView.setText(R.string.workorder_details_title);
         submitBtn.setVisibility(View.VISIBLE);
         submitBtn.setOnClickListener(submitBtnBtnOnClickListener);
 

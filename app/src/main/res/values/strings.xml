@@ -344,6 +344,7 @@
 
     <!--消缺工单-->
     <string name="workorder_list_title">消缺工单列表</string>
+    <string name="workorder_details_title">消缺工单详情</string>
     <string name="workorder_sb">设备:</string>
     <string name="workorder_sbwz">设备位置:</string>
     <string name="workorder_description">缺陷描述:</string>
