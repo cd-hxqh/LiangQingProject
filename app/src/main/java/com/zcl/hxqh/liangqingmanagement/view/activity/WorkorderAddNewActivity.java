@@ -3,6 +3,7 @@ package com.zcl.hxqh.liangqingmanagement.view.activity;
 import android.animation.LayoutTransition;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +29,15 @@ import com.zcl.hxqh.liangqingmanagement.api.HttpRequestHandler;
 import com.zcl.hxqh.liangqingmanagement.bean.Results;
 import com.zcl.hxqh.liangqingmanagement.dialog.FlippingLoadingDialog;
 import com.zcl.hxqh.liangqingmanagement.model.WORKORDER;
+import com.zcl.hxqh.liangqingmanagement.until.AccountUtils;
 import com.zcl.hxqh.liangqingmanagement.until.DateTimeSelect;
+import com.zcl.hxqh.liangqingmanagement.until.MessageUtils;
 import com.zcl.hxqh.liangqingmanagement.until.T;
 import com.zcl.hxqh.liangqingmanagement.view.widght.ShareBottomDialog;
+import com.zcl.hxqh.liangqingmanagement.webserviceclient.AndroidClientService;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -70,6 +77,8 @@ public class WorkorderAddNewActivity extends BaseActivity {
     private CheckBox worktype;//是否排查
     private EditText remarkdesc;//备注
 
+    private String ASSETNUM;//设备编号
+    private String zrrId;//责任人id
 
     private WORKORDER workorder;
 
@@ -150,6 +159,7 @@ public class WorkorderAddNewActivity extends BaseActivity {
         zrr.setOnClickListener(new personOnClickListener(1003));
         reportdate.setOnClickListener(new TimeOnClickListener(reportdate));
         schedfinish.setOnClickListener(new TimeOnClickListener(schedfinish));
+        photoImg.setOnClickListener(photoOnClickListener);
     }
 
     private View.OnClickListener backImageViewOnClickListener = new View.OnClickListener() {
@@ -179,6 +189,13 @@ public class WorkorderAddNewActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
             showShareBottomDialog("部门",getResources().getStringArray(R.array.fxbm_array),fxbm);
+        }
+    };
+
+    private View.OnClickListener photoOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
         }
     };
 
@@ -292,8 +309,8 @@ public class WorkorderAddNewActivity extends BaseActivity {
                 new OnBtnClickL() {
                     @Override
                     public void onBtnClick() {
-                        getLoadingDialog("正在提交");
-//                        startAsyncTask();
+                        getLoadingDialog("正在提交").show();
+                        startAsyncTask();
 
                         dialog.dismiss();
                     }
@@ -311,34 +328,44 @@ public class WorkorderAddNewActivity extends BaseActivity {
     /**
      * 提交数据*
      */
-//    private void startAsyncTask() {
-//        new AsyncTask<String, String, String>() {
-//            @Override
-//            protected String doInBackground(String... strings) {
-//                return AndroidClientService.addAndUpdateN_CAR(WorkorderDetailsActivity.this, JsonUtils.encapsulationN_CAR(getN_CAR(), null));
-//            }
-//
-//            @Override
-//            protected void onPostExecute(String s) {
-//                super.onPostExecute(s);
-//                mLoadingDialog.dismiss();
-//                MessageUtils.showMiddleToast(WorkorderDetailsActivity.this, s);
-////                if (s.equals("修改成功")) {
-////                    finish();
-////                }
-//            }
-//        }.execute();
-//
-//
-//    }
+    private void startAsyncTask() {
+        final String sbText = ASSETNUM;
+        final String sbwzText = sbwz.getText().toString();
+        final String descriptionText = description.getText().toString();
+        final String fxbmText = fxbm.getText().toString();
+        final String fxrText = fxr.getText().toString();
+        final String reportdateText = reportdate.getText().toString();
+        final String zrrText = zrrId;
+        final String schedfinishText = schedfinish.getText().toString();
+        final String n_recreqText = n_recreq.getText().toString();
+        final String worktypeText = worktype.isChecked()?"HD":"CM";
+        final String remarkdescText = remarkdesc.getText().toString();
+        new AsyncTask<String, String, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                return AndroidClientService.saveQX(WorkorderAddNewActivity.this, AccountUtils.getloginUserName(WorkorderAddNewActivity.this),sbText,descriptionText,
+                        fxbmText,"",fxrText,reportdateText,remarkdescText,worktypeText,zrrText,n_recreqText,schedfinishText);
+            }
 
-
-//    /**
-//     * 封装数据
-//     **/
-//    private N_CAR getN_CAR() {
-//
-//    }
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                mLoadingDialog.dismiss();
+//                MessageUtils.showMiddleToast(WorkorderAddNewActivity.this, s);
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    if (jsonObject.has("success")&&jsonObject.getString("success").equals("1")){
+                        MessageUtils.showMiddleToast(WorkorderAddNewActivity.this, "新建成功");
+                        String workordernum = jsonObject.getString("msg");
+                    }else {
+                        MessageUtils.showMiddleToast(WorkorderAddNewActivity.this, "新建失败");
+                    }
+                } catch (JSONException e) {
+                    MessageUtils.showMiddleToast(WorkorderAddNewActivity.this, s);
+                }
+            }
+        }.execute();
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -348,6 +375,7 @@ public class WorkorderAddNewActivity extends BaseActivity {
                 case 1001:
                     sb.setText(data.getStringExtra("N_MODELNUM"));
                     sbwz.setText(data.getStringExtra("N_LOCANAME"));
+                    ASSETNUM = data.getStringExtra("ASSETNUM");
                     break;
             }
             switch (requestCode) {
@@ -356,6 +384,7 @@ public class WorkorderAddNewActivity extends BaseActivity {
                     break;
                 case 1003:
                     zrr.setText(data.getStringExtra("displayname"));
+                    zrrId = data.getStringExtra("personid");
                     break;
             }
         }

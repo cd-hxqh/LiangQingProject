@@ -255,6 +255,7 @@ public class AssetChooseActivity extends BaseActivity implements SwipeRefreshLay
                 Intent intent = getIntent();
                 intent.putExtra("N_MODELNUM", list.get(position).getN_MODELNUM());
                 intent.putExtra("N_LOCANAME", list.get(position).getN_LOCANAME());
+                intent.putExtra("ASSETNUM", list.get(position).getASSETNUM());
                 setResult(1001, intent);
                 finish();
 

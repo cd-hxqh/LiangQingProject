@@ -36,6 +36,9 @@ public class Constants {
     //扦样单webservice获取车辆信息接口
     public static final String qywebservice1URL = "/meaweb/services/N_SAMPLE1";
 
+    //缺陷工单webservice上传接口
+    public static final String qxwebserviceURL = "/meaweb/services/MOBILEROUTES";
+
 
     //通用接口查询
     public static final String BASE_URL =  "/maximo/mobile/common/api";

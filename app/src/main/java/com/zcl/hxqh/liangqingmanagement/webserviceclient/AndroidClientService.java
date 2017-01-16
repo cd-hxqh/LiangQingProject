@@ -293,16 +293,28 @@ public class AndroidClientService {
     /**
      * 考勤管理
      */
-    public static String saveQX(final Context cxt,String cardid,String ip) {
+    public static String saveQX(final Context cxt,String personid,String elc_no,String lim_sht,String pla_no,
+                                String fun_crw,String fun_per,String fum_dtm,String lim_not,String worktype,String supervisor,
+                                String recreq,String schedfinish) {
 
-        String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.carwebserviceURL;
+        String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.qxwebserviceURL;
 
         SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         soapEnvelope.implicitTypes = true;
         soapEnvelope.dotNet = true;
-        SoapObject soapReq = new SoapObject(NAMESPACE, "n_carAttendDance");
-        soapReq.addProperty("cardid", cardid);//封装数据
-        soapReq.addProperty("ip", ip);//封装数据
+        SoapObject soapReq = new SoapObject(NAMESPACE, "mobileroutessaveQx");
+        soapReq.addProperty("personid", personid);//登陆人
+        soapReq.addProperty("ELC_NO", elc_no);//设备
+        soapReq.addProperty("LIM_SHT", lim_sht);//缺陷描述
+        soapReq.addProperty("PLA_NO", pla_no);//发现部门
+        soapReq.addProperty("FUN_CRW", fun_crw);//发现班组
+        soapReq.addProperty("FUN_PER", fun_per);//发现人
+        soapReq.addProperty("FUM_DTM", fum_dtm);//发现时间
+        soapReq.addProperty("LIM_NOT", lim_not);//备注
+        soapReq.addProperty("WORKTYPE", worktype);//是否排查
+        soapReq.addProperty("SUPERVISOR", supervisor);//责任人
+        soapReq.addProperty("RECREQ", recreq);//整改要求
+        soapReq.addProperty("SCHEDFINISH", schedfinish);//整改期限
         soapEnvelope.setOutputSoapObject(soapReq);
         HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
         try {

@@ -6,6 +6,7 @@ package com.zcl.hxqh.liangqingmanagement.model;
  */
 public class Asset extends Entity{
     public String N_MODELNUM;//设备
+    public String ASSETNUM;//设备编号
     public String N_LOCANAME;//设备位置
 
     public String getN_MODELNUM() {
@@ -22,5 +23,13 @@ public class Asset extends Entity{
 
     public void setN_LOCANAME(String n_LOCANAME) {
         N_LOCANAME = n_LOCANAME;
+    }
+
+    public String getASSETNUM() {
+        return ASSETNUM;
+    }
+
+    public void setASSETNUM(String ASSETNUM) {
+        this.ASSETNUM = ASSETNUM;
     }
 }

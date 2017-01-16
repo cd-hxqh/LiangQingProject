@@ -32,6 +32,7 @@ import com.zcl.hxqh.liangqingmanagement.dialog.FlippingLoadingDialog;
 import com.zcl.hxqh.liangqingmanagement.model.ALNDOMAIN;
 import com.zcl.hxqh.liangqingmanagement.model.N_CAR;
 import com.zcl.hxqh.liangqingmanagement.model.N_TASKPLAN;
+import com.zcl.hxqh.liangqingmanagement.until.AccountUtils;
 import com.zcl.hxqh.liangqingmanagement.until.MessageUtils;
 import com.zcl.hxqh.liangqingmanagement.until.T;
 import com.zcl.hxqh.liangqingmanagement.view.widght.ShareBottomDialog;
@@ -90,6 +91,10 @@ public class ConnectSettingActivity extends BaseActivity {
         backImageView.setOnClickListener(backImageViewOnClickListener);
         titleTextView.setText(R.string.connect_setting_title);
 
+        ipadressEditView.setText(AccountUtils.getIpAddress(ConnectSettingActivity.this));
+
+        update_adressBtn.setOnClickListener(updateOnClickListener);
+        connect_testBtn.setOnClickListener(connectOnClickListener);
     }
 
     private View.OnClickListener backImageViewOnClickListener = new View.OnClickListener() {
@@ -99,5 +104,29 @@ public class ConnectSettingActivity extends BaseActivity {
         }
     };
 
+    private View.OnClickListener connectOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (ipadressEditView.getText().toString().equals(Constants.HTTP_API_IP)
+                    ||ipadressEditView.getText().toString().equals(Constants.HTTPZHENGSHI_API_IP)){
+                MessageUtils.showMiddleToast(ConnectSettingActivity.this,"测试通过!");
+            }else {
+                MessageUtils.showErrorMessage(ConnectSettingActivity.this,"测试未通过!");
+            }
+        }
+    };
+
+    private View.OnClickListener updateOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (ipadressEditView.getText().toString().equals(Constants.HTTP_API_IP)
+                    ||ipadressEditView.getText().toString().equals(Constants.HTTPZHENGSHI_API_IP)) {
+                AccountUtils.setIpAddress(ConnectSettingActivity.this, ipadressEditView.getText().toString());
+                MessageUtils.showMiddleToast(ConnectSettingActivity.this,"保存成功!");
+            }else {
+                MessageUtils.showErrorMessage(ConnectSettingActivity.this,"请输入正确地址!");
+            }
+        }
+    };
 
 }

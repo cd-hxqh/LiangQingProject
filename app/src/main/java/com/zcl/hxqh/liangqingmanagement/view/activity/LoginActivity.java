@@ -157,6 +157,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected void initView() {
         loginBtn.setOnClickListener(this);
 
+        if (AccountUtils.getIpAddress(LoginActivity.this)==null
+                ||AccountUtils.getIpAddress(LoginActivity.this).equals("")){//初始化地址
+            AccountUtils.setIpAddress(LoginActivity.this,Constants.HTTP_API_IP);
+        }
+
 //        waiwangRadio.setChecked(true);
 //        radioGroup.setOnCheckedChangeListener(radioGroupOnCheckedChangeListener);
     }

@@ -5,6 +5,7 @@ package com.zcl.hxqh.liangqingmanagement.model;
  * 人员
  */
 public class PERSON extends Entity{
+    public String PERSONID;//
     public String DISPLAYNAME;//姓名
     public String N_CARDNUM;//一卡通编号
     public String N_IDNUM;//身份证
@@ -12,6 +13,14 @@ public class PERSON extends Entity{
     public String N_WORKTYPE;//工种
     public String TITLE;//头衔
     public String DEPARTMENT;//部门
+
+    public String getPERSONID() {
+        return PERSONID;
+    }
+
+    public void setPERSONID(String PERSONID) {
+        this.PERSONID = PERSONID;
+    }
 
     public String getDISPLAYNAME() {
         return DISPLAYNAME;

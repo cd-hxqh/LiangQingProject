@@ -170,6 +170,7 @@ public class WorkorderDetailsActivity extends BaseActivity {
         worktype.setChecked(workorder.WORKTYPE!=null&&workorder.WORKTYPE.equals("HD"));
         remarkdesc.setText(workorder.REMARKDESC);
 
+        photoImg.setVisibility(View.GONE);
         description.setEnabled(false);
         description.setFocusable(false);
         description.setFocusableInTouchMode(false);
