@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -19,6 +20,7 @@ import com.flyco.animation.BounceEnter.BounceTopEnter;
 import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.entity.DialogMenuItem;
 import com.flyco.dialog.listener.OnBtnClickL;
+import com.flyco.dialog.listener.OnOperItemClickL;
 import com.flyco.dialog.widget.NormalDialog;
 import com.zcl.hxqh.liangqingmanagement.R;
 import com.zcl.hxqh.liangqingmanagement.api.HttpManager;
@@ -26,6 +28,9 @@ import com.zcl.hxqh.liangqingmanagement.api.HttpRequestHandler;
 import com.zcl.hxqh.liangqingmanagement.bean.Results;
 import com.zcl.hxqh.liangqingmanagement.dialog.FlippingLoadingDialog;
 import com.zcl.hxqh.liangqingmanagement.model.WORKORDER;
+import com.zcl.hxqh.liangqingmanagement.until.DateTimeSelect;
+import com.zcl.hxqh.liangqingmanagement.until.T;
+import com.zcl.hxqh.liangqingmanagement.view.widght.ShareBottomDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,15 +56,16 @@ public class WorkorderAddNewActivity extends BaseActivity {
      **/
     private Button submitBtn;
 
-    private EditText sb;//设备
-    private EditText sbwz;//设备位置
+    private TextView sb;//设备
+    private TextView sbwz;//设备位置
     private ImageView photoImg;//拍照
     private EditText description;//缺陷描述
-    private Spinner fxbm;//发现部门
-    private Spinner fxr;//发现人
-    private EditText reportdate;//发现时间
-    private EditText zrr;//责任人
-    private EditText schedfinish;//整改期限
+    private TextView fxbm;//发现部门
+    private ImageView fxbm_img;//
+    private TextView fxr;//发现人
+    private TextView reportdate;//发现时间
+    private TextView zrr;//责任人
+    private TextView schedfinish;//整改期限
     private EditText n_recreq;//整改要求
     private CheckBox worktype;//是否排查
     private EditText remarkdesc;//备注
@@ -111,15 +117,16 @@ public class WorkorderAddNewActivity extends BaseActivity {
         titleTextView = (TextView) findViewById(R.id.title_name);
         submitBtn = (Button) findViewById(R.id.sbmit_id);
 
-        sb = (EditText) findViewById(R.id.workorder_sb);
-        sbwz = (EditText) findViewById(R.id.workorder_sbwz);
+        sb = (TextView) findViewById(R.id.workorder_sb);
+        sbwz = (TextView) findViewById(R.id.workorder_sbwz);
         photoImg = (ImageView) findViewById(R.id.photo_image);
         description = (EditText) findViewById(R.id.workorder_description);
-        fxbm = (Spinner) findViewById(R.id.Spinner_fxbm);
-        fxr = (Spinner) findViewById(R.id.Spinner_fxr);
-        reportdate = (EditText) findViewById(R.id.workorder_reportdate);
-        zrr = (EditText) findViewById(R.id.workorder_zrr);
-        schedfinish = (EditText) findViewById(R.id.workorder_schedfinish);
+        fxbm = (TextView) findViewById(R.id.workorder_fxbm);
+        fxbm_img = (ImageView) findViewById(R.id.fxbm_img);
+        fxr = (TextView) findViewById(R.id.workorder_fxr);
+        reportdate = (TextView) findViewById(R.id.workorder_reportdate);
+        zrr = (TextView) findViewById(R.id.workorder_zrr);
+        schedfinish = (TextView) findViewById(R.id.workorder_schedfinish);
         n_recreq = (EditText) findViewById(R.id.workorder_n_recreq);
         worktype = (CheckBox) findViewById(R.id.workorder_worktype);
         remarkdesc = (EditText) findViewById(R.id.workorder_remarkdesc);
@@ -137,8 +144,12 @@ public class WorkorderAddNewActivity extends BaseActivity {
         submitBtn.setVisibility(View.VISIBLE);
         submitBtn.setOnClickListener(submitBtnBtnOnClickListener);
 
-
-        setDataListener();
+        sb.setOnClickListener(sbOnClickListener);
+        fxbm_img.setOnClickListener(fxbmOnClickListener);
+        fxr.setOnClickListener(new personOnClickListener(1002));
+        zrr.setOnClickListener(new personOnClickListener(1003));
+        reportdate.setOnClickListener(new TimeOnClickListener(reportdate));
+        schedfinish.setOnClickListener(new TimeOnClickListener(schedfinish));
     }
 
     private View.OnClickListener backImageViewOnClickListener = new View.OnClickListener() {
@@ -155,6 +166,33 @@ public class WorkorderAddNewActivity extends BaseActivity {
             submitNormalDialog();
         }
     };
+
+    private View.OnClickListener sbOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(WorkorderAddNewActivity.this,AssetChooseActivity.class);
+            startActivityForResult(intent,0);
+        }
+    };
+
+    private View.OnClickListener fxbmOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            showShareBottomDialog("部门",getResources().getStringArray(R.array.fxbm_array),fxbm);
+        }
+    };
+
+    private class personOnClickListener implements View.OnClickListener{
+        int requestCode;
+        private personOnClickListener(int requestCode){
+            this.requestCode = requestCode;
+        }
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(WorkorderAddNewActivity.this,PersonChooseActivity.class);
+            startActivityForResult(intent,requestCode);
+        }
+    }
 
 
     //获取选项值
@@ -195,75 +233,37 @@ public class WorkorderAddNewActivity extends BaseActivity {
         }
     }
 
-//    /**
-//     * 显示选项框
-//     **/
-//    private void showShareBottomDialog(String title, final String[] typesitem, final TextView textview) {
-//
-//        final ShareBottomDialog dialog = new ShareBottomDialog(WorkorderDetailsActivity.this, types, null);
-//
-//
-//        dialog.title(title)//
-//                .titleTextSize_SP(14.5f)//
-//                .show();
-//
-//        dialog.setOnOperItemClickL(new OnOperItemClickL() {
-//            @Override
-//            public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                T.showShort(WorkorderDetailsActivity.this, typesitem[position]);
-//                textview.setText(typesitem[position]);
-//                dialog.dismiss();
-//            }
-//        });
-//    }
-
-
     /**
-     * 设置时间选择器*
-     */
-    private void setDataListener() {
+     * 显示选项框
+     **/
+    private void showShareBottomDialog(String title, final String[] typesitem, final TextView textview) {
 
-        final Calendar objTime = Calendar.getInstance();
-        int iYear = objTime.get(Calendar.YEAR);
-        int iMonth = objTime.get(Calendar.MONTH);
-        int iDay = objTime.get(Calendar.DAY_OF_MONTH);
-        int hour = objTime.get(Calendar.HOUR_OF_DAY);
-
-        int minute = objTime.get(Calendar.MINUTE);
+        final ShareBottomDialog dialog = new ShareBottomDialog(WorkorderAddNewActivity.this, getResources().getStringArray(R.array.fxbm_array), null);
 
 
-        datePickerDialog = new DatePickerDialog(this, new datelistener(), iYear, iMonth, iDay);
+        dialog.title(title)//
+                .titleTextSize_SP(14.5f)//
+                .show();
+
+        dialog.setOnOperItemClickL(new OnOperItemClickL() {
+            @Override
+            public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
+                T.showShort(WorkorderAddNewActivity.this, typesitem[position]);
+                textview.setText(typesitem[position]);
+                dialog.dismiss();
+            }
+        });
     }
 
-
-    /**
-     * 日期选择器
-     **/
-    private class MydateListener implements View.OnClickListener {
-
+    //时间选择监听
+    private class TimeOnClickListener implements View.OnClickListener{
+        TextView textView;
+        private TimeOnClickListener(TextView textView){
+            this.textView = textView;
+        }
         @Override
         public void onClick(View view) {
-            layoutnum = 0;
-            stringBuffer = new StringBuffer();
-            layoutnum = view.getId();
-            datePickerDialog.show();
-        }
-    }
-
-
-    private class datelistener implements DatePickerDialog.OnDateSetListener {
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            stringBuffer = new StringBuffer();
-            monthOfYear = monthOfYear + 1;
-            if (dayOfMonth < 10) {
-                stringBuffer.append(year % 100 + "-" + monthOfYear + "-" + "0" + dayOfMonth);
-            } else {
-                stringBuffer.append(year % 100 + "-" + monthOfYear + "-" + dayOfMonth);
-            }
-
-//            enterdateText.setText(sb.toString());
+            new DateTimeSelect(WorkorderAddNewActivity.this, textView).showDialog();
         }
     }
 
@@ -343,9 +343,21 @@ public class WorkorderAddNewActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode) {
-            case 1001:
-                break;
+        if (data!=null) {
+            switch (resultCode) {
+                case 1001:
+                    sb.setText(data.getStringExtra("N_MODELNUM"));
+                    sbwz.setText(data.getStringExtra("N_LOCANAME"));
+                    break;
+            }
+            switch (requestCode) {
+                case 1002:
+                    fxr.setText(data.getStringExtra("displayname"));
+                    break;
+                case 1003:
+                    zrr.setText(data.getStringExtra("displayname"));
+                    break;
+            }
         }
     }
 

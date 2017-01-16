@@ -7,6 +7,7 @@ import com.zcl.hxqh.liangqingmanagement.bean.LoginResults;
 import com.zcl.hxqh.liangqingmanagement.bean.Results;
 import com.zcl.hxqh.liangqingmanagement.constants.Constants;
 import com.zcl.hxqh.liangqingmanagement.model.ALNDOMAIN;
+import com.zcl.hxqh.liangqingmanagement.model.Asset;
 import com.zcl.hxqh.liangqingmanagement.model.N_CAR;
 import com.zcl.hxqh.liangqingmanagement.model.N_CARLINE;
 import com.zcl.hxqh.liangqingmanagement.model.N_CARTASK;
@@ -905,6 +906,52 @@ public class JsonUtils {
 
                 }
                 list.add(n_taskplan);
+            }
+            return list;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    /**
+     * 设备表
+     **/
+    public static ArrayList<Asset> parsingAsset(Context ctx, String data) {
+        ArrayList<Asset> list = null;
+        Asset n_storeinfo = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            JSONObject jsonObject;
+            list = new ArrayList<Asset>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                n_storeinfo = new Asset();
+                jsonObject = jsonArray.getJSONObject(i);
+                Field[] field = n_storeinfo.getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
+                for (int j = 0; j < field.length; j++) {     //遍历所有属性
+                    field[j].setAccessible(true);
+                    String name = field[j].getName();    //获取属性的名字
+                    if (jsonObject.has(name) && jsonObject.getString(name) != null && !jsonObject.getString(name).equals("")) {
+                        try {
+                            // 调用getter方法获取属性值
+                            Method getOrSet = n_storeinfo.getClass().getMethod("get" + name);
+                            Object value = getOrSet.invoke(n_storeinfo);
+                            if (value == null) {
+                                //调用setter方法设属性值
+                                Class[] parameterTypes = new Class[1];
+                                parameterTypes[0] = field[j].getType();
+                                getOrSet = n_storeinfo.getClass().getDeclaredMethod("set" + name, parameterTypes);
+                                getOrSet.invoke(n_storeinfo, jsonObject.getString(name));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+                list.add(n_storeinfo);
             }
             return list;
         } catch (JSONException e) {

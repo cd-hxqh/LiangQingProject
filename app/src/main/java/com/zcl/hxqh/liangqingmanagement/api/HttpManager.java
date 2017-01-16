@@ -176,6 +176,26 @@ public class HttpManager {
         return "{'appid':'" + Constants.N_CAR_APPID + "','objectname':'" + Constants.N_TASKPLAN + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'PLANNUM DESC','condition':{'STATUS':'已修改,已发布,已取消,已完成,待修改,待发布,等待核准,草稿','OVERTIME':'>" + nowtime + "'},'sinorsearch':{'PLANNUM':'" + value + "','DESCRIPTION':'" + value + "'}}";
     }
 
+    /**
+     * 设置设备的接口
+     */
+    public static String getAsset(String value, int curpage, int showcount) {
+        if (value.equals("")) {
+            return "{'appid':'" + Constants.ASSET_APPID + "','objectname':'" + Constants.ASSET_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'ASSETNUM DESC','condition':{'STATUS':'活动'}}";
+        }
+        return "{'appid':'" + Constants.ASSET_APPID + "','objectname':'" + Constants.ASSET_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'ASSETNUM DESC','condition':{'STATUS':'活动'},'sinorsearch':{'N_MODELNUM':'" + value + "','N_LOCANAME':'" + value + "'}}";
+    }
+
+    /**
+     * 设置人员的接口
+     */
+    public static String getPerson(String value, int curpage, int showcount) {
+        if (value.equals("")) {
+            return "{'appid':'" + Constants.PERSON_APPID + "','objectname':'" + Constants.PERSON_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'PERSONID DESC'}";
+        }
+        return "{'appid':'" + Constants.PERSON_APPID + "','objectname':'" + Constants.PERSON_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'PERSONID DESC','sinorsearch':{'DISPLAYNAME':'" + value + "','TITLE':'" + value + "','DEPARTMENT':'" + value + "'}}";
+    }
+
 
     /**
      * 使用用户名密码登录

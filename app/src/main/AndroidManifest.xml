@@ -130,6 +130,14 @@
             android:label="WorkorderDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".view.activity.AssetChooseActivity"
+            android:label="AssetChooseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.PersonChooseActivity"
+            android:label="AssetChooseActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".view.activity.MipcaActivityCapture"
             android:label="MipcaActivityCapture"
             android:screenOrientation="portrait" />

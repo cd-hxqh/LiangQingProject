@@ -110,6 +110,10 @@ public class Constants {
     public static final String WORKORDER_APPID = "WOCM";
     //缺陷工单的表名
     public static final String WORKORDER_NAME = "WORKORDER";
+    //设备的appid
+    public static final String ASSET_APPID = "ASSET";
+    //设备的表名
+    public static final String ASSET_NAME = "ASSET";
 
 
 

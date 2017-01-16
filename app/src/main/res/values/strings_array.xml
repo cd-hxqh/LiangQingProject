@@ -17,5 +17,10 @@
 
     </string-array>
 
+    <string-array name="fxbm_array">
+        <item>设备管理处</item>
+        <item>监督审计管理处</item>
+        <item>仓储管理处</item>
+    </string-array>
 
 </resources>

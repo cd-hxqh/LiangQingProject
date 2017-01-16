@@ -10,6 +10,8 @@ public class PERSON extends Entity{
     public String N_IDNUM;//身份证
     public String N_PHONE;//电话
     public String N_WORKTYPE;//工种
+    public String TITLE;//头衔
+    public String DEPARTMENT;//部门
 
     public String getDISPLAYNAME() {
         return DISPLAYNAME;
@@ -49,5 +51,21 @@ public class PERSON extends Entity{
 
     public void setN_WORKTYPE(String n_WORKTYPE) {
         N_WORKTYPE = n_WORKTYPE;
+    }
+
+    public String getTITLE() {
+        return TITLE;
+    }
+
+    public void setTITLE(String TITLE) {
+        this.TITLE = TITLE;
+    }
+
+    public String getDEPARTMENT() {
+        return DEPARTMENT;
+    }
+
+    public void setDEPARTMENT(String DEPARTMENT) {
+        this.DEPARTMENT = DEPARTMENT;
     }
 }
