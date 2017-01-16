@@ -23,10 +23,11 @@ public class DrawerAdapter extends BaseAdapter {
             R.drawable.ic_chlq,
             R.drawable.ic_qyd,
             R.drawable.ic_hyyb,
+            R.drawable.ic_workorder,
             R.drawable.ic_n_wtline,
             R.drawable.ic_person,
             R.drawable.ic_car,
-            R.drawable.ic_workorder
+
     };
 
     public DrawerAdapter(Context context) {

@@ -61,6 +61,12 @@ public class MainActivity extends BaseActivity
      * 货运预报单*
      */
     private HyybFragment hyybFragment;
+
+    /**
+     * 消缺工单
+     **/
+    private WorkOrderFragment workOrderFragment;
+
     /**
      * 考勤管理*
      */
@@ -74,10 +80,7 @@ public class MainActivity extends BaseActivity
      * 车辆查询
      **/
     private N_cartaskFragment n_cartaskFragment;
-    /**
-     * 消缺工单
-     **/
-    private WorkOrderFragment workOrderFragment;
+
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -127,9 +130,9 @@ public class MainActivity extends BaseActivity
     @Override
     protected void initView() {
         addImage.setOnClickListener(addImageOnClickListener);
-        if (mSelectPos == 3 ) {
-            addImage.setImageResource(R.drawable.ic_dk);
-        }
+//        if (mSelectPos == 3) {
+//            addImage.setImageResource(R.drawable.ic_dk);
+//        }
     }
 
 
@@ -150,7 +153,7 @@ public class MainActivity extends BaseActivity
                     Intent intent2 = new Intent(MainActivity.this, N_carAddActivity.class);
                     startActivityForResult(intent2, 0);
                     break;
-                case 3://跳转到考勤信息新建
+                case 4://跳转到考勤信息新建
                     Intent intent3 = new Intent(MainActivity.this, Nfc_Activity.class);
                     intent3.putExtra("type", "wiline");
                     startActivityForResult(intent3, 0);
@@ -193,7 +196,16 @@ public class MainActivity extends BaseActivity
                 }
                 fragmentTransaction.replace(R.id.container, hyybFragment).commit();
                 break;
-            case 3: //考勤管理
+            case 3: //工单管理
+                addImage.setVisibility(View.GONE);
+                if (workOrderFragment == null) {
+                    workOrderFragment = new WorkOrderFragment();
+                    Bundle bundle = new Bundle();
+                    workOrderFragment.setArguments(bundle);
+                }
+                fragmentTransaction.replace(R.id.container, workOrderFragment).commit();
+                break;
+            case 4: //考勤管理
                 addImage.setImageResource(R.drawable.ic_dk);
                 if (wilinefragment == null) {
                     wilinefragment = new WilineFragment();
@@ -202,7 +214,7 @@ public class MainActivity extends BaseActivity
                 }
                 fragmentTransaction.replace(R.id.container, wilinefragment).commit();
                 break;
-            case 4: //人员查询
+            case 5: //人员查询
                 if (personFragment == null) {
                     personFragment = new PersonFragment();
                     Bundle bundle = new Bundle();
@@ -210,21 +222,14 @@ public class MainActivity extends BaseActivity
                 }
                 fragmentTransaction.replace(R.id.container, personFragment).commit();
                 break;
-            case 5: //车辆查询
+            case 6: //车辆查询
                 if (n_cartaskFragment == null) {
                     n_cartaskFragment = new N_cartaskFragment();
                     Bundle bundle = new Bundle();
                     n_cartaskFragment.setArguments(bundle);
                 }
                 fragmentTransaction.replace(R.id.container, n_cartaskFragment).commit();
-                break;
-            case 6: //消缺工单
-                if (workOrderFragment == null) {
-                    workOrderFragment = new WorkOrderFragment();
-                    Bundle bundle = new Bundle();
-                    workOrderFragment.setArguments(bundle);
-                }
-                fragmentTransaction.replace(R.id.container, workOrderFragment).commit();
+
                 break;
         }
 
@@ -241,14 +246,16 @@ public class MainActivity extends BaseActivity
         if (mSelectPos == 0 || mSelectPos == 1 || mSelectPos == 2) {
             addImage.setVisibility(View.VISIBLE);
             addImage.setImageResource(R.drawable.ic_add);
-        } else if (mSelectPos == 3 ) {
+        } else if (mSelectPos == 3) {
+            addImage.setVisibility(View.GONE);
+        }
+
+        else if (mSelectPos == 4) {
             addImage.setVisibility(View.VISIBLE);
             addImage.setImageResource(R.drawable.ic_dk);
-        }else if (mSelectPos == 4 ) {
-            addImage.setVisibility(View.GONE);
         } else if (mSelectPos == 5) {
             addImage.setVisibility(View.GONE);
-        }else if (mSelectPos == 6) {
+        } else if (mSelectPos == 6) {
             addImage.setVisibility(View.GONE);
         }
     }

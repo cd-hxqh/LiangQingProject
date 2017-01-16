@@ -77,8 +77,8 @@
     <string name="jbxx_text">基本信息</string>
     <string name="lqjc_text">粮情检查</string>
     <string name="chjc_text">虫害检查</string>
-    <string name="sbssjc_text">日常检查</string>
-    <string name="aqjc_text">出入仓作业</string>
+    <string name="sbssjc_text">设备设施安全卫士检查</string>
+    <string name="aqjc_text">作业现场检查</string>
 
     <!--基本信息-->
     <string name="grainsnun_text">标准单号:</string>
