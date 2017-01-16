@@ -3,17 +3,14 @@ package com.zcl.hxqh.liangqingmanagement.view.activity;
 import android.animation.LayoutTransition;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -22,23 +19,13 @@ import com.flyco.animation.BounceEnter.BounceTopEnter;
 import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.entity.DialogMenuItem;
 import com.flyco.dialog.listener.OnBtnClickL;
-import com.flyco.dialog.listener.OnOperItemClickL;
 import com.flyco.dialog.widget.NormalDialog;
 import com.zcl.hxqh.liangqingmanagement.R;
 import com.zcl.hxqh.liangqingmanagement.api.HttpManager;
 import com.zcl.hxqh.liangqingmanagement.api.HttpRequestHandler;
-import com.zcl.hxqh.liangqingmanagement.api.JsonUtils;
 import com.zcl.hxqh.liangqingmanagement.bean.Results;
-import com.zcl.hxqh.liangqingmanagement.constants.Constants;
 import com.zcl.hxqh.liangqingmanagement.dialog.FlippingLoadingDialog;
-import com.zcl.hxqh.liangqingmanagement.model.ALNDOMAIN;
-import com.zcl.hxqh.liangqingmanagement.model.N_CAR;
-import com.zcl.hxqh.liangqingmanagement.model.N_TASKPLAN;
 import com.zcl.hxqh.liangqingmanagement.model.WORKORDER;
-import com.zcl.hxqh.liangqingmanagement.until.MessageUtils;
-import com.zcl.hxqh.liangqingmanagement.until.T;
-import com.zcl.hxqh.liangqingmanagement.view.widght.ShareBottomDialog;
-import com.zcl.hxqh.liangqingmanagement.webserviceclient.AndroidClientService;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,8 +34,8 @@ import java.util.Calendar;
 /**
  * 缺陷工单详情
  */
-public class WorkorderDetailsActivity extends BaseActivity {
-    private static String TAG = "WorkorderDetailsActivity";
+public class WorkorderAddNewActivity extends BaseActivity {
+    private static String TAG = "WorkorderAddNewActivity";
 
     /**
      * 返回按钮
@@ -146,21 +133,10 @@ public class WorkorderDetailsActivity extends BaseActivity {
     @Override
     protected void initView() {
         backImageView.setOnClickListener(backImageViewOnClickListener);
-        titleTextView.setText(R.string.workorder_details_title);
+        titleTextView.setText(R.string.workorder_addnew_title);
         submitBtn.setVisibility(View.VISIBLE);
         submitBtn.setOnClickListener(submitBtnBtnOnClickListener);
 
-        sb.setText(workorder.SB);
-        sbwz.setText(workorder.SBWZ);
-        description.setText(workorder.DESCRIPTION);
-//        fxbm.
-//        fxr.setText(workorder.FXR);
-        reportdate.setText(workorder.REPORTDATE);
-        zrr.setText(workorder.ZRR);
-        schedfinish.setText(workorder.SCHEDFINISH);
-        n_recreq.setText(workorder.N_RECREQ);
-        worktype.setText(workorder.WORKTYPE);
-        remarkdesc.setText(workorder.REMARKDESC);
 
         setDataListener();
     }
@@ -298,7 +274,7 @@ public class WorkorderDetailsActivity extends BaseActivity {
      */
     private void submitNormalDialog() {
 
-        final NormalDialog dialog = new NormalDialog(WorkorderDetailsActivity.this);
+        final NormalDialog dialog = new NormalDialog(WorkorderAddNewActivity.this);
         dialog.content("确定提交数据吗？")//
                 .showAnim(mBasIn)//
                 .dismissAnim(mBasOut)//

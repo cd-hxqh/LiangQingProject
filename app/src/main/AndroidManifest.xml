@@ -126,6 +126,10 @@
             android:label="WorkorderDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".view.activity.WorkorderAddNewActivity"
+            android:label="WorkorderDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".view.activity.MipcaActivityCapture"
             android:label="MipcaActivityCapture"
             android:screenOrientation="portrait" />

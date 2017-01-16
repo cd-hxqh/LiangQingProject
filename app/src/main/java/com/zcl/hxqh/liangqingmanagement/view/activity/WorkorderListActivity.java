@@ -266,12 +266,9 @@ public class WorkorderListActivity extends BaseActivity implements SwipeRefreshL
     private View.OnClickListener addOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-//            WORKORDER n_carline = new WORKORDER();
-//            n_carline.setSN((items.size() + 1) + "");
-//            Intent intent = new Intent(WorkorderListActivity.this, N_carlineAddActivity.class);
-//            intent.putExtra("n_car", n_car);
-//            intent.putExtra("n_carline", n_carline);
-//            startActivityForResult(intent, 1);
+            WORKORDER n_carline = new WORKORDER();
+            Intent intent = new Intent(WorkorderListActivity.this, WorkorderAddNewActivity.class);
+            startActivityForResult(intent, 1);
         }
     };
 

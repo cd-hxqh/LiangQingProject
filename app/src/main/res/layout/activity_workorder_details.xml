@@ -136,6 +136,9 @@
                     android:id="@+id/workorder_description"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
+                    android:inputType="textMultiLine"
+                    android:singleLine="false"
+                    android:gravity="left|top"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -177,17 +180,26 @@
                         android:textColor="@color/light_black"
                         android:textSize="@dimen/dimens_16sp" />
 
-                    <TextView
-                        android:id="@+id/workorder_fxbm"
-                        android:layout_width="match_parent"
+                    <!--<TextView-->
+                        <!--android:id="@+id/workorder_fxbm"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginLeft="10dp"-->
+                        <!--android:background="@drawable/editsharp"-->
+                        <!--android:drawablePadding="@dimen/dimen_5"-->
+                        <!--android:gravity="right"-->
+                        <!--android:hint="@string/have_not_data"-->
+                        <!--android:textColor="@color/light_black"-->
+                        <!--android:textSize="@dimen/dimens_16sp" />-->
+
+                    <Spinner
+                        android:id="@+id/Spinner_fxbm"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/ic_edit"
-                        android:drawablePadding="@dimen/dimen_5"
-                        android:gravity="right"
-                        android:textColor="@color/light_black"
-                        android:textSize="@dimen/dimens_16sp" />
+                        style="@style/spinner_style"
+                        android:animationCache="true"
+                        android:drawSelectorOnTop="true"/>
 
                 </LinearLayout>
 
@@ -206,17 +218,26 @@
                         android:textColor="@color/light_black"
                         android:textSize="@dimen/dimens_16sp" />
 
-                    <TextView
-                        android:id="@+id/workorder_fxr"
-                        android:layout_width="match_parent"
+                    <!--<TextView-->
+                        <!--android:id="@+id/workorder_fxr"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginLeft="10dp"-->
+                        <!--android:background="@drawable/editsharp"-->
+                        <!--android:drawablePadding="@dimen/dimen_5"-->
+                        <!--android:gravity="right"-->
+                        <!--android:hint="@string/have_not_data"-->
+                        <!--android:textColor="@color/light_black"-->
+                        <!--android:textSize="@dimen/dimens_16sp" />-->
+
+                    <Spinner
+                        android:id="@+id/Spinner_fxr"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/ic_edit"
-                        android:drawablePadding="@dimen/dimen_5"
-                        android:gravity="right"
-                        android:textColor="@color/light_black"
-                        android:textSize="@dimen/dimens_16sp" />
+                        style="@style/spinner_style"
+                        android:animationCache="true"
+                        android:drawSelectorOnTop="true"/>
 
                 </LinearLayout>
 
@@ -424,6 +445,9 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:inputType="textMultiLine"
+                android:singleLine="false"
+                android:gravity="left|top"
                 android:background="@drawable/editsharp" />
             </LinearLayout>
         </LinearLayout>
