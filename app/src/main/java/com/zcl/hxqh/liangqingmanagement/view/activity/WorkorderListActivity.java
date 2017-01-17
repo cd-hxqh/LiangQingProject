@@ -281,12 +281,8 @@ public class WorkorderListActivity extends BaseActivity implements SwipeRefreshL
 
     @Override
     public void onRefresh() {
-        if (items == null || items.size() == 1) {
-            page = 1;
-            getData(searchText);
-        } else {
-            refresh_layout.setRefreshing(false);
-        }
+        page = 1;
+        getData(searchText);
     }
 
     @Override

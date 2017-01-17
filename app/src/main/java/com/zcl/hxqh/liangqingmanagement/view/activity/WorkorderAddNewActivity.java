@@ -402,12 +402,16 @@ public class WorkorderAddNewActivity extends BaseActivity implements ImageLoadAd
                     JSONObject jsonObject = new JSONObject(s);
                     if (jsonObject.has("success") && jsonObject.getString("success").equals("1")) {
                         MessageUtils.showMiddleToast(WorkorderAddNewActivity.this, "新建成功");
-                        mLoadingDialog.setText("正在上传图片...");
-                        String msg = jsonObject.getString("msg");
-                        for (ImageItem imageItem : adapter.getImages()) {
-                            int i = 0;
-                            i++;
-                            startAsyncTask(imageItem.path, msg.contains(",") ? msg.replace(",", "") : msg, i);
+                        if (adapter.getItemCount()!=0) {
+                            mLoadingDialog.setText("正在上传图片...");
+                            String msg = jsonObject.getString("msg");
+                            for (ImageItem imageItem : adapter.getImages()) {
+                                int i = 0;
+                                i++;
+                                startAsyncTask(imageItem.path, msg.contains(",") ? msg.replace(",", "") : msg, i);
+                            }
+                        }else {
+                            mLoadingDialog.dismiss();
                         }
                     } else {
                         mLoadingDialog.dismiss();
