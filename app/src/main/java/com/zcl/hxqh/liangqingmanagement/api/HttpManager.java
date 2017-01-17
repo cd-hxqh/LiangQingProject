@@ -106,6 +106,16 @@ public class HttpManager {
     }
 
     /**
+     * 设置紧急工单的接口
+     */
+    public static String getJinJiWORKORDER(String value, int curpage, int showcount) {
+        if (value.equals("")) {
+            return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.WORKORDER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WORKORDERID DESC','condition':{'WORKTYPE':'EM'}}";
+        }
+        return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.WORKORDER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WORKORDERID DESC','condition':{'WORKTYPE':'EM'},'sinorsearch':{'SB':'" + value + "','DESCRIPTION':'" + value + "'}}";
+    }
+
+    /**
      * 选项值
      */
     public static String getALNDOMAIN(String DOMAINID) {
@@ -195,6 +205,21 @@ public class HttpManager {
         }
         return "{'appid':'" + Constants.PERSON_APPID + "','objectname':'" + Constants.PERSON_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'PERSONID DESC','sinorsearch':{'DISPLAYNAME':'" + value + "','TITLE':'" + value + "','DEPARTMENT':'" + value + "'}}";
     }
+
+    /**
+     * 查询附件的接口
+     */
+    public static String getDoclinks(String ownertable, String ownerid){
+        return "{'appid':'" + Constants.DOCLINKS_APPID + "','objectname':'" + Constants.DOCLINKS_NAME  + "','option':'read','condition':{'OWNERTABLE':'=" + ownertable  + "','OWNERID':'=" + ownerid+"'}}";
+    }
+
+
+
+
+
+
+
+
 
 
     /**

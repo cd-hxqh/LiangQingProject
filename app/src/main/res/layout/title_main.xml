@@ -47,4 +47,17 @@
         android:textColor="@color/white"
         android:textSize="@dimen/dimens_16sp"
         android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/sbmittext_id"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dimen_5"
+        android:background="@color/sb__transparent"
+        android:src="@drawable/ic_sbmit"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimens_16sp"
+        android:visibility="gone" />
 </RelativeLayout>

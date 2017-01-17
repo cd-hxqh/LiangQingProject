@@ -36,8 +36,8 @@ public class Constants {
     //扦样单webservice获取车辆信息接口
     public static final String qywebservice1URL = "/meaweb/services/N_SAMPLE1";
 
-    //缺陷工单webservice上传接口
-    public static final String qxwebserviceURL = "/meaweb/services/MOBILEROUTES";
+    //缺陷工单,快速上报webservice新增接口
+    public static final String WorkOrderwebserviceURL = "/meaweb/services/MOBILEROUTES";
 
 
     //通用接口查询
@@ -52,6 +52,12 @@ public class Constants {
     public static final String START_FLOW_URL = "/maximo/mobile/wf/start";
     //审批工作流接口
     public static final String APPROVAL_FLOW_URL ="/maximo/mobile/wf/approve";
+
+
+    /**
+     * 图片*
+     */
+    public static final String WORK_FLOW_URL = "/meaweb/services/WFSERVICE";
 
     /**
      * ------------------数据库表名配置－－开始*
@@ -117,6 +123,11 @@ public class Constants {
     public static final String ASSET_APPID = "ASSET";
     //设备的表名
     public static final String ASSET_NAME = "ASSET";
+
+    /**附件appid**/
+    public static final String DOCLINKS_APPID = "DOCLINKS";
+    /**附件表名**/
+    public static final String DOCLINKS_NAME = "DOCLINKS";
 
 
 

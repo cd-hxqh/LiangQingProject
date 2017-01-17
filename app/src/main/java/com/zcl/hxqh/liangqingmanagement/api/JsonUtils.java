@@ -8,6 +8,7 @@ import com.zcl.hxqh.liangqingmanagement.bean.Results;
 import com.zcl.hxqh.liangqingmanagement.constants.Constants;
 import com.zcl.hxqh.liangqingmanagement.model.ALNDOMAIN;
 import com.zcl.hxqh.liangqingmanagement.model.Asset;
+import com.zcl.hxqh.liangqingmanagement.model.Doclinks;
 import com.zcl.hxqh.liangqingmanagement.model.N_CAR;
 import com.zcl.hxqh.liangqingmanagement.model.N_CARLINE;
 import com.zcl.hxqh.liangqingmanagement.model.N_CARTASK;
@@ -952,6 +953,55 @@ public class JsonUtils {
 
                 }
                 list.add(n_storeinfo);
+            }
+            return list;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+
+    /**
+     * 附件类*
+     */
+    public static ArrayList<Doclinks> parsingDoclinks(Context ctx, String data) {
+        Log.i(TAG,"ddddata="+data);
+        ArrayList<Doclinks> list = null;
+        Doclinks doclinks = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            JSONObject jsonObject;
+            list = new ArrayList<Doclinks>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                doclinks = new Doclinks();
+                jsonObject = jsonArray.getJSONObject(i);
+                Field[] field = doclinks.getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
+                for (int j = 0; j < field.length; j++) {     //遍历所有属性
+                    field[j].setAccessible(true);
+                    String name = field[j].getName();    //获取属性的名字
+                    Log.i(TAG, "name=" + name);
+                    if (jsonObject.has(name) && jsonObject.getString(name) != null && !jsonObject.getString(name).equals("")) {
+                        try {
+                            // 调用getter方法获取属性值
+                            Method getOrSet = doclinks.getClass().getMethod("get" + name);
+                            Object value = getOrSet.invoke(doclinks);
+                            if (value == null) {
+                                //调用setter方法设属性值
+                                Class[] parameterTypes = new Class[1];
+                                parameterTypes[0] = field[j].getType();
+                                getOrSet = doclinks.getClass().getDeclaredMethod("set" + name, parameterTypes);
+                                getOrSet.invoke(doclinks, jsonObject.getString(name));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+                list.add(doclinks);
             }
             return list;
         } catch (JSONException e) {

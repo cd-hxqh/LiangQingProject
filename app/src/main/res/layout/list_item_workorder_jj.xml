@@ -1,0 +1,167 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/shape_corner_workorder_item"
+    android:foreground="?android:selectableItemBackground"
+    android:orientation="horizontal"
+    card_view:cardCornerRadius="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/wonum_title_title"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="@string/wonum_text"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimens_16sp" />
+
+            <TextView
+                android:id="@+id/wonum_text_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/wonum_title_title"
+                android:hint="@string/hint_item_num_title"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimens_16sp" />
+
+
+            <TextView
+                android:id="@+id/n_region_title"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/wonum_title_title"
+                android:layout_marginTop="5dp"
+                android:text="@string/n_region_text"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimens_16sp" />
+
+            <TextView
+                android:id="@+id/n_region_text_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/wonum_text_id"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/n_region_title"
+                android:ellipsize="end"
+                android:ems="14"
+                android:hint="@string/hint_item_desc_title"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimens_16sp" />
+
+            <TextView
+                android:id="@+id/gzms_title"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/n_region_title"
+                android:layout_marginTop="5dp"
+                android:text="@string/gzms_text"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimens_16sp" />
+
+            <TextView
+                android:id="@+id/gzms_text_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/n_region_text_id"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/gzms_title"
+                android:ellipsize="end"
+                android:ems="14"
+                android:hint="@string/hint_item_desc_title"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimens_16sp" />
+
+
+            <TextView
+                android:id="@+id/status_title"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gzms_title"
+                android:layout_marginTop="5dp"
+                android:text="@string/status_text"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimens_16sp" />
+
+            <TextView
+                android:id="@+id/status_text_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gzms_text_id"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/status_title"
+                android:ellipsize="end"
+                android:ems="14"
+                android:hint="@string/hint_item_desc_title"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimens_16sp" />
+
+
+            <View
+                android:id="@+id/view_1_id"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/status_title"
+                android:layout_marginTop="5dp"
+                android:background="@color/light_gray" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_1_id"
+                android:layout_marginTop="5dp">
+
+                <ImageView
+                    android:id="@+id/date_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_date3" />
+
+                <TextView
+                    android:id="@+id/workorder_reportdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/date_image"
+                    android:ellipsize="end"
+                    android:ems="14"
+                    android:hint="@string/hint_item_date_title"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimens_16sp" />
+
+                <TextView
+                    android:id="@+id/workorder_fxr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:drawableLeft="@drawable/ic_admin"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimens_16sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

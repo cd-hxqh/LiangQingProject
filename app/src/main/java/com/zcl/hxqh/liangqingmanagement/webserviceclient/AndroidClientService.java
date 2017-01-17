@@ -260,7 +260,7 @@ public class AndroidClientService {
 
 
     /**
-     * 考勤管理
+     * 消缺工单
      */
     public static String addN_WTLINE(final Context cxt,String cardid,String ip) {
 
@@ -290,14 +290,52 @@ public class AndroidClientService {
         return obj;
     }
 
+
+
+
     /**
-     * 考勤管理
+     * 快速上报新建
+     */
+    public static String addKsWorkOrder(final Context cxt,String n_region,String description,String reportedby) {
+
+        String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.WorkOrderwebserviceURL;
+
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "mobileroutesquickrep");
+        soapReq.addProperty("N_REGION", n_region);//区域
+        soapReq.addProperty("DESCRIPTION", description);//故障描述
+        soapReq.addProperty("REPORTEDBY", reportedby);//报告人
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }
+        String obj = null;
+        try {
+            obj = soapEnvelope.getResponse().toString();
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return obj;
+    }
+
+
+
+
+    /**
+     * 缺陷管理
      */
     public static String saveQX(final Context cxt,String personid,String elc_no,String lim_sht,String pla_no,
                                 String fun_crw,String fun_per,String fum_dtm,String lim_not,String worktype,String supervisor,
                                 String recreq,String schedfinish) {
 
-        String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.qxwebserviceURL;
+        String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.WorkOrderwebserviceURL;
 
         SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         soapEnvelope.implicitTypes = true;
@@ -332,5 +370,43 @@ public class AndroidClientService {
         }
         return obj;
     }
+
+
+
+    /**
+     * 图片上传
+     */
+    public static String connectWebService(Context context, String filename, String image, String ownertable, String ownerid) {
+
+        Log.i(TAG, "filename=" + filename + ",image=" + image + ",ownerid=" + ownerid);
+        String ip_adress = AccountUtils.getIpAddress(context) + Constants.WorkOrderwebserviceURL;
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "mobileroutesuploadImage");
+        soapReq.addProperty("filename", filename);//文件名
+        soapReq.addProperty("image", image);//图片Json
+        soapReq.addProperty("ownertable", ownertable);//表名
+        soapReq.addProperty("ownerid", ownerid);//表主键值
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException | XmlPullParserException e) {
+            return null;
+        }
+        String obj = null;
+        String webResult = null;
+        try {
+            webResult = soapEnvelope.getResponse().toString();
+            Log.i(TAG, "webResult=" + webResult);
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return webResult;
+    }
+
+
+
 
 }

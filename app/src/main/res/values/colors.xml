@@ -25,7 +25,7 @@
 
     <color name="light_blue_color">#48abe8</color> <!--浅蓝色-->
 
-    <color name="gray">#aaa</color>
+    <color name="gray">#f1e9e7</color>
 
     <color name="nomal_button_color">#0F75B4</color>
     <color name="press_button_color">#0399F0</color>
@@ -38,4 +38,6 @@
     <color name="viewfinder_mask">#60000000</color>
     <color name="result_view">#b0000000</color>
     <color name="possible_result_points">#c0ffff00</color>
+    <color name="light_gray_1">#f5f5f5</color>
+    <color name="blue_color">#00529d</color> <!--蓝色-->
 </resources>

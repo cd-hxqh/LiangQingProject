@@ -17,6 +17,13 @@ public class WORKORDER extends Entity{
     public String WORKTYPE;//是否排查
     public String REMARKDESC;//备注
 
+    public String WONUM;//工单编号
+    public String N_REGION;//区域
+    public String REPORTEDBY;//报告人
+    public String STATUS;//状态
+    public String WORKORDERID;//唯一编号
+
+
     public String getSB() {
         return SB;
     }
@@ -103,5 +110,45 @@ public class WORKORDER extends Entity{
 
     public void setREMARKDESC(String REMARKDESC) {
         this.REMARKDESC = REMARKDESC;
+    }
+
+    public String getWONUM() {
+        return WONUM;
+    }
+
+    public void setWONUM(String WONUM) {
+        this.WONUM = WONUM;
+    }
+
+    public String getN_REGION() {
+        return N_REGION;
+    }
+
+    public void setN_REGION(String n_REGION) {
+        N_REGION = n_REGION;
+    }
+
+    public String getREPORTEDBY() {
+        return REPORTEDBY;
+    }
+
+    public void setREPORTEDBY(String REPORTEDBY) {
+        this.REPORTEDBY = REPORTEDBY;
+    }
+
+    public String getSTATUS() {
+        return STATUS;
+    }
+
+    public void setSTATUS(String STATUS) {
+        this.STATUS = STATUS;
+    }
+
+    public String getWORKORDERID() {
+        return WORKORDERID;
+    }
+
+    public void setWORKORDERID(String WORKORDERID) {
+        this.WORKORDERID = WORKORDERID;
     }
 }

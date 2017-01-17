@@ -122,6 +122,14 @@
             android:label="WorkorderListActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".view.activity.WorkorderJinJiActivity"
+            android:label="WorkorderJinJiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.WorkorderJinJiAddActivity"
+            android:label="WorkorderJinJiAddActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".view.activity.WorkorderDetailsActivity"
             android:label="WorkorderDetailsActivity"
             android:screenOrientation="portrait" />
@@ -137,6 +145,21 @@
             android:name=".view.activity.PersonChooseActivity"
             android:label="AssetChooseActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.PhotoActivity"
+            android:label="PhotoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.WxDemoActivity"
+            android:label="WxDemoActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:theme="@style/ImagePickerThemeFullScreen"/>
+
         <activity
             android:name=".view.activity.MipcaActivityCapture"
             android:label="MipcaActivityCapture"
