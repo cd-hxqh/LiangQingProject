@@ -32,8 +32,8 @@ public class AssetListAdapter extends BaseQuickAdapter<Asset> {
     @Override
     protected void convert(BaseViewHolder helper, Asset item) {
         CardView cardView = helper.getView(R.id.card_container);
-        helper.setText(R.id.item_num_title, "设备");
-        helper.setText(R.id.item_desc_title, "设备位置");
+        helper.setText(R.id.item_num_title, "设备:");
+        helper.setText(R.id.item_desc_title, "设备位置:");
         helper.setText(R.id.item_num_text, item.getN_MODELNUM());
         helper.setText(R.id.item_desc_text, item.getN_LOCANAME());
     }
