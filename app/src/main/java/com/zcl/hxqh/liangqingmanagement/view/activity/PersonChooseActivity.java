@@ -255,7 +255,7 @@ public class PersonChooseActivity extends BaseActivity implements SwipeRefreshLa
                 Intent intent = getIntent();
                 intent.putExtra("displayname", list.get(position).getDISPLAYNAME());
                 intent.putExtra("personid", list.get(position).getPERSONID());
-                setResult(1001, intent);
+                setResult(1000, intent);
                 finish();
 
             }

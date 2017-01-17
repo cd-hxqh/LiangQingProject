@@ -122,13 +122,6 @@
                         android:textColor="@color/light_black"
                         android:textSize="@dimen/dimens_16sp" />
 
-                    <ImageView
-                        android:id="@+id/photo_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ic_photo" />
                 </RelativeLayout>
 
                 <EditText
@@ -142,6 +135,55 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/editsharp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dimen_10">
+
+                    <TextView
+                        android:id="@+id/sctp_title"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/sctp_text"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/dimens_16sp" />
+
+                    <ImageView
+                        android:id="@+id/photo_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/sctp_title"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_photo" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/editsharp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/dimen_10">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_below="@+id/title_relativelayout_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:choiceMode="singleChoice"
+                        android:divider="@null"
+                        android:fadingEdge="none"
+                        android:listSelector="@android:color/transparent"
+                        android:scrollbarStyle="outsideOverlay"
+                        tools:listitem="@layout/list_item_image" />
+
+
+                </LinearLayout>
             </LinearLayout>
 
             <View
@@ -179,30 +221,18 @@
                         android:textColor="@color/light_black"
                         android:textSize="@dimen/dimens_16sp" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp">
                         <TextView
                             android:id="@+id/workorder_fxbm"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toLeftOf="@+id/fxbm_img"
-                            android:background="@drawable/editsharp_02"
-                            android:gravity="center_vertical|end"
-                            android:hint="@string/have_not_data"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/editsharp"
+                            android:drawablePadding="@dimen/dimen_5"
+                            android:drawableRight="@drawable/ic_spinner"
+                            android:gravity="center|right"
+                            android:hint="@string/please_choose_hint"
                             android:textColor="@color/light_black"
-                            android:textSize="@dimen/dimens_16sp" />
-
-                        <ImageView
-                            android:id="@+id/fxbm_img"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/ic_spinner"
-                            android:layout_alignParentRight="true"/>
-                    </RelativeLayout>
+                            android:textSize="@dimen/dimens_16sp"  />
                 </LinearLayout>
 
                 <LinearLayout
