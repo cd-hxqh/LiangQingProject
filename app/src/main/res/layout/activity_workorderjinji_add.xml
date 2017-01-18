@@ -16,12 +16,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title_id"
+        android:fillViewport="true"
         android:layout_margin="10dp"
         android:background="@color/white"
         android:scrollbars="vertical">
 
         <LinearLayout
             android:id="@+id/container"
+            android:layout_below="@+id/title_id"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/light_gray"
@@ -139,7 +141,7 @@
                         android:id="@+id/recyclerView"
                         android:layout_below="@+id/title_relativelayout_id"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="100dp"
                         android:choiceMode="singleChoice"
                         android:divider="@null"
                         android:fadingEdge="none"

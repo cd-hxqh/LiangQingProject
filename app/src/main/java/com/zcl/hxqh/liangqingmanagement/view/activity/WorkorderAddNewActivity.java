@@ -11,12 +11,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.flyco.animation.BaseAnimatorSet;
@@ -32,9 +30,6 @@ import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import com.lzy.imagepicker.view.CropImageView;
 import com.zcl.hxqh.liangqingmanagement.R;
 import com.zcl.hxqh.liangqingmanagement.adapter.ImageLoadAdapter;
-import com.zcl.hxqh.liangqingmanagement.api.HttpManager;
-import com.zcl.hxqh.liangqingmanagement.api.HttpRequestHandler;
-import com.zcl.hxqh.liangqingmanagement.bean.Results;
 import com.zcl.hxqh.liangqingmanagement.constants.Constants;
 import com.zcl.hxqh.liangqingmanagement.dialog.FlippingLoadingDialog;
 import com.zcl.hxqh.liangqingmanagement.model.WORKORDER;
@@ -57,7 +52,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 
@@ -91,7 +85,7 @@ public class WorkorderAddNewActivity extends BaseActivity implements ImageLoadAd
     /**
      * 提交按钮
      **/
-    private Button submitBtn;
+    private ImageButton submitBtn;
 
     private TextView sb;//设备
     private TextView sbwz;//设备位置
@@ -134,6 +128,8 @@ public class WorkorderAddNewActivity extends BaseActivity implements ImageLoadAd
 
     protected FlippingLoadingDialog mLoadingDialog;
 
+    private int i;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,7 +154,7 @@ public class WorkorderAddNewActivity extends BaseActivity implements ImageLoadAd
     protected void findViewById() {
         backImageView = (ImageView) findViewById(R.id.title_back_id);
         titleTextView = (TextView) findViewById(R.id.title_name);
-        submitBtn = (Button) findViewById(R.id.sbmit_id);
+        submitBtn = (ImageButton) findViewById(R.id.sbmittext_id);
 
         sb = (TextView) findViewById(R.id.workorder_sb);
         sbwz = (TextView) findViewById(R.id.workorder_sbwz);
@@ -397,29 +393,29 @@ public class WorkorderAddNewActivity extends BaseActivity implements ImageLoadAd
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                Log.i(TAG, "s=" + s);
                 try {
                     JSONObject jsonObject = new JSONObject(s);
-                    if (jsonObject.has("success") && jsonObject.getString("success").equals("1")) {
-                        MessageUtils.showMiddleToast(WorkorderAddNewActivity.this, "新建成功");
-                        if (adapter.getItemCount()!=0) {
-                            mLoadingDialog.setText("正在上传图片...");
-                            String msg = jsonObject.getString("msg");
-                            for (ImageItem imageItem : adapter.getImages()) {
-                                int i = 0;
-                                i++;
-                                startAsyncTask(imageItem.path, msg.contains(",") ? msg.replace(",", "") : msg, i);
-                            }
-                        }else {
-                            mLoadingDialog.dismiss();
+                    String success = jsonObject.getString("success");
+                    String msg = jsonObject.getString("msg");
+                    if (success.equals("1") && !msg.equals("") && adapter.getImages().size() != 0) {
+                        mLoadingDialog.setText("正在上传图片...");
+                        for (ImageItem imageItem : adapter.getImages()) {
+                            i++;
+                            startAsyncTask(imageItem.path, msg.contains(",") ? msg.replace(",", "") : msg);
                         }
+                    } else if (adapter.getImages().size() == 0) {
+                        mLoadingDialog.dismiss();
+                        MessageUtils.showMiddleToast(WorkorderAddNewActivity.this, "新建成功");
+                        finish();
                     } else {
                         mLoadingDialog.dismiss();
-                        MessageUtils.showMiddleToast(WorkorderAddNewActivity.this, "新建失败");
+                        MessageUtils.showMiddleToast(WorkorderAddNewActivity.this, msg);
+                        finish();
                     }
                 } catch (JSONException e) {
                     mLoadingDialog.dismiss();
                     MessageUtils.showMiddleToast(WorkorderAddNewActivity.this, s);
+                    finish();
                 }
             }
         }.execute();
@@ -496,7 +492,7 @@ public class WorkorderAddNewActivity extends BaseActivity implements ImageLoadAd
     /**
      * 提交图片
      **/
-    private void startAsyncTask(String fileName, final String ownid, final int i) {
+    private void startAsyncTask(String fileName, final String ownid) {
         Log.i(TAG, "fileName=" + fileName + ",ownid=" + ownid + ",i=" + i);
         File f = new File(fileName);
 

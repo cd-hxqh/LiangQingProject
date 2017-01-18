@@ -3,7 +3,6 @@ package com.zcl.hxqh.liangqingmanagement.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,11 +24,8 @@ import android.widget.TextView;
 import com.flyco.animation.BaseAnimatorSet;
 import com.flyco.animation.BounceEnter.BounceTopEnter;
 import com.flyco.animation.SlideExit.SlideBottomExit;
-import com.flyco.dialog.listener.OnBtnClickL;
-import com.flyco.dialog.widget.NormalDialog;
 import com.zcl.hxqh.liangqingmanagement.R;
 import com.zcl.hxqh.liangqingmanagement.adapter.BaseQuickAdapter;
-import com.zcl.hxqh.liangqingmanagement.adapter.CarlineListAdapter;
 import com.zcl.hxqh.liangqingmanagement.adapter.WorkorderListAdapter;
 import com.zcl.hxqh.liangqingmanagement.api.HttpManager;
 import com.zcl.hxqh.liangqingmanagement.api.HttpRequestHandler;
@@ -37,9 +33,7 @@ import com.zcl.hxqh.liangqingmanagement.api.JsonUtils;
 import com.zcl.hxqh.liangqingmanagement.bean.Results;
 import com.zcl.hxqh.liangqingmanagement.dialog.FlippingLoadingDialog;
 import com.zcl.hxqh.liangqingmanagement.model.WORKORDER;
-import com.zcl.hxqh.liangqingmanagement.until.MessageUtils;
 import com.zcl.hxqh.liangqingmanagement.view.widght.SwipeRefreshLayout;
-import com.zcl.hxqh.liangqingmanagement.webserviceclient.AndroidClientService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,7 +108,6 @@ public class WorkorderListActivity extends BaseActivity implements SwipeRefreshL
     }
 
     private void geiIntentData() {
-//        n_car = (WORKORDER) getIntent().getSerializableExtra("n_car");
     }
 
     @Override

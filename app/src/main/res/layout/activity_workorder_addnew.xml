@@ -174,7 +174,7 @@
                         android:id="@+id/recyclerView"
                         android:layout_below="@+id/title_relativelayout_id"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="100dp"
                         android:choiceMode="singleChoice"
                         android:divider="@null"
                         android:fadingEdge="none"

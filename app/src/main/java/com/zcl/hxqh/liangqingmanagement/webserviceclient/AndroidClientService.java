@@ -24,14 +24,13 @@ public class AndroidClientService {
     private static final String TAG = "AndroidClientService";
     public static String NAMESPACE = "http://www.ibm.com/maximo";
     public String url = null;
-    public static  int timeOut = 1200000;
-
+    public static int timeOut = 1200000;
 
 
     /**
      * 粮情检查单新增及修改
      */
-    public static String addAndUpdateN_grainjc(final Context cxt,String json) {
+    public static String addAndUpdateN_grainjc(final Context cxt, String json) {
 
         String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.lqwebserviceURL;
 
@@ -52,16 +51,17 @@ public class AndroidClientService {
         String obj = null;
         try {
             obj = soapEnvelope.getResponse().toString();
-            Log.i(TAG,"obj="+obj);
+            Log.i(TAG, "obj=" + obj);
         } catch (SoapFault soapFault) {
             soapFault.printStackTrace();
         }
         return obj;
     }
+
     /**
      * 扦样单新增及修改
      */
-    public static String addAndUpdateN_SAMPLE(final Context cxt,String json) {
+    public static String addAndUpdateN_SAMPLE(final Context cxt, String json) {
 
         String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.qywebserviceURL;
 
@@ -92,7 +92,7 @@ public class AndroidClientService {
     /**
      * 根据TAGID获取车号
      */
-    public static String addAndUpdateN_SAMPLE1(final Context cxt,String tagId,String enterby) {
+    public static String addAndUpdateN_SAMPLE1(final Context cxt, String tagId, String enterby) {
 
         String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.qywebservice1URL;
 
@@ -116,7 +116,7 @@ public class AndroidClientService {
         String obj = null;
         try {
             obj = soapEnvelope.getResponse().toString();
-            Log.i(TAG,"obj="+obj);
+            Log.i(TAG, "obj=" + obj);
         } catch (SoapFault soapFault) {
             soapFault.printStackTrace();
         }
@@ -127,7 +127,7 @@ public class AndroidClientService {
     /**
      * 根据货位号获取任务检查单号
      */
-    public static String addN_SAMPLE1LOC(final Context cxt,String loc,String enterby) {
+    public static String addN_SAMPLE1LOC(final Context cxt, String loc, String enterby) {
 
         String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.qywebservice1URL;
 
@@ -151,7 +151,7 @@ public class AndroidClientService {
         String obj = null;
         try {
             obj = soapEnvelope.getResponse().toString();
-            Log.i(TAG,"obj="+obj);
+            Log.i(TAG, "obj=" + obj);
         } catch (SoapFault soapFault) {
             soapFault.printStackTrace();
         }
@@ -161,7 +161,7 @@ public class AndroidClientService {
     /**
      * 根据是否火车与车号获取任务检查单号
      */
-    public static String addN_SAMPLE2LOC(final Context cxt,String carno,String train,String enterby) {
+    public static String addN_SAMPLE2LOC(final Context cxt, String carno, String train, String enterby) {
 
         String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.qywebservice1URL;
 
@@ -186,7 +186,7 @@ public class AndroidClientService {
         String obj = null;
         try {
             obj = soapEnvelope.getResponse().toString();
-            Log.i(TAG,"obj="+obj);
+            Log.i(TAG, "obj=" + obj);
         } catch (SoapFault soapFault) {
             soapFault.printStackTrace();
         }
@@ -195,9 +195,9 @@ public class AndroidClientService {
 
 
     /**
-     *根据创建时间与货位号获取相关信息
+     * 根据创建时间与货位号获取相关信息
      */
-    public static String getN_GRAINS(final Context cxt,String loc,String reportdate) {
+    public static String getN_GRAINS(final Context cxt, String loc, String reportdate) {
 
         String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.lqwebserviceURL;
 
@@ -221,7 +221,7 @@ public class AndroidClientService {
         String obj = null;
         try {
             obj = soapEnvelope.getResponse().toString();
-            Log.i(TAG,"obj="+obj);
+            Log.i(TAG, "obj=" + obj);
         } catch (SoapFault soapFault) {
             soapFault.printStackTrace();
         }
@@ -231,7 +231,7 @@ public class AndroidClientService {
     /**
      * 货运预报新增
      */
-    public static String addAndUpdateN_CAR(final Context cxt,String json) {
+    public static String addAndUpdateN_CAR(final Context cxt, String json) {
 
         String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.carwebserviceURL;
 
@@ -259,11 +259,10 @@ public class AndroidClientService {
     }
 
 
-
     /**
      * 消缺工单
      */
-    public static String addN_WTLINE(final Context cxt,String cardid,String ip) {
+    public static String addN_WTLINE(final Context cxt, String cardid, String ip) {
 
         String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.carwebserviceURL;
 
@@ -292,12 +291,10 @@ public class AndroidClientService {
     }
 
 
-
-
     /**
      * 快速上报新建
      */
-    public static String addKsWorkOrder(final Context cxt,String n_region,String description,String reportedby) {
+    public static String addKsWorkOrder(final Context cxt, String n_region, String description, String reportedby) {
 
         String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.WorkOrderwebserviceURL;
 
@@ -327,14 +324,14 @@ public class AndroidClientService {
     }
 
 
-
-
     /**
      * 缺陷管理
      */
-    public static String saveQX(final Context cxt,String personid,String elc_no,String lim_sht,String pla_no,
-                                String fun_crw,String fun_per,String fum_dtm,String lim_not,String worktype,String supervisor,
-                                String recreq,String schedfinish) {
+    public static String saveQX(final Context cxt, String personid, String elc_no, String lim_sht, String pla_no,
+                                String fun_crw, String fun_per, String fum_dtm, String lim_not, String worktype, String supervisor,
+                                String recreq, String schedfinish) {
+
+
 
         String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.WorkOrderwebserviceURL;
 
@@ -400,7 +397,6 @@ public class AndroidClientService {
         return webResult;
     }
 
-
     /**
      * 图片上传
      */
@@ -433,8 +429,6 @@ public class AndroidClientService {
         }
         return webResult;
     }
-
-
 
 
 }

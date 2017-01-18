@@ -74,6 +74,10 @@
             android:label="MainActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".view.activity.N_grainjcListActivity"
+            android:label="N_grainjcListActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".view.activity.N_grainjcDetailsActivity"
             android:label="N_grainjcDetailsActivity"
             android:screenOrientation="portrait" />

@@ -16,7 +16,6 @@
  */
 package com.zcl.hxqh.liangqingmanagement.view.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -30,7 +29,7 @@ import com.zcl.hxqh.liangqingmanagement.until.GestureLockViewGroup.OnGestureLock
 
 
 /**
- * An {@link Activity} which handles a broadcast of a new tag that the device just discovered.
+ * 手势登陆
  */
 public class FastLoginActivity extends BaseActivity {
     private TextView ConnectSetting;//连接设置

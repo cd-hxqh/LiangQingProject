@@ -243,17 +243,15 @@ public class MainActivity extends BaseActivity
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle("");
         title.setText(mTitle);
-        if (mSelectPos == 0 || mSelectPos == 1 || mSelectPos == 2) {
+        if (mSelectPos == 1 || mSelectPos == 2) {
             addImage.setVisibility(View.VISIBLE);
             addImage.setImageResource(R.drawable.ic_add);
         } else if (mSelectPos == 3) {
             addImage.setVisibility(View.GONE);
-        }
-
-        else if (mSelectPos == 4) {
+        } else if (mSelectPos == 4) {
             addImage.setVisibility(View.VISIBLE);
             addImage.setImageResource(R.drawable.ic_dk);
-        } else if (mSelectPos == 5) {
+        } else if (mSelectPos == 0 || mSelectPos == 5) {
             addImage.setVisibility(View.GONE);
         } else if (mSelectPos == 6) {
             addImage.setVisibility(View.GONE);
