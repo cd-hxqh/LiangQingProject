@@ -203,7 +203,7 @@ public class HttpManager {
         if (value.equals("")) {
             return "{'appid':'" + Constants.PERSON_APPID + "','objectname':'" + Constants.PERSON_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'PERSONID DESC'}";
         }
-        return "{'appid':'" + Constants.PERSON_APPID + "','objectname':'" + Constants.PERSON_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'PERSONID DESC','sinorsearch':{'DISPLAYNAME':'" + value + "','TITLE':'" + value + "','DEPARTMENT':'" + value + "'}}";
+        return "{'appid':'" + Constants.PERSON_APPID + "','objectname':'" + Constants.PERSON_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'PERSONID DESC','sinorsearch':{'PERSONID':'" + value + "','DISPLAYNAME':'" + value + "','TITLE':'" + value + "','DEPARTMENT':'" + value + "'}}";
     }
 
     /**

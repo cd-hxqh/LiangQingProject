@@ -247,7 +247,7 @@ public class PersonChooseActivity extends BaseActivity implements SwipeRefreshLa
      * 获取数据*
      */
     private void initAdapter(final List<PERSON> list) {
-        storeinfolistadapter = new PersonAdapter(PersonChooseActivity.this, R.layout.list_xxz_item, list);
+        storeinfolistadapter = new PersonAdapter(PersonChooseActivity.this, R.layout.list_person_item, list);
         recyclerView.setAdapter(storeinfolistadapter);
         storeinfolistadapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override

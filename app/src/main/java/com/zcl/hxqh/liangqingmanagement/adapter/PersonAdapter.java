@@ -33,12 +33,14 @@ public class PersonAdapter extends BaseQuickAdapter<PERSON> {
     @Override
     protected void convert(BaseViewHolder helper, PERSON item) {
         CardView cardView = helper.getView(R.id.card_container);
-        helper.setText(R.id.new_loc_title, "名称:");
-        helper.setText(R.id.name_title_id, "头衔:");
-        helper.setText(R.id.oldloc_title_id, "部门:");
-        helper.setText(R.id.loc_text_id, item.getDISPLAYNAME());
-        helper.setText(R.id.name_text_id, item.getTITLE());
-        helper.setText(R.id.oldloc_text_id, item.getDEPARTMENT());
+        helper.setText(R.id.new_loc_title, "编号:");
+        helper.setText(R.id.name_title_id, "名称:");
+        helper.setText(R.id.oldloc_title_id, "头衔:");
+        helper.setText(R.id.loc_title_id, "部门:");
+        helper.setText(R.id.loc_text_id, item.getPERSONID());
+        helper.setText(R.id.name_text_id, item.getDISPLAYNAME());
+        helper.setText(R.id.oldloc_text_id, item.getTITLE());
+        helper.setText(R.id.sloc_text_id, item.getDEPARTMENT());
     }
 
 

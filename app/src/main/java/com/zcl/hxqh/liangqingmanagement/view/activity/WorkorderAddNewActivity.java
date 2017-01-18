@@ -108,6 +108,7 @@ public class WorkorderAddNewActivity extends BaseActivity implements ImageLoadAd
 
     private String ASSETNUM;//设备编号
     private String zrrId;//责任人id
+    private String fxrId;//发现人id
 
     private WORKORDER workorder;
 
@@ -380,7 +381,7 @@ public class WorkorderAddNewActivity extends BaseActivity implements ImageLoadAd
         final String sbwzText = sbwz.getText().toString();
         final String descriptionText = description.getText().toString();
         final String fxbmText = fxbm.getText().toString();
-        final String fxrText = fxr.getText().toString();
+        final String fxrText = fxrId;
         final String reportdateText = reportdate.getText().toString();
         final String zrrText = zrrId;
         final String schedfinishText = schedfinish.getText().toString();
@@ -484,6 +485,7 @@ public class WorkorderAddNewActivity extends BaseActivity implements ImageLoadAd
             switch (requestCode) {
                 case 1002:
                     fxr.setText(data.getStringExtra("displayname"));
+                    fxrId = data.getStringExtra("personid");
                     break;
                 case 1003:
                     zrr.setText(data.getStringExtra("displayname"));
