@@ -77,7 +77,7 @@
     <string name="jbxx_text">基本信息</string>
     <string name="lqjc_text">粮情检查</string>
     <string name="chjc_text">虫害检查</string>
-    <string name="sbssjc_text">设备设施安全卫士检查</string>
+    <string name="sbssjc_text">设备设施安全卫生检查</string>
     <string name="aqjc_text">作业现场检查</string>
 
     <!--基本信息-->
@@ -362,11 +362,11 @@
     <string name="wonum_text">工单编号:</string>
     <string name="n_region_text">区域:</string>
     <string name="gzms_text">故障描述:</string>
-    <string name="jjgd_text">紧急工单</string>
     <string name="kssb_text">快速上报</string>
     <string name="sctp_text">上传图片:</string>
     <string name="please_choose_hint">请选择区域</string>
 
     <string name="attachment_details">图片查看</string>
     <string name="work_commit">图片上传</string>
+    <string name="qxgd_text">消缺工单</string>
 </resources>

@@ -21,19 +21,19 @@
 
 
                 <TextView
-                    android:id="@+id/workorder_qx_id"
+                    android:id="@+id/lqjc_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/dimen_5"
-                    android:drawableTop="@drawable/ic_workorder_qx"
+                    android:drawableTop="@drawable/ic_lqjc"
                     android:gravity="center"
-                    android:text="@string/qxgd_text"></TextView>
+                    android:text="@string/lqjc_text"></TextView>
 
             </LinearLayout>
 
 
             <LinearLayout
-                android:id="@+id/work_linear_prevent_id"
+                android:id="@+id/sbwsjc_layout_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -42,14 +42,35 @@
 
 
                 <TextView
-                    android:id="@+id/workorder_jj_id"
+                    android:id="@+id/sbwsjc_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawablePadding="@dimen/dimen_5"
-                    android:drawableTop="@drawable/ic_workorder_jj"
+                    android:drawableTop="@drawable/ic_sbwsjc"
                     android:gravity="center"
-                    android:text="@string/kssb_text"></TextView>
+                    android:text="@string/sbssjc_text"></TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/zyxcjc_layout_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/zyxcjc_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="@dimen/dimen_5"
+                    android:drawableTop="@drawable/ic_zyxcjc"
+                    android:gravity="center"
+                    android:text="@string/aqjc_text"></TextView>
 
             </LinearLayout>
 

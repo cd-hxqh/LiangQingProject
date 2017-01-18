@@ -26,11 +26,11 @@ public class HttpManager {
     /**
      * 设置仓储粮情检查单的接口
      */
-    public static String getN_GRAINJC(String value, int curpage, int showcount) {
+    public static String getN_GRAINJC(String value, String worktype,int curpage, int showcount) {
         if (value.equals("")) {
-            return "{'appid':'" + Constants.N_GRAINJC_APPID + "','objectname':'" + Constants.N_GRAINJC_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'GRAINSNUN DESC'}";
+            return "{'appid':'" + Constants.N_GRAINJC_APPID + "','objectname':'" + Constants.N_GRAINJC_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'GRAINSNUN DESC','condition':{'WORKTYPE':'=" + worktype + "'}}";
         }
-        return "{'appid':'" + Constants.N_GRAINJC_APPID + "','objectname':'" + Constants.N_GRAINJC_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'GRAINSNUN DESC','sinorsearch':{'GRAINSNUN':'" + value + "','DESCRIPTION':'" + value + "'}}";
+        return "{'appid':'" + Constants.N_GRAINJC_APPID + "','objectname':'" + Constants.N_GRAINJC_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'GRAINSNUN DESC','condition':{'WORKTYPE':'=" + worktype + "'},'sinorsearch':{'GRAINSNUN':'" + value + "','DESCRIPTION':'" + value + "'}}";
     }
 
     /**
@@ -67,11 +67,11 @@ public class HttpManager {
     /**
      * 设置考勤管理的接口
      */
-    public static String getN_WTLINE(String value,String start,String yesterday,String ip,int curpage, int showcount) {
+    public static String getN_WTLINE(String value, String start, String yesterday, String ip, int curpage, int showcount) {
         if (value.equals("")) {
-            return "{'appid':'" + Constants.N_WTLINE_APPID + "','objectname':'" + Constants.N_WTLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'N_WTLINEID DESC','condition':{'START':'<=" + start + "','START':'>=" + yesterday + "','IP':'="+ip+"'}}";
+            return "{'appid':'" + Constants.N_WTLINE_APPID + "','objectname':'" + Constants.N_WTLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'N_WTLINEID DESC','condition':{'START':'<=" + start + "','START':'>=" + yesterday + "','IP':'=" + ip + "'}}";
         }
-        return "{'appid':'" + Constants.N_WTLINE_APPID + "','objectname':'" + Constants.N_WTLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'N_WTLINEID DESC','condition':{'START':'=" + start + "','IP':'="+ip+"'},'sinorsearch':{'NAME':'" + value + "'}}";
+        return "{'appid':'" + Constants.N_WTLINE_APPID + "','objectname':'" + Constants.N_WTLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'N_WTLINEID DESC','condition':{'START':'=" + start + "','IP':'=" + ip + "'},'sinorsearch':{'NAME':'" + value + "'}}";
     }
 
     /**
@@ -84,13 +84,14 @@ public class HttpManager {
     /**
      * 设置考勤记录的接口
      */
-    public static String getN_WTLINE2(String n_cardnum,int curpage, int showcount) {
+    public static String getN_WTLINE2(String n_cardnum, int curpage, int showcount) {
         return "{'appid':'" + Constants.N_WTLINE_APPID + "','objectname':'" + Constants.N_WTLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'N_WTLINEID DESC','condition':{'CARDID':'=" + n_cardnum + "'}}";
     }
+
     /**
      * 设置用工记录的接口
      */
-    public static String getWTLABOR(String cardnum,int curpage, int showcount) {
+    public static String getWTLABOR(String cardnum, int curpage, int showcount) {
         return "{'appid':'" + Constants.WTLABORVIEW_APPID + "','objectname':'" + Constants.WTLABORVIEW_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'STARTTIME DESC','condition':{'CARDNUM':'=" + cardnum + "'}}";
 //        return "{'appid':'" + Constants.WTLABORVIEW_APPID + "','objectname':'" + Constants.WTLABORVIEW_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'STARTTIME DESC'}";
     }
@@ -108,11 +109,11 @@ public class HttpManager {
     /**
      * 设置紧急工单的接口
      */
-    public static String getJinJiWORKORDER(String value, int curpage, int showcount) {
+    public static String getJinJiWORKORDER(String value, String reportedby, int curpage, int showcount) {
         if (value.equals("")) {
-            return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.WORKORDER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WORKORDERID DESC','condition':{'WORKTYPE':'EM'}}";
+            return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.WORKORDER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WORKORDERID DESC','condition':{'WORKTYPE':'EM','REPORTEDBY':'" + reportedby + "'}}";
         }
-        return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.WORKORDER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WORKORDERID DESC','condition':{'WORKTYPE':'EM'},'sinorsearch':{'SB':'" + value + "','DESCRIPTION':'" + value + "'}}";
+        return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.WORKORDER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WORKORDERID DESC','condition':{'WORKTYPE':'EM','REPORTEDBY':'" + reportedby + "'},'sinorsearch':{'SB':'" + value + "','DESCRIPTION':'" + value + "'}}";
     }
 
     /**
@@ -139,11 +140,11 @@ public class HttpManager {
     /**
      * 车皮跟踪
      */
-    public static String getN_WAGONS(String value,String status, int curpage, int showcount) {
+    public static String getN_WAGONS(String value, String status, int curpage, int showcount) {
         if (value.equals("")) {
-            return "{'appid':'" + Constants.N_SAMPLE_APPID + "','objectname':'" + Constants.N_WAGONS_NAME  + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','condition':{'STATUS':'" + status + "'}}";
+            return "{'appid':'" + Constants.N_SAMPLE_APPID + "','objectname':'" + Constants.N_WAGONS_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','condition':{'STATUS':'" + status + "'}}";
         }
-        return "{'appid':'" + Constants.N_SAMPLE_APPID + "','objectname':'" + Constants.N_WAGONS_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WAGONNUM DESC','condition':{'STATUS':'" + status +"'},'sinorsearch':{'WAGONNUM':'" + value + "'}}";
+        return "{'appid':'" + Constants.N_SAMPLE_APPID + "','objectname':'" + Constants.N_WAGONS_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WAGONNUM DESC','condition':{'STATUS':'" + status + "'},'sinorsearch':{'WAGONNUM':'" + value + "'}}";
 
 
     }
@@ -151,8 +152,8 @@ public class HttpManager {
     /**
      * 车辆作业单
      */
-    public static String getN_CARTASK(String tagId,int curpage, int showcount) {
-        return "{'appid':'" + Constants.N_CARTASK_NAME + "','objectname':'" + Constants.N_CARTASK_NAME +"','curpage':" + curpage + ",'showcount':" + showcount +  ",'option':'read','orderby':'INTIME DESC','condition':{'TAGID':'=" + tagId +"'}}";
+    public static String getN_CARTASK(String tagId, int curpage, int showcount) {
+        return "{'appid':'" + Constants.N_CARTASK_NAME + "','objectname':'" + Constants.N_CARTASK_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INTIME DESC','condition':{'TAGID':'=" + tagId + "'}}";
     }
 
 
@@ -209,17 +210,9 @@ public class HttpManager {
     /**
      * 查询附件的接口
      */
-    public static String getDoclinks(String ownertable, String ownerid){
-        return "{'appid':'" + Constants.DOCLINKS_APPID + "','objectname':'" + Constants.DOCLINKS_NAME  + "','option':'read','condition':{'OWNERTABLE':'=" + ownertable  + "','OWNERID':'=" + ownerid+"'}}";
+    public static String getDoclinks(String ownertable, String ownerid) {
+        return "{'appid':'" + Constants.DOCLINKS_APPID + "','objectname':'" + Constants.DOCLINKS_NAME + "','option':'read','condition':{'OWNERTABLE':'=" + ownertable + "','OWNERID':'=" + ownerid + "'}}";
     }
-
-
-
-
-
-
-
-
 
 
     /**

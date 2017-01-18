@@ -101,6 +101,8 @@ public class WorkorderJinJiAddActivity extends BaseActivity implements ImageLoad
 
     private ImagePicker imagePicker;
 
+    private int i;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,8 +194,6 @@ public class WorkorderJinJiAddActivity extends BaseActivity implements ImageLoad
             imagePicker.takePicture(WorkorderJinJiAddActivity.this, ImagePicker.REQUEST_CODE_TAKE);
         }
     };
-
-
 
 
     private View.OnClickListener submitBtnBtnOnClickListener = new View.OnClickListener() {
@@ -314,7 +314,7 @@ public class WorkorderJinJiAddActivity extends BaseActivity implements ImageLoad
                 new OnBtnClickL() {
                     @Override
                     public void onBtnClick() {
-                        getLoadingDialog("正在提交");
+                        getLoadingDialog("正在提交").show();
                         startAsyncTask();
 
                         dialog.dismiss();
@@ -366,14 +366,19 @@ public class WorkorderJinJiAddActivity extends BaseActivity implements ImageLoad
             if (success.equals("1") && !msg.equals("") && adapter.getImages().size() != 0) {
                 mLoadingDialog.setText("正在上传图片...");
                 for (ImageItem imageItem : adapter.getImages()) {
-                    int i = 0;
                     i++;
-                    startAsyncTask(imageItem.path, msg, i);
+                    Log.i(TAG,"i="+i);
+                    startAsyncTask(imageItem.path, msg);
                 }
 
-            } else {
+            } else if(adapter.getImages().size() == 0){
+                mLoadingDialog.dismiss();
+                MessageUtils.showMiddleToast(WorkorderJinJiAddActivity.this, "新建成功");
+                finish();
+            }else{
                 mLoadingDialog.dismiss();
                 MessageUtils.showMiddleToast(WorkorderJinJiAddActivity.this, msg);
+                finish();
             }
         } catch (JSONException e) {
             mLoadingDialog.dismiss();
@@ -387,7 +392,7 @@ public class WorkorderJinJiAddActivity extends BaseActivity implements ImageLoad
     /**
      * 提交图片
      **/
-    private void startAsyncTask(String fileName, final String ownid, final int i) {
+    private void startAsyncTask(String fileName, final String ownid) {
         Log.i(TAG, "fileName=" + fileName + ",ownid=" + ownid + ",i=" + i);
         File f = new File(fileName);
 
@@ -424,7 +429,7 @@ public class WorkorderJinJiAddActivity extends BaseActivity implements ImageLoad
                                 @Override
                                 protected void onPostExecute(String workResult) {
                                     super.onPostExecute(workResult);
-                                    if (i == adapter.getItemCount()) {
+                                    if (!workResult.equals("") && i == adapter.getItemCount()) {
                                         MessageUtils.showMiddleToast(WorkorderJinJiAddActivity.this, "图片上传成功");
                                         mLoadingDialog.dismiss();
                                         finish();

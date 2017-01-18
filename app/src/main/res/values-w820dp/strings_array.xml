@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
     <string-array name="drawer_tab_titles">
-        <item>仓储粮情标准单</item>
+        <item>仓储基础工作</item>
         <item>扦样单</item>
         <item>货运预报</item>
         <item>工单管理</item>

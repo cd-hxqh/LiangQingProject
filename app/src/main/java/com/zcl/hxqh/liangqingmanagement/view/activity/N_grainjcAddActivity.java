@@ -785,11 +785,14 @@ public class N_grainjcAddActivity extends BaseActivity {
 
     protected FlippingLoadingDialog mLoadingDialog;
 
+    private String worktype;  //作业性质
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grainjc_details);
+        initData();
         findViewById();
         initView();
         InitImageView();
@@ -800,6 +803,13 @@ public class N_grainjcAddActivity extends BaseActivity {
         mBasOut = new SlideBottomExit();
     }
 
+
+    /**
+     * 初始化界面数据*
+     */
+    private void initData() {
+        worktype = getIntent().getExtras().getString("worktype");
+    }
 
     @Override
     protected void findViewById() {
@@ -824,6 +834,19 @@ public class N_grainjcAddActivity extends BaseActivity {
         titleTextView.setText(getString(R.string.cclqbzd_text_text));
         sbmitBtn.setVisibility(View.VISIBLE);
         sbmitBtn.setOnClickListener(sbmitBtnOnClickListener);
+        if (worktype.equals("粮情检查")) {
+            lqjcText.setVisibility(View.VISIBLE);
+            sbssjcText.setVisibility(View.GONE);
+            aqjcText.setVisibility(View.GONE);
+        } else if (worktype.equals("设备设施安全卫生检查")) {
+            lqjcText.setVisibility(View.GONE);
+            sbssjcText.setVisibility(View.VISIBLE);
+            aqjcText.setVisibility(View.GONE);
+        } else if (worktype.equals("作业现场检查")) {
+            lqjcText.setVisibility(View.GONE);
+            sbssjcText.setVisibility(View.GONE);
+            aqjcText.setVisibility(View.VISIBLE);
+        }
     }
 
 
