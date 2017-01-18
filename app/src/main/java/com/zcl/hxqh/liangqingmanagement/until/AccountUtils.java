@@ -59,6 +59,18 @@ public class AccountUtils {
         sharedPreferences.edit().putString(cxt.getString(R.string.logined_member_username), userName).putString(cxt.getString(R.string.logined_member_password), password).commit();
     }
 
+    /**
+     * 记录用户名
+     *
+     * @param cxt
+     * @param userName
+     */
+
+    public static void setUserName(Context cxt, String userName) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(cxt);
+        sharedPreferences.edit().putString(cxt.getString(R.string.logined_member_username), userName).commit();
+    }
+
 
     /**
      * 获取记住的用户名

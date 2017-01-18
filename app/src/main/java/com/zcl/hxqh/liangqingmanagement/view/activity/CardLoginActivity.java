@@ -47,10 +47,18 @@ import com.flyco.animation.BounceEnter.BounceTopEnter;
 import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.widget.NormalDialog;
+import com.lzy.imagepicker.bean.ImageItem;
 import com.zcl.hxqh.liangqingmanagement.R;
+import com.zcl.hxqh.liangqingmanagement.api.HttpManager;
+import com.zcl.hxqh.liangqingmanagement.api.HttpRequestHandler;
 import com.zcl.hxqh.liangqingmanagement.dialog.FlippingLoadingDialog;
+import com.zcl.hxqh.liangqingmanagement.until.AccountUtils;
 import com.zcl.hxqh.liangqingmanagement.until.MessageUtils;
 import com.zcl.hxqh.liangqingmanagement.webserviceclient.AndroidClientService;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -268,15 +276,120 @@ public class CardLoginActivity extends BaseActivity {
                 tagId = dumpTagData(tag);
 
             }
-
-                Intent bIntent = getIntent();
-                bIntent.putExtra("tagId", tagId);
-                setResult(1002, intent);
-                finish();
+            getAsyncTask("8116389");
+//                Intent bIntent = getIntent();
+//                bIntent.putExtra("tagId", tagId);
+//                setResult(1002, intent);
+//                finish();
 //            buildTagViews(tagId);
         }
     }
 
+    /**
+     * 获取用户名密码数据*
+     */
+    private void getAsyncTask(final String cardnum) {
+        new AsyncTask<String, String, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                return AndroidClientService.mobilelogin_Mobile_1(CardLoginActivity.this,cardnum );
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                if (isJsonArrary(s)){
+                    try {
+                        JSONArray jsonArray = new JSONArray(s);
+                        JSONObject jsonObject = jsonArray.getJSONObject(0);
+                        if (jsonObject.has("loginid")&&jsonObject.has("password")){
+//                            AccountUtils.setUserName(CardLoginActivity.this,jsonObject.getString("loginid"));
+//                            startIntent();
+                            login(jsonObject.getString("loginid"),jsonObject.getString("password"));
+                        }else {
+                            MessageUtils.showErrorMessage(CardLoginActivity.this,s);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    MessageUtils.showErrorMessage(CardLoginActivity.this,s);
+                }
+            }
+        }.execute();
+    }
+
+    /**
+     * 登陆*
+     */
+    private void login(final String mUsername, final String mPassword) {
+        getLoadingDialog("正在登陆...").show();
+        String imei = ((TelephonyManager) getSystemService(TELEPHONY_SERVICE))
+                .getDeviceId();
+        HttpManager.loginWithUsername(CardLoginActivity.this,
+                mUsername,
+                mPassword, imei,
+                new HttpRequestHandler<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+
+                        getLoadingDialog("正在登陆...").dismiss();
+                        if (data != null) {
+                            getBaseApplication().setUsername(mUsername);
+                            try {//保存登录返回信息
+                                JSONObject object = new JSONObject(data);
+                                JSONObject LoginDetails = object.getJSONObject("userLoginDetails");
+                                AccountUtils.setLoginDetails(CardLoginActivity.this, LoginDetails.getString("insertOrg"), LoginDetails.getString("insertSite"),
+                                        LoginDetails.getString("personId"), object.getString("userName"), LoginDetails.getString("displayName"),LoginDetails.getString("loginUserName"));
+//                            findByDepartment(LoginDetails.getString("personId"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            startIntent();
+                        }
+                    }
+
+                    @Override
+                    public void onSuccess(String data, int totalPages, int currentPage) {
+                        if (data != null) {
+                            MessageUtils.showMiddleToast(CardLoginActivity.this, getString(R.string.login_successful_hint));
+
+                            startIntent();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String error) {
+                        MessageUtils.showErrorMessage(CardLoginActivity.this, error);
+                        getLoadingDialog("正在登陆...").dismiss();
+                    }
+                });
+    }
+
+    private boolean isJsonArrary(String data){
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+        } catch (JSONException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 跳转至主界面*
+     */
+    private void startIntent() {
+        Intent intent = new Intent();
+        intent.setClass(this, MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+    }
+
+    private FlippingLoadingDialog getLoadingDialog(String msg) {
+        if (mLoadingDialog == null)
+            mLoadingDialog = new FlippingLoadingDialog(this, msg);
+        return mLoadingDialog;
+    }
 
     /**
      * CarId

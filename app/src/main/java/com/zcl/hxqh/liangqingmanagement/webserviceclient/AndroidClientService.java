@@ -372,6 +372,33 @@ public class AndroidClientService {
         return obj;
     }
 
+    /**
+     * 扫卡登录
+     */
+    public static String mobilelogin_Mobile_1(Context context, String n_cardnum) {
+        String ip_adress = AccountUtils.getIpAddress(context) + Constants.LoginwebserviceURL;
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "mobilelogin_Mobile_1");
+        soapReq.addProperty("n_cardnum", n_cardnum);//文件名
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException | XmlPullParserException e) {
+            return null;
+        }
+        String obj = null;
+        String webResult = null;
+        try {
+            webResult = soapEnvelope.getResponse().toString();
+            Log.i(TAG, "webResult=" + webResult);
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return webResult;
+    }
 
 
     /**

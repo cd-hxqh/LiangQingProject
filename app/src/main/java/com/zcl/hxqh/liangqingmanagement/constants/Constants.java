@@ -39,6 +39,8 @@ public class Constants {
     //缺陷工单,快速上报webservice新增接口
     public static final String WorkOrderwebserviceURL = "/meaweb/services/MOBILEROUTES";
 
+    //登录webservice新增接口
+    public static final String LoginwebserviceURL = "/meaweb/services/MOBILELOGIN_";
 
     //通用接口查询
     public static final String BASE_URL =  "/maximo/mobile/common/api";
