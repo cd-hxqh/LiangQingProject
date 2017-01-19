@@ -16,11 +16,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -73,7 +73,7 @@ public class N_grainjcAddActivity extends BaseActivity {
     /**
      * 确定按钮
      **/
-    private Button sbmitBtn;
+    private ImageButton sbmitBtn;
 
     /**
      * ViewPager*
@@ -815,7 +815,7 @@ public class N_grainjcAddActivity extends BaseActivity {
     protected void findViewById() {
         backImageView = (ImageView) findViewById(R.id.title_back_id);
         titleTextView = (TextView) findViewById(R.id.title_name);
-        sbmitBtn = (Button) findViewById(R.id.sbmit_id);
+        sbmitBtn = (ImageButton) findViewById(R.id.sbmittext_id);
 
         jbxxText = (TextView) findViewById(R.id.jbxx_text);
         lqjcText = (TextView) findViewById(R.id.lqjc_text);

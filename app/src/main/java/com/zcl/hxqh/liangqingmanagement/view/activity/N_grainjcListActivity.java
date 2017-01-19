@@ -16,7 +16,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -56,7 +55,7 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
     /**
      * 新增按钮
      **/
-    private Button addBtn;
+    private ImageView addBtn;
 
     LinearLayoutManager layoutManager;
 
@@ -120,7 +119,7 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
     protected void findViewById() {
         backImageView = (ImageView) findViewById(R.id.title_back_id);
         titleTextView = (TextView) findViewById(R.id.title_name);
-        addBtn = (Button) findViewById(R.id.sbmit_id);
+        addBtn = (ImageView) findViewById(R.id.title_add);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView_id);
         refresh_layout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
@@ -141,7 +140,7 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
         });
         titleTextView.setText(worktype);
         addBtn.setVisibility(View.VISIBLE);
-        addBtn.setText(R.string.add_text);
+        addBtn.setImageResource(R.drawable.ic_add);
         addBtn.setOnClickListener(addOnClickListener);
 
         setSearchEdit();

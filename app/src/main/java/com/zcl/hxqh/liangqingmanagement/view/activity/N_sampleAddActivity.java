@@ -9,11 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -72,7 +72,7 @@ public class N_sampleAddActivity extends BaseActivity {
     /**
      * 提交按钮
      **/
-    private Button submitBtn;
+    private ImageButton submitBtn;
 
 
     /**界面信息**/
@@ -205,7 +205,7 @@ public class N_sampleAddActivity extends BaseActivity {
     protected void findViewById() {
         backImageView = (ImageView) findViewById(R.id.title_back_id);
         titleTextView = (TextView) findViewById(R.id.title_name);
-        submitBtn = (Button) findViewById(R.id.sbmit_id);
+        submitBtn = (ImageButton) findViewById(R.id.sbmittext_id);
 
         samplenumText = (TextView) findViewById(R.id.samplenum_text_id);
         codeImageView = (ImageView) findViewById(R.id.imagecode_id);
