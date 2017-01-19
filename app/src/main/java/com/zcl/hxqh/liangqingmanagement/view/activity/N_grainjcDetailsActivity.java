@@ -1043,7 +1043,7 @@ public class N_grainjcDetailsActivity extends BaseActivity {
         setDataListener();
 
 
-        worktypeText.setOnClickListener(worktypeTextOnClickListener);
+//        worktypeText.setOnClickListener(worktypeTextOnClickListener);
         locText.setOnClickListener(locTextOnClickListener);
         date2Text.setOnClickListener(new MydateListener());
     }

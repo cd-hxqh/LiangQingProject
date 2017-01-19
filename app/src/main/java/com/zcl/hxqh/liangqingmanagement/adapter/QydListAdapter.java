@@ -28,13 +28,13 @@ public class QydListAdapter extends BaseQuickAdapter<N_SAMPLE> {
     }
 
 
-
     @Override
     protected void convert(BaseViewHolder helper, N_SAMPLE item) {
         CardView cardView = helper.getView(R.id.card_container);
-        helper.setText(R.id.item_num_text, item.getSAMPLENUM());
-        helper.setText(R.id.item_desc_title, "任务编号:");
-        helper.setText(R.id.item_desc_text, item.getN_QCTASKLINENUM());
+        helper.setText(R.id.samplenum_text_id, item.getSAMPLENUM());
+        helper.setText(R.id.n_region_text_id, item.getN_QCTASKLINENUM());
+        helper.setText(R.id.workorder_reportdate, item.getENTERDATE());
+        helper.setText(R.id.workorder_fxr, item.getENTERBY());
     }
 
 

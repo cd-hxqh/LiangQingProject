@@ -183,7 +183,6 @@
                 android:id="@+id/worktype_text_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/ic_right"
                 android:gravity="right"
                 android:hint="@string/have_not_data"
                 android:textColor="@color/light_black"

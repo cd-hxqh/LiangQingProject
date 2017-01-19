@@ -1048,8 +1048,8 @@ public class N_grainjcAddActivity extends BaseActivity {
         statusText.setText("草稿");
         setDataListener();
 
-
-        worktypeText.setOnClickListener(worktypeTextOnClickListener);
+        worktypeText.setText(worktype);
+//        worktypeText.setOnClickListener(worktypeTextOnClickListener);
         locText.setOnClickListener(locTextOnClickListener);
         date2Text.setOnClickListener(new MydateListener());
     }

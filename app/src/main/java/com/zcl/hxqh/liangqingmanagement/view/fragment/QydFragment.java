@@ -235,7 +235,7 @@ public class QydFragment extends BaseFragment implements SwipeRefreshLayout.OnRe
      * 获取数据*
      */
     private void initAdapter(final List<N_SAMPLE> list) {
-        qydListAdapter = new QydListAdapter(getActivity(), R.layout.list_item, list);
+        qydListAdapter = new QydListAdapter(getActivity(), R.layout.list_item_qyd, list);
         recyclerView.setAdapter(qydListAdapter);
         qydListAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
