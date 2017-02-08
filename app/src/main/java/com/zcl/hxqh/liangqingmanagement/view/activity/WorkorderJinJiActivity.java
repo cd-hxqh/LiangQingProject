@@ -211,14 +211,16 @@ public class WorkorderJinJiActivity extends BaseActivity implements SwipeRefresh
                             items = new ArrayList<WORKORDER>();
                             initAdapter(items);
                         }
-                        for (int i = 0; i < item.size(); i++) {
-                            items.add(item.get(i));
+                        if (totalPages==page) {
+                            for (int i = 0; i < item.size(); i++) {
+                                items.add(item.get(i));
+                            }
+                            addData(item);
                         }
-                        addData(item);
                     }
                     nodatalayout.setVisibility(View.GONE);
 
-                    initAdapter(items);
+//                    initAdapter(items);
                 }
             }
 

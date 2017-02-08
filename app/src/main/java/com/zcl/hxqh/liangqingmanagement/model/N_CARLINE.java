@@ -14,6 +14,7 @@ public class N_CARLINE extends Entity{
     public String END;//结束日期
     public String REMARK;//备注
     public String CARNUM;//货运预报编号
+    public String INTIME;//到库时间
 
     public String getSN() {
         return SN;
@@ -85,5 +86,13 @@ public class N_CARLINE extends Entity{
 
     public void setCARNUM(String CARNUM) {
         this.CARNUM = CARNUM;
+    }
+
+    public String getINTIME() {
+        return INTIME;
+    }
+
+    public void setINTIME(String INTIME) {
+        this.INTIME = INTIME;
     }
 }

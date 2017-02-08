@@ -66,11 +66,17 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimens_16sp" />
 
+            <LinearLayout
+                android:id="@+id/gzms_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/n_region_title">
             <TextView
                 android:id="@+id/gzms_title"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/n_region_title"
+
                 android:layout_marginTop="5dp"
                 android:text="@string/gzms_text"
                 android:textColor="@color/black"
@@ -84,19 +90,18 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/gzms_title"
-                android:ellipsize="end"
-                android:ems="14"
                 android:hint="@string/hint_item_desc_title"
-                android:singleLine="true"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimens_16sp" />
-
-
+            <!--android:ellipsize="end"-->
+            <!--android:ems="14"-->
+            <!--android:singleLine="true"-->
+            </LinearLayout>
             <TextView
                 android:id="@+id/status_title"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/gzms_title"
+                android:layout_below="@+id/gzms_layout"
                 android:layout_marginTop="5dp"
                 android:text="@string/status_text"
                 android:textColor="@color/black"
@@ -106,7 +111,7 @@
                 android:id="@+id/status_text_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/gzms_text_id"
+                android:layout_below="@+id/gzms_layout"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/status_title"

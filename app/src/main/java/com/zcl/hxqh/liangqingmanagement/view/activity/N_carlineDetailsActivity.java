@@ -33,6 +33,7 @@ import com.zcl.hxqh.liangqingmanagement.dialog.FlippingLoadingDialog;
 import com.zcl.hxqh.liangqingmanagement.model.ALNDOMAIN;
 import com.zcl.hxqh.liangqingmanagement.model.N_CAR;
 import com.zcl.hxqh.liangqingmanagement.model.N_CARLINE;
+import com.zcl.hxqh.liangqingmanagement.until.DateTimeSelect;
 import com.zcl.hxqh.liangqingmanagement.until.MessageUtils;
 import com.zcl.hxqh.liangqingmanagement.until.T;
 import com.zcl.hxqh.liangqingmanagement.view.widght.ShareBottomDialog;
@@ -97,6 +98,10 @@ public class N_carlineDetailsActivity extends BaseActivity {
      * 备注
      */
     private EditText remarkText;
+    /**
+     * 到库时间
+     */
+    private TextView intimeText;
 
     private N_CAR n_car;
     private N_CARLINE n_carline;
@@ -157,6 +162,7 @@ public class N_carlineDetailsActivity extends BaseActivity {
         startText = (TextView) findViewById(R.id.carline_start);
         endText = (TextView) findViewById(R.id.carline_end);
         remarkText = (EditText) findViewById(R.id.carline_remark);
+        intimeText = (TextView) findViewById(R.id.carline_intime);
 
         ViewGroup container = (ViewGroup) findViewById(R.id.container);
         LayoutTransition transition = new LayoutTransition();
@@ -181,11 +187,13 @@ public class N_carlineDetailsActivity extends BaseActivity {
             startText.setText(n_carline.getSTART());
             endText.setText(n_carline.getEND());
             remarkText.setText(n_carline.getREMARK());
+            intimeText.setText(n_carline.getINTIME());
         }
 
         setDataListener();
         startText.setOnClickListener(new MydateListener(startText));
         endText.setOnClickListener(new MydateListener(endText));
+        intimeText.setOnClickListener(intimeTextOnClickListener);
     }
 
     private View.OnClickListener backImageViewOnClickListener = new View.OnClickListener() {
@@ -205,6 +213,13 @@ public class N_carlineDetailsActivity extends BaseActivity {
             setResult(1000,intent);
             finish();
 //            submitNormalDialog();
+        }
+    };
+
+    private View.OnClickListener intimeTextOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            new DateTimeSelect(N_carlineDetailsActivity.this, intimeText).showDialog();
         }
     };
 
@@ -381,6 +396,10 @@ public class N_carlineDetailsActivity extends BaseActivity {
         String remark = remarkText.getText().toString();
         if (!remark.equals(n_carline.getREMARK())) {
             n_carline.setREMARK(remark);
+        }
+        String intime = intimeText.getText().toString();
+        if (!intime.equals(n_carline.getINTIME())) {
+            n_carline.setINTIME(intime);
         }
         n_carline.setCARNUM(n_car.CARNUM);
         return n_carline;

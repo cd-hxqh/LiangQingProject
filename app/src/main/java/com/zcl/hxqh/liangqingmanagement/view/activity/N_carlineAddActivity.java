@@ -25,6 +25,7 @@ import com.zcl.hxqh.liangqingmanagement.R;
 import com.zcl.hxqh.liangqingmanagement.dialog.FlippingLoadingDialog;
 import com.zcl.hxqh.liangqingmanagement.model.N_CAR;
 import com.zcl.hxqh.liangqingmanagement.model.N_CARLINE;
+import com.zcl.hxqh.liangqingmanagement.until.DateTimeSelect;
 import com.zcl.hxqh.liangqingmanagement.until.T;
 import com.zcl.hxqh.liangqingmanagement.view.widght.ShareBottomDialog;
 
@@ -87,6 +88,10 @@ public class N_carlineAddActivity extends BaseActivity {
      * 备注
      */
     private EditText remarkText;
+    /**
+     * 到库时间
+     */
+    private TextView intimeText;
 
     private N_CAR n_car;
     private N_CARLINE n_carline;
@@ -145,6 +150,7 @@ public class N_carlineAddActivity extends BaseActivity {
         startText = (TextView) findViewById(R.id.carline_start);
         endText = (TextView) findViewById(R.id.carline_end);
         remarkText = (EditText) findViewById(R.id.carline_remark);
+        intimeText = (TextView) findViewById(R.id.carline_intime);
 
         ViewGroup container = (ViewGroup) findViewById(R.id.container);
         LayoutTransition transition = new LayoutTransition();
@@ -167,6 +173,7 @@ public class N_carlineAddActivity extends BaseActivity {
         setDataListener();
         startText.setOnClickListener(new MydateListener(startText));
         endText.setOnClickListener(new MydateListener(endText));
+        intimeText.setOnClickListener(intimeTextOnClickListener);
     }
 
     private View.OnClickListener backImageViewOnClickListener = new View.OnClickListener() {
@@ -185,6 +192,13 @@ public class N_carlineAddActivity extends BaseActivity {
             setResult(1001,intent);
             finish();
 //            submitNormalDialog();
+        }
+    };
+
+    private View.OnClickListener intimeTextOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            new DateTimeSelect(N_carlineAddActivity.this, intimeText).showDialog();
         }
     };
 
@@ -316,6 +330,7 @@ public class N_carlineAddActivity extends BaseActivity {
         n_carline.setEND(endText.getText().toString());
         n_carline.setREMARK(remarkText.getText().toString());
         n_carline.setCARNUM(n_car.CARNUM);
+        n_carline.setINTIME(intimeText.getText().toString());
         return n_carline;
     }
 
