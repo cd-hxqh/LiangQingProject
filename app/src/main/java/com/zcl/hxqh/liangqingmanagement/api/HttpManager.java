@@ -113,7 +113,7 @@ public class HttpManager {
         if (value.equals("")) {
             return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.WORKORDER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WORKORDERID DESC','condition':{'WORKTYPE':'EM','REPORTEDBY':'" + reportedby + "'}}";
         }
-        return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.WORKORDER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WORKORDERID DESC','condition':{'WORKTYPE':'EM','REPORTEDBY':'" + reportedby + "'},'sinorsearch':{'SB':'" + value + "','DESCRIPTION':'" + value + "'}}";
+        return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.WORKORDER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WORKORDERID DESC','condition':{'WORKTYPE':'EM','REPORTEDBY':'" + reportedby + "'},'sinorsearch':{'WONUM':'" + value + "','DESCRIPTION':'" + value + "'}}";
     }
 
     /**
