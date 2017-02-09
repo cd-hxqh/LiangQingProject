@@ -193,7 +193,7 @@ public class N_carlineDetailsActivity extends BaseActivity {
         setDataListener();
         startText.setOnClickListener(new MydateListener(startText));
         endText.setOnClickListener(new MydateListener(endText));
-        intimeText.setOnClickListener(intimeTextOnClickListener);
+//        intimeText.setOnClickListener(intimeTextOnClickListener);
     }
 
     private View.OnClickListener backImageViewOnClickListener = new View.OnClickListener() {

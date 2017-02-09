@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.flyco.animation.BaseAnimatorSet;
@@ -92,6 +93,7 @@ public class N_carlineAddActivity extends BaseActivity {
      * 到库时间
      */
     private TextView intimeText;
+    private LinearLayout intimeLayout;
 
     private N_CAR n_car;
     private N_CARLINE n_carline;
@@ -151,6 +153,7 @@ public class N_carlineAddActivity extends BaseActivity {
         endText = (TextView) findViewById(R.id.carline_end);
         remarkText = (EditText) findViewById(R.id.carline_remark);
         intimeText = (TextView) findViewById(R.id.carline_intime);
+        intimeLayout = (LinearLayout) findViewById(R.id.carline_intime_layout);
 
         ViewGroup container = (ViewGroup) findViewById(R.id.container);
         LayoutTransition transition = new LayoutTransition();
@@ -165,6 +168,7 @@ public class N_carlineAddActivity extends BaseActivity {
         submitBtn.setText("确定");
         submitBtn.setVisibility(View.VISIBLE);
         submitBtn.setOnClickListener(submitBtnBtnOnClickListener);
+        intimeLayout.setVisibility(View.GONE);
 
         if (n_carline != null) {
             snText.setText(n_carline.getSN());
@@ -173,7 +177,7 @@ public class N_carlineAddActivity extends BaseActivity {
         setDataListener();
         startText.setOnClickListener(new MydateListener(startText));
         endText.setOnClickListener(new MydateListener(endText));
-        intimeText.setOnClickListener(intimeTextOnClickListener);
+//        intimeText.setOnClickListener(intimeTextOnClickListener);
     }
 
     private View.OnClickListener backImageViewOnClickListener = new View.OnClickListener() {
