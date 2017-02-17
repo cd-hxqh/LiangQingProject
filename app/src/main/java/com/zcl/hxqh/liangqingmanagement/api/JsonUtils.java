@@ -20,6 +20,7 @@ import com.zcl.hxqh.liangqingmanagement.model.N_TASKPLAN;
 import com.zcl.hxqh.liangqingmanagement.model.N_WAGONS;
 import com.zcl.hxqh.liangqingmanagement.model.N_WTLINE;
 import com.zcl.hxqh.liangqingmanagement.model.PERSON;
+import com.zcl.hxqh.liangqingmanagement.model.WFASSIGNMENT;
 import com.zcl.hxqh.liangqingmanagement.model.WORKORDER;
 import com.zcl.hxqh.liangqingmanagement.model.WTLABOR;
 
@@ -127,6 +128,51 @@ public class JsonUtils {
 
     }
 
+    /**
+     * 收件箱
+     */
+    public static ArrayList<WFASSIGNMENT> parsingWFASSIGNMENT(Context ctx, String data) {
+        ArrayList<WFASSIGNMENT> list = null;
+        WFASSIGNMENT wfassignment = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            JSONObject jsonObject;
+            list = new ArrayList<WFASSIGNMENT>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                wfassignment = new WFASSIGNMENT();
+                jsonObject = jsonArray.getJSONObject(i);
+                Field[] field = wfassignment.getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
+                for (int j = 0; j < field.length; j++) {     //遍历所有属性
+                    field[j].setAccessible(true);
+                    String name = field[j].getName();    //获取属性的名字
+                    if (jsonObject.has(name) && jsonObject.getString(name) != null && !jsonObject.getString(name).equals("")) {
+                        try {
+                            // 调用getter方法获取属性值
+                            Method getOrSet = wfassignment.getClass().getMethod("get" + name);
+                            Object value = getOrSet.invoke(wfassignment);
+                            if (value == null) {
+                                //调用setter方法设属性值
+                                Class[] parameterTypes = new Class[1];
+                                parameterTypes[0] = field[j].getType();
+                                getOrSet = wfassignment.getClass().getDeclaredMethod("set" + name, parameterTypes);
+                                getOrSet.invoke(wfassignment, jsonObject.getString(name));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+                list.add(wfassignment);
+            }
+            return list;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 
     /**
      * 仓储粮情检查单

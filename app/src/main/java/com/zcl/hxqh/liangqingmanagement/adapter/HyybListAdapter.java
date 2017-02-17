@@ -32,8 +32,10 @@ public class HyybListAdapter extends BaseQuickAdapter<N_CAR> {
     @Override
     protected void convert(BaseViewHolder helper, N_CAR item) {
         CardView cardView = helper.getView(R.id.card_container);
-        helper.setText(R.id.item_num_text, item.getCARNUM());
+        helper.setText(R.id.workorder_sb_text, item.getCARNUM());
         helper.setText(R.id.item_desc_text, item.getDESCRIPTION());
+        helper.setText(R.id.workorder_reportdate, item.getENTERDATE());
+        helper.setText(R.id.workorder_fxr, item.getENTERBY());
     }
 
 

@@ -32,8 +32,10 @@ public class CclqjcdListAdapter extends BaseQuickAdapter<N_GRAINJC> {
     @Override
     protected void convert(BaseViewHolder helper, N_GRAINJC item) {
         CardView cardView = helper.getView(R.id.card_container);
-        helper.setText(R.id.item_num_text, item.getGRAINSNUN());
+        helper.setText(R.id.workorder_sb_text, item.getGRAINSNUN());
         helper.setText(R.id.item_desc_text, item.getDESCRIPTION());
+        helper.setText(R.id.workorder_reportdate, item.getREPORTDATE());
+        helper.setText(R.id.workorder_fxr, item.getREPORTBY());
     }
 
 

@@ -398,6 +398,34 @@ public class AndroidClientService {
     }
 
     /**
+     * 获取权限
+     */
+    public static String mobilelogin_getUserApp(Context context, String username) {
+        String ip_adress = AccountUtils.getIpAddress(context) + Constants.LoginwebserviceURL;
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "mobilelogin_getUserApp");
+        soapReq.addProperty("username", username);//用户名
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException | XmlPullParserException e) {
+            return null;
+        }
+        String obj = null;
+        String webResult = null;
+        try {
+            webResult = soapEnvelope.getResponse().toString();
+            Log.i(TAG, "webResult=" + webResult);
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return webResult;
+    }
+
+    /**
      * 图片上传
      */
     public static String connectWebService(Context context, String filename, String image, String ownertable, String ownerid) {

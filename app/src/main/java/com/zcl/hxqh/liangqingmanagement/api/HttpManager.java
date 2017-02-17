@@ -22,6 +22,12 @@ public class HttpManager {
     private static AsyncHttpClient sClient = null;
     private static final String TAG = "HttpManager";
 
+    /**
+     * 设置仓储粮情检查单的接口
+     */
+    public static String getWFASSIGNMENT(int curpage, int showcount) {
+            return "{'appid':'" + Constants.INBOX_APPID + "','objectname':'" + Constants.INBOX_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read'}";
+    }
 
     /**
      * 设置仓储粮情检查单的接口

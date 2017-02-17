@@ -1,6 +1,5 @@
 package com.zcl.hxqh.liangqingmanagement.view.activity;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -23,26 +22,27 @@ import android.widget.TextView;
 
 import com.zcl.hxqh.liangqingmanagement.R;
 import com.zcl.hxqh.liangqingmanagement.adapter.BaseQuickAdapter;
-import com.zcl.hxqh.liangqingmanagement.adapter.CclqjcdListAdapter;
+import com.zcl.hxqh.liangqingmanagement.adapter.HyybListAdapter;
+import com.zcl.hxqh.liangqingmanagement.adapter.QydListAdapter;
 import com.zcl.hxqh.liangqingmanagement.api.HttpManager;
 import com.zcl.hxqh.liangqingmanagement.api.HttpRequestHandler;
 import com.zcl.hxqh.liangqingmanagement.api.JsonUtils;
 import com.zcl.hxqh.liangqingmanagement.bean.Results;
-import com.zcl.hxqh.liangqingmanagement.model.N_GRAINJC;
+import com.zcl.hxqh.liangqingmanagement.model.N_CAR;
+import com.zcl.hxqh.liangqingmanagement.model.N_SAMPLE;
+import com.zcl.hxqh.liangqingmanagement.until.AccountUtils;
 import com.zcl.hxqh.liangqingmanagement.view.widght.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * 粮情管理Activity
+ * Created by Administrator on 2017/2/15.
+ * 货运预报页面
  */
-public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener {
 
-
-    private static final String TAG = "N_grainjcListActivity";
-
+public class HyybActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener{
+    private static final String TAG = "HyybActivity";
     /**
      * 返回按钮
      */
@@ -51,12 +51,7 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
      * 标题
      */
     private TextView titleTextView;
-
-    /**
-     * 新增按钮
-     **/
-    private ImageView addBtn;
-
+    private ImageView addImage;
     LinearLayoutManager layoutManager;
 
 
@@ -75,7 +70,7 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
     /**
      * 适配器*
      */
-    private CclqjcdListAdapter cclqjcdListAdapter;
+    private HyybListAdapter hyybListAdapter;
     /**
      * 编辑框*
      */
@@ -87,50 +82,27 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
     private int page = 1;
 
 
-    private ProgressDialog mProgressDialog;
-
-    ArrayList<N_GRAINJC> items = new ArrayList<N_GRAINJC>();
-
-    private String worktype; //作业性质
-
+    ArrayList<N_CAR> items = new ArrayList<N_CAR>();
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_workorder_list);
-        initData();
+        setContentView(R.layout.activity_list);
         findViewById();
         initView();
     }
-
-    /**
-     * 初始化值
-     **/
-    private void initData() {
-        worktype = getIntent().getExtras().getString("worktype");
-
-    }
-
-
-    /**
-     * 初始化界面组件*
-     */
 
     @Override
     protected void findViewById() {
         backImageView = (ImageView) findViewById(R.id.title_back_id);
         titleTextView = (TextView) findViewById(R.id.title_name);
-        addBtn = (ImageView) findViewById(R.id.title_add);
-
+        addImage = (ImageView) findViewById(R.id.title_add);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView_id);
         refresh_layout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         nodatalayout = (LinearLayout) findViewById(R.id.have_not_data_id);
         search = (EditText) findViewById(R.id.search_edit);
     }
 
-
-    /**
-     * 设置事件监听*
-     */
+    @Override
     protected void initView() {
         backImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,14 +110,13 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
                 finish();
             }
         });
-        titleTextView.setText(worktype);
-        addBtn.setVisibility(View.VISIBLE);
-        addBtn.setImageResource(R.drawable.ic_add);
-        addBtn.setOnClickListener(addOnClickListener);
-
+        titleTextView.setText("货运预报");
+        addImage.setVisibility(View.VISIBLE);
+        addImage.setImageResource(R.drawable.ic_add);
+        addImage.setOnClickListener(addImageOnClickListener);
         setSearchEdit();
 
-        layoutManager = new LinearLayoutManager(N_grainjcListActivity.this);
+        layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         layoutManager.scrollToPosition(0);
         recyclerView.setLayoutManager(layoutManager);
@@ -158,26 +129,21 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
 
         refresh_layout.setOnRefreshListener(this);
         refresh_layout.setOnLoadListener(this);
-
-
     }
 
-
-    private View.OnClickListener addOnClickListener = new View.OnClickListener() {
+    private View.OnClickListener addImageOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(N_grainjcListActivity.this, N_grainjcAddActivity.class);
-            intent.putExtra("worktype", worktype);
-            startActivityForResult(intent, 1);
+            Intent intent1 = new Intent(HyybActivity.this, N_sampleAddActivity.class);
+            startActivityForResult(intent1, 0);
         }
     };
-
 
     @Override
     public void onStart() {
         super.onStart();
         refresh_layout.setRefreshing(true);
-        initAdapter(new ArrayList<N_GRAINJC>());
+        initAdapter(new ArrayList<N_CAR>());
         items = new ArrayList<>();
         getData(searchText);
     }
@@ -185,7 +151,6 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
     @Override
     public void onLoad() {
         page++;
-
         getData(searchText);
     }
 
@@ -210,12 +175,12 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
                     // 先隐藏键盘
                     ((InputMethodManager) search.getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
                             .hideSoftInputFromWindow(
-                                    getCurrentFocus()
+                                    HyybActivity.this.getCurrentFocus()
                                             .getWindowToken(),
                                     InputMethodManager.HIDE_NOT_ALWAYS);
                     searchText = search.getText().toString();
-                    cclqjcdListAdapter.removeAll(items);
-                    items = new ArrayList<N_GRAINJC>();
+                    hyybListAdapter.removeAll(items);
+                    items = new ArrayList<N_CAR>();
                     nodatalayout.setVisibility(View.GONE);
                     refresh_layout.setRefreshing(true);
                     page = 1;
@@ -232,7 +197,7 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
      * 获取数据*
      */
     private void getData(String search) {
-        HttpManager.getDataPagingInfo(N_grainjcListActivity.this, HttpManager.getN_GRAINJC(search, worktype, page, 20), new HttpRequestHandler<Results>() {
+        HttpManager.getDataPagingInfo(HyybActivity.this, HttpManager.getN_CAR(search, AccountUtils.getUserName(HyybActivity.this), page, 20), new HttpRequestHandler<Results>() {
             @Override
             public void onSuccess(Results results) {
                 Log.i(TAG, "data=" + results);
@@ -240,7 +205,7 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
 
             @Override
             public void onSuccess(Results results, int totalPages, int currentPage) {
-                ArrayList<N_GRAINJC> item = JsonUtils.parsingN_GRAINJC(N_grainjcListActivity.this, results.getResultlist());
+                ArrayList<N_CAR> item = JsonUtils.parsingN_CAR(HyybActivity.this, results.getResultlist());
                 refresh_layout.setRefreshing(false);
                 refresh_layout.setLoading(false);
                 if (item == null || item.isEmpty()) {
@@ -249,8 +214,8 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
 
                     if (item != null || item.size() != 0) {
                         if (page == 1) {
-                            items = new ArrayList<N_GRAINJC>();
-                            initAdapter(new ArrayList<N_GRAINJC>());
+                            items = new ArrayList<N_CAR>();
+                            initAdapter(items);
                         }
                         for (int i = 0; i < item.size(); i++) {
                             items.add(item.get(i));
@@ -276,16 +241,15 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
     /**
      * 获取数据*
      */
-    private void initAdapter(final List<N_GRAINJC> list) {
-        cclqjcdListAdapter = new CclqjcdListAdapter(N_grainjcListActivity.this, R.layout.list_item_n_grainjc, list);
-        recyclerView.setAdapter(cclqjcdListAdapter);
-        cclqjcdListAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+    private void initAdapter(final List<N_CAR> list) {
+        hyybListAdapter = new HyybListAdapter(HyybActivity.this, R.layout.list_item_hyyb, list);
+        recyclerView.setAdapter(hyybListAdapter);
+        hyybListAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(N_grainjcListActivity.this, N_grainjcDetailsActivity.class);
+                Intent intent = new Intent(HyybActivity.this, N_carDetailsActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("worktype", worktype);
-                bundle.putSerializable("n_grainjc", items.get(position));
+                bundle.putSerializable("n_car", items.get(position));
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 0);
             }
@@ -295,9 +259,8 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
     /**
      * 添加数据*
      */
-    private void addData(final List<N_GRAINJC> list) {
-        cclqjcdListAdapter.addData(list);
+    private void addData(final List<N_CAR> list) {
+        hyybListAdapter.addData(list);
     }
-
 
 }

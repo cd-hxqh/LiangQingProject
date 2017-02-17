@@ -11,11 +11,11 @@ import com.zcl.hxqh.liangqingmanagement.R;
 
 /**
  * Created by Administrator on 2017/2/15.
- * 车辆查询页面
+ * 人员查询页面
  */
 
-public class N_cartaskActivity extends BaseActivity {
-    private static final String TAG = "N_cartaskActivity";
+public class PersonActivity extends BaseActivity {
+    private static final String TAG = "PersonActivity";
     /**
      * 返回按钮
      */
@@ -24,14 +24,14 @@ public class N_cartaskActivity extends BaseActivity {
      * 标题
      */
     private TextView titleTextView;
-    private static final int N_CARTASK_MARK=1002;
+    private static final int PERSION_MARK=1001;
 
-    private Button n_cartaskBtn;
+    private Button personBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_n_cartask);
+        setContentView(R.layout.activity_person);
         findViewById();
         initView();
     }
@@ -40,7 +40,7 @@ public class N_cartaskActivity extends BaseActivity {
     protected void findViewById() {
         backImageView = (ImageView) findViewById(R.id.title_back_id);
         titleTextView = (TextView) findViewById(R.id.title_name);
-        n_cartaskBtn = (Button) findViewById(R.id.cartask_btn_id);
+        personBtn = (Button) findViewById(R.id.person_btn_id);
     }
 
     @Override
@@ -51,15 +51,15 @@ public class N_cartaskActivity extends BaseActivity {
                 finish();
             }
         });
-        titleTextView.setText("车辆查询");
-        n_cartaskBtn.setOnClickListener(n_cartaskBtnOnClickListener);
+        titleTextView.setText("人员查询");
+        personBtn.setOnClickListener(personBtnOnClickListener);
     }
 
-    private View.OnClickListener n_cartaskBtnOnClickListener = new View.OnClickListener() {
+    private View.OnClickListener personBtnOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(N_cartaskActivity.this, Nfc_Activity.class);
-            intent.putExtra("mark",N_CARTASK_MARK);
+            Intent intent = new Intent(PersonActivity.this, Nfc_Activity.class);
+            intent.putExtra("mark",PERSION_MARK);
             startActivityForResult(intent, 0);
         }
     };

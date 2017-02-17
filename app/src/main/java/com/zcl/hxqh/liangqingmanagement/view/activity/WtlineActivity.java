@@ -1,6 +1,5 @@
 package com.zcl.hxqh.liangqingmanagement.view.activity;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -8,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telephony.TelephonyManager;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
@@ -19,30 +19,35 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zcl.hxqh.liangqingmanagement.R;
 import com.zcl.hxqh.liangqingmanagement.adapter.BaseQuickAdapter;
-import com.zcl.hxqh.liangqingmanagement.adapter.CclqjcdListAdapter;
+import com.zcl.hxqh.liangqingmanagement.adapter.HyybListAdapter;
+import com.zcl.hxqh.liangqingmanagement.adapter.WulineListAdapter;
 import com.zcl.hxqh.liangqingmanagement.api.HttpManager;
 import com.zcl.hxqh.liangqingmanagement.api.HttpRequestHandler;
 import com.zcl.hxqh.liangqingmanagement.api.JsonUtils;
 import com.zcl.hxqh.liangqingmanagement.bean.Results;
-import com.zcl.hxqh.liangqingmanagement.model.N_GRAINJC;
+import com.zcl.hxqh.liangqingmanagement.model.N_CAR;
+import com.zcl.hxqh.liangqingmanagement.model.N_WTLINE;
+import com.zcl.hxqh.liangqingmanagement.until.AccountUtils;
 import com.zcl.hxqh.liangqingmanagement.view.widght.SwipeRefreshLayout;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
-
 /**
- * 粮情管理Activity
+ * Created by Administrator on 2017/2/15.
+ * 工位管理页面
  */
-public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener {
 
-
-    private static final String TAG = "N_grainjcListActivity";
-
+public class WtlineActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener{
+    private static final String TAG = "WtlineActivity";
     /**
      * 返回按钮
      */
@@ -51,12 +56,7 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
      * 标题
      */
     private TextView titleTextView;
-
-    /**
-     * 新增按钮
-     **/
-    private ImageView addBtn;
-
+    private ImageView addImage;
     LinearLayoutManager layoutManager;
 
 
@@ -75,11 +75,12 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
     /**
      * 适配器*
      */
-    private CclqjcdListAdapter cclqjcdListAdapter;
+    private WulineListAdapter wulineListAdapter;
     /**
      * 编辑框*
      */
     private EditText search;
+    private RelativeLayout editLayout;
     /**
      * 查询条件*
      */
@@ -87,50 +88,27 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
     private int page = 1;
 
 
-    private ProgressDialog mProgressDialog;
-
-    ArrayList<N_GRAINJC> items = new ArrayList<N_GRAINJC>();
-
-    private String worktype; //作业性质
-
+    ArrayList<N_WTLINE> items = new ArrayList<N_WTLINE>();
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_workorder_list);
-        initData();
+        setContentView(R.layout.activity_list);
         findViewById();
         initView();
     }
-
-    /**
-     * 初始化值
-     **/
-    private void initData() {
-        worktype = getIntent().getExtras().getString("worktype");
-
-    }
-
-
-    /**
-     * 初始化界面组件*
-     */
 
     @Override
     protected void findViewById() {
         backImageView = (ImageView) findViewById(R.id.title_back_id);
         titleTextView = (TextView) findViewById(R.id.title_name);
-        addBtn = (ImageView) findViewById(R.id.title_add);
-
+        addImage = (ImageView) findViewById(R.id.title_add);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView_id);
         refresh_layout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         nodatalayout = (LinearLayout) findViewById(R.id.have_not_data_id);
         search = (EditText) findViewById(R.id.search_edit);
     }
 
-
-    /**
-     * 设置事件监听*
-     */
+    @Override
     protected void initView() {
         backImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,14 +116,13 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
                 finish();
             }
         });
-        titleTextView.setText(worktype);
-        addBtn.setVisibility(View.VISIBLE);
-        addBtn.setImageResource(R.drawable.ic_add);
-        addBtn.setOnClickListener(addOnClickListener);
-
+        titleTextView.setText("工位管理");
+        addImage.setVisibility(View.VISIBLE);
+        addImage.setImageResource(R.drawable.ic_dk);
+        addImage.setOnClickListener(addImageOnClickListener);
         setSearchEdit();
 
-        layoutManager = new LinearLayoutManager(N_grainjcListActivity.this);
+        layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         layoutManager.scrollToPosition(0);
         recyclerView.setLayoutManager(layoutManager);
@@ -158,26 +135,21 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
 
         refresh_layout.setOnRefreshListener(this);
         refresh_layout.setOnLoadListener(this);
-
-
     }
 
-
-    private View.OnClickListener addOnClickListener = new View.OnClickListener() {
+    private View.OnClickListener addImageOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(N_grainjcListActivity.this, N_grainjcAddActivity.class);
-            intent.putExtra("worktype", worktype);
-            startActivityForResult(intent, 1);
+            Intent intent1 = new Intent(WtlineActivity.this, N_sampleAddActivity.class);
+            startActivityForResult(intent1, 0);
         }
     };
-
 
     @Override
     public void onStart() {
         super.onStart();
         refresh_layout.setRefreshing(true);
-        initAdapter(new ArrayList<N_GRAINJC>());
+        initAdapter(new ArrayList<N_WTLINE>());
         items = new ArrayList<>();
         getData(searchText);
     }
@@ -210,12 +182,12 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
                     // 先隐藏键盘
                     ((InputMethodManager) search.getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
                             .hideSoftInputFromWindow(
-                                    getCurrentFocus()
+                                    WtlineActivity.this.getCurrentFocus()
                                             .getWindowToken(),
                                     InputMethodManager.HIDE_NOT_ALWAYS);
                     searchText = search.getText().toString();
-                    cclqjcdListAdapter.removeAll(items);
-                    items = new ArrayList<N_GRAINJC>();
+                    wulineListAdapter.removeAll(items);
+                    items = new ArrayList<N_WTLINE>();
                     nodatalayout.setVisibility(View.GONE);
                     refresh_layout.setRefreshing(true);
                     page = 1;
@@ -232,7 +204,13 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
      * 获取数据*
      */
     private void getData(String search) {
-        HttpManager.getDataPagingInfo(N_grainjcListActivity.this, HttpManager.getN_GRAINJC(search, worktype, page, 20), new HttpRequestHandler<Results>() {
+
+        String imei = ((TelephonyManager) WtlineActivity.this.getSystemService(WtlineActivity.this.TELEPHONY_SERVICE))
+                .getDeviceId();
+
+        Log.i(TAG, "imei=" + imei)
+        ;
+        HttpManager.getDataPagingInfo(WtlineActivity.this, HttpManager.getN_WTLINE(search, getCurrentTime(),getYesterdayTime(), imei, page, 20), new HttpRequestHandler<Results>() {
             @Override
             public void onSuccess(Results results) {
                 Log.i(TAG, "data=" + results);
@@ -240,7 +218,7 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
 
             @Override
             public void onSuccess(Results results, int totalPages, int currentPage) {
-                ArrayList<N_GRAINJC> item = JsonUtils.parsingN_GRAINJC(N_grainjcListActivity.this, results.getResultlist());
+                ArrayList<N_WTLINE> item = JsonUtils.parsingN_WTLINE(WtlineActivity.this, results.getResultlist());
                 refresh_layout.setRefreshing(false);
                 refresh_layout.setLoading(false);
                 if (item == null || item.isEmpty()) {
@@ -249,8 +227,8 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
 
                     if (item != null || item.size() != 0) {
                         if (page == 1) {
-                            items = new ArrayList<N_GRAINJC>();
-                            initAdapter(new ArrayList<N_GRAINJC>());
+                            items = new ArrayList<N_WTLINE>();
+                            initAdapter(items);
                         }
                         for (int i = 0; i < item.size(); i++) {
                             items.add(item.get(i));
@@ -276,28 +254,45 @@ public class N_grainjcListActivity extends BaseActivity implements SwipeRefreshL
     /**
      * 获取数据*
      */
-    private void initAdapter(final List<N_GRAINJC> list) {
-        cclqjcdListAdapter = new CclqjcdListAdapter(N_grainjcListActivity.this, R.layout.list_item_n_grainjc, list);
-        recyclerView.setAdapter(cclqjcdListAdapter);
-        cclqjcdListAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent(N_grainjcListActivity.this, N_grainjcDetailsActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("worktype", worktype);
-                bundle.putSerializable("n_grainjc", items.get(position));
-                intent.putExtras(bundle);
-                startActivityForResult(intent, 0);
-            }
-        });
+    private void initAdapter(final List<N_WTLINE> list) {
+        wulineListAdapter = new WulineListAdapter(WtlineActivity.this, R.layout.line_list_item, list);
+        recyclerView.setAdapter(wulineListAdapter);
+//        wulineListAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                Intent intent = new Intent(getActivity(), N_wtlineDetailsActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("n_wtline", items.get(position));
+//                intent.putExtras(bundle);
+//                startActivityForResult(intent, 0);
+//            }
+//        });
     }
 
     /**
      * 添加数据*
      */
-    private void addData(final List<N_GRAINJC> list) {
-        cclqjcdListAdapter.addData(list);
+    private void addData(final List<N_WTLINE> list) {
+        wulineListAdapter.addData(list);
     }
 
+
+    /**
+     * 获取系统当前时间
+     **/
+    private String getCurrentTime() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        String time = df.format(new Date());
+        return time;
+    }
+    /**
+     * 获取系统当前时间
+     **/
+    private String getYesterdayTime() {
+        Calendar cal   =   Calendar.getInstance();
+        cal.add(Calendar.DATE,   -1);
+        String yesterday = new SimpleDateFormat( "yyyy-MM-dd ").format(cal.getTime());
+        return yesterday;
+    }
 
 }

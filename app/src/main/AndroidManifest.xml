@@ -150,6 +150,34 @@
             android:label="AssetChooseActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".view.activity.CclqjcdActivity"
+            android:label="CclqjcdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.QydActivity"
+            android:label="QydActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.HyybActivity"
+            android:label="HyybActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.WtlineActivity"
+            android:label="WtlineActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.PersonActivity"
+            android:label="PersonActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.N_cartaskActivity"
+            android:label="N_cartaskActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.WorkOrderActivity"
+            android:label="WorkOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".view.activity.PhotoActivity"
             android:label="PhotoActivity"
             android:screenOrientation="portrait" />
@@ -206,7 +234,7 @@
             android:label="PersonDetailsActivity"
             android:theme="@style/SampleTheme"></activity>
         <activity
-            android:name=".view.activity.N_cartaskActivity"
+            android:name=".view.activity.N_cartaskListActivity"
             android:label="N_cartaskActivity"
             android:theme="@style/SampleTheme"></activity>
     </application>

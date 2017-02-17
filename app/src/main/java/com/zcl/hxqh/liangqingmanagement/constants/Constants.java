@@ -65,6 +65,12 @@ public class Constants {
      * ------------------数据库表名配置－－开始*
      */
 
+    //收件箱appid
+    public static final String INBOX_APPID = "INBOX" ;
+
+    //收件箱的表名
+    public static final String INBOX_NAME = "WFASSIGNMENT";
+
     //仓储粮情标准单的appid
     public static final String N_GRAINJC_APPID = "N_GRAINJC";
 

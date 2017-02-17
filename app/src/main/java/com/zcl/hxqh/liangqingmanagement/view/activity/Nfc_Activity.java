@@ -283,7 +283,7 @@ public class Nfc_Activity extends BaseActivity {
             }else if (mark == 1002) { //车辆查询
                 Intent bIntent = getIntent();
                 bIntent.putExtra("tagId", tagId);
-                bIntent.setClass(Nfc_Activity.this, N_cartaskActivity.class);
+                bIntent.setClass(Nfc_Activity.this, N_cartaskListActivity.class);
                 startActivityForResult(intent, 0);
             }
 

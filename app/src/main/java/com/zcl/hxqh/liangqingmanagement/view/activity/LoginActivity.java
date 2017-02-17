@@ -1,6 +1,7 @@
 package com.zcl.hxqh.liangqingmanagement.view.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.View;
@@ -20,9 +21,13 @@ import com.zcl.hxqh.liangqingmanagement.constants.Constants;
 import com.zcl.hxqh.liangqingmanagement.dialog.FlippingLoadingDialog;
 import com.zcl.hxqh.liangqingmanagement.until.AccountUtils;
 import com.zcl.hxqh.liangqingmanagement.until.MessageUtils;
+import com.zcl.hxqh.liangqingmanagement.webserviceclient.AndroidClientService;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
@@ -182,11 +187,47 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     /**
      * 跳转至主界面*
      */
-    private void startIntent() {
+    private void startIntent(ArrayList<String> list) {
         Intent intent = new Intent();
         intent.setClass(this, MainActivity.class);
+        intent.putExtra("appidArray",list);
         startActivity(intent);
         overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+    }
+
+    /**
+     * 获取用户名密码数据*
+     */
+    private void getUserApp(final String username) {
+        new AsyncTask<String, String, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                return AndroidClientService.mobilelogin_getUserApp(LoginActivity.this,username);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                if (isJsonArrary(s)){
+                    try {
+                        JSONArray jsonArray = new JSONArray(s);
+                        JSONObject jsonObject;
+                        ArrayList<String > arrayList = new ArrayList<String>();
+                        for (int i =0;i<jsonArray.length();i++){
+                            jsonObject = jsonArray.getJSONObject(i);
+                            if (jsonObject.has("appid")){
+                                arrayList.add(jsonObject.getString("appid"));
+                            }
+                        }
+                        startIntent(arrayList);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    MessageUtils.showErrorMessage(LoginActivity.this,"获取权限失败");
+                }
+            }
+        }.execute();
     }
 
 
@@ -239,7 +280,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            startIntent();
+                            getUserApp(mUsername.getText().toString());
                         }
                     }
 
@@ -248,7 +289,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         if (data != null) {
                             MessageUtils.showMiddleToast(LoginActivity.this, getString(R.string.login_successful_hint));
 
-                            startIntent();
+                            getUserApp(mUsername.getText().toString());
                         }
                     }
 
@@ -279,7 +320,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         return mLoadingDialog;
     }
 
-
+    private boolean isJsonArrary(String data){
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+        } catch (JSONException e) {
+            return false;
+        }
+        return true;
+    }
 
 
 }
