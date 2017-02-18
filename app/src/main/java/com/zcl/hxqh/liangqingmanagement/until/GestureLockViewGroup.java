@@ -48,6 +48,10 @@ public class GestureLockViewGroup extends RelativeLayout{
      */
     private int[] mAnswer = { 0, 1, 2, 5, 8 };
     /**
+     *
+     */
+    private boolean isSetting;//是否为初始设置
+    /**
      * 保存用户选中的GestureLockView的id
      */
     private List<Integer> mChoose = new ArrayList<Integer>();
@@ -303,6 +307,7 @@ public class GestureLockViewGroup extends RelativeLayout{
                 if (mOnGestureLockViewListener != null && mChoose.size() > 0)
                 {
                     mOnGestureLockViewListener.onGestureEvent(checkAnswer());
+                    mOnGestureLockViewListener.onChoose(mChoose);
                     if (this.mTryTimes == 0)
                     {
                         mOnGestureLockViewListener.onUnmatchedExceedBoundary();
@@ -355,7 +360,7 @@ public class GestureLockViewGroup extends RelativeLayout{
      *
      * 做一些必要的重置
      */
-    private void reset()
+    public void reset()
     {
         mChoose.clear();
         mPath.reset();
@@ -371,15 +376,17 @@ public class GestureLockViewGroup extends RelativeLayout{
      */
     private boolean checkAnswer()
     {
-        if (mAnswer.length != mChoose.size())
-            return false;
-
-        for (int i = 0; i < mAnswer.length; i++)
-        {
-            if (mAnswer[i] != mChoose.get(i))
+        if (!isSetting) {
+            if (mAnswer.length != mChoose.size())
                 return false;
-        }
 
+            for (int i = 0; i < mAnswer.length; i++) {
+                if (mAnswer[i] != mChoose.get(i))
+                    return false;
+            }
+
+            return true;
+        }
         return true;
     }
 
@@ -446,6 +453,24 @@ public class GestureLockViewGroup extends RelativeLayout{
     }
 
     /**
+     * 设置是否是初始设置
+     *
+     * @param first
+     */
+    public void setIsFirst(boolean first)
+    {
+        this.isSetting = first;
+    }
+
+    /**
+     *
+     */
+    public List<Integer> getChoose()
+    {
+        return mChoose;
+    }
+
+    /**
      * 设置最大实验次数
      *
      * @param boundary
@@ -494,5 +519,9 @@ public class GestureLockViewGroup extends RelativeLayout{
          * 超过尝试次数
          */
         public void onUnmatchedExceedBoundary();
+        /**
+         * 输入的元素
+         */
+        public void onChoose(List<Integer> list);
     }
 }

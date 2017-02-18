@@ -426,6 +426,64 @@ public class AndroidClientService {
     }
 
     /**
+     * 设置手势密码
+     */
+    public static String mobilelogin_Imagepassword(Context context, String username,String password) {
+        String ip_adress = AccountUtils.getIpAddress(context) + Constants.LoginwebserviceURL;
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "mobilelogin_Imagepassword");
+        soapReq.addProperty("username", username);//用户名
+        soapReq.addProperty("image", password);//手势密码
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException | XmlPullParserException e) {
+            return null;
+        }
+        String obj = null;
+        String webResult = null;
+        try {
+            webResult = soapEnvelope.getResponse().toString();
+            Log.i(TAG, "webResult=" + webResult);
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return webResult;
+    }
+
+    /**
+     * 手势密码登录
+     */
+    public static String mobilelogin_ImageLogin(Context context, String username,String password) {
+        String ip_adress = AccountUtils.getIpAddress(context) + Constants.LoginwebserviceURL;
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "mobilelogin_ImageLogin");
+        soapReq.addProperty("username", username);//用户名
+        soapReq.addProperty("image", password);//手势密码
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException | XmlPullParserException e) {
+            return null;
+        }
+        String obj = null;
+        String webResult = null;
+        try {
+            webResult = soapEnvelope.getResponse().toString();
+            Log.i(TAG, "webResult=" + webResult);
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return webResult;
+    }
+
+    /**
      * 图片上传
      */
     public static String connectWebService(Context context, String filename, String image, String ownertable, String ownerid) {

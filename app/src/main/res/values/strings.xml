@@ -206,6 +206,7 @@
     <!--扦样单-->
     <string name="samplenum_text">样品编号:</string>
     <string name="type_text">扦样类型:</string>
+    <string name="sampnum_text">送检编号:</string>
     <string name="n_qctasklinenum_text">检验任务编号:</string>
     <string name="obj_text">扦样对象:</string>
     <string name="cartasknum_text">车辆作业单号:</string>

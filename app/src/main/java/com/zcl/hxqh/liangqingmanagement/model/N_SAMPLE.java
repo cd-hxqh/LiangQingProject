@@ -15,7 +15,7 @@ public class N_SAMPLE extends Entity{
     public String N_QCTASKLINENUM;//检验任务编号
     public String OBJ;//扦样对象
     public String LOC;//货位号
-//    public String LOC;//货位号
+    public String SAMPNUM;//送检编号
     public String SAMPLENUM;//样品编号
     public String TYPE;//扦样类型
     public String TAGID;//一卡通号
@@ -123,5 +123,13 @@ public class N_SAMPLE extends Entity{
 
     public void setTYPE(String TYPE) {
         this.TYPE = TYPE;
+    }
+
+    public String getSAMPNUM() {
+        return SAMPNUM;
+    }
+
+    public void setSAMPNUM(String SAMPNUM) {
+        this.SAMPNUM = SAMPNUM;
     }
 }

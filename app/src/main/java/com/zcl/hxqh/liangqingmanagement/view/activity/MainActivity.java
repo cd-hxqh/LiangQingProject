@@ -217,6 +217,8 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                                 startActivity(intent);
                                 break;
                             case "其他":
+                                intent = new Intent(MainActivity.this,SettingActivity.class);
+                                startActivity(intent);
                                 break;
                         }
                     }

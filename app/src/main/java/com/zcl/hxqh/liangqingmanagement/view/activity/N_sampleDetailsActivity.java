@@ -97,6 +97,10 @@ public class N_sampleDetailsActivity extends BaseActivity {
      **/
     private TextView locText;
     /**
+     * 送检编号
+     */
+    private EditText sampnumText;
+    /**
      * 检验任务编号
      */
     private TextView n_qctasklinenumText;
@@ -196,6 +200,7 @@ public class N_sampleDetailsActivity extends BaseActivity {
         descriptionText = (EditText) findViewById(R.id.description_text_id);
         typeText = (TextView) findViewById(R.id.type_text_id);
         locText = (TextView) findViewById(R.id.loc_text_id);
+        sampnumText = (EditText) findViewById(R.id.sampnum_text_text_id);
         n_qctasklinenumText = (TextView) findViewById(R.id.n_qctasklinenum_text_id);
         objText = (TextView) findViewById(R.id.obj_text_id);
         cartasknumText = (TextView) findViewById(R.id.cartasknum_text_id);
@@ -222,6 +227,7 @@ public class N_sampleDetailsActivity extends BaseActivity {
             typeText.setText(n_sample.getTYPE());
             n_qctasklinenumText.setText(n_sample.getN_QCTASKLINENUM());
             objText.setText(n_sample.getOBJ());
+            sampnumText.setText(n_sample.getSAMPNUM());
             locText.setText(n_sample.getLOC());
             cartasknumText.setText(n_sample.getCARTASKNUM());
             if (n_sample.getTRAINYN().equals("N")) {

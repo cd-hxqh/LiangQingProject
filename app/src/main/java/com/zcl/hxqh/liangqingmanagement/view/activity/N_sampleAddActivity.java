@@ -108,6 +108,11 @@ public class N_sampleAddActivity extends BaseActivity {
     private View locView;
 
     /**
+     * 送检编号
+     */
+    private EditText sampnumText;
+    private ImageView sampnumImageView;
+    /**
      * 检验任务编号
      */
     private EditText n_qctasklinenumText;
@@ -216,6 +221,8 @@ public class N_sampleAddActivity extends BaseActivity {
         locLayout = (LinearLayout) findViewById(R.id.loc_layout_id);
         locView = (View) findViewById(R.id.loc_view_id);
 
+        sampnumText = (EditText) findViewById(R.id.sampnum_text_text_id);
+        sampnumImageView = (ImageView) findViewById(R.id.sampnum_text_image_id);
         n_qctasklinenumText = (EditText) findViewById(R.id.n_qctasklinenum_text_id);
         linenumImageView = (ImageView) findViewById(R.id.n_qctasklinenum_image_id);
         objText = (TextView) findViewById(R.id.obj_text_id);
@@ -264,6 +271,8 @@ public class N_sampleAddActivity extends BaseActivity {
         codeImageView.setVisibility(View.VISIBLE);
         codeImageView.setOnClickListener(codeImageViewOnClickListener);
         typeText.setOnClickListener(typeTextOnClickListner);
+        sampnumImageView.setVisibility(View.VISIBLE);
+        sampnumImageView.setOnClickListener(sampnumOnClickListener);
         locImageView.setVisibility(View.VISIBLE);
         locImageView.setOnClickListener(locTextOnClickListener);
 //        linenumImageView.setVisibility(View.VISIBLE);
@@ -393,6 +402,15 @@ public class N_sampleAddActivity extends BaseActivity {
             getOptionsValue("扦样类型", HttpManager.getALNDOMAIN(Constants.N_TYPES), typeText);
 
 
+        }
+    };
+
+    private View.OnClickListener sampnumOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //跳转至选项值界面
+            Intent intent = new Intent(N_sampleAddActivity.this, SampnumChooseActivity.class);
+            startActivityForResult(intent, 0);
         }
     };
 
@@ -759,6 +777,8 @@ public class N_sampleAddActivity extends BaseActivity {
         n_sample.setN_QCTASKLINENUM(n_qctasklinenum);
         String obj = objText.getText().toString();
         n_sample.setOBJ(obj);
+        String sampnum = sampnumText.getText().toString();
+        n_sample.setSAMPNUM(sampnum);
         String loc = locText.getText().toString();
         n_sample.setLOC(loc);
         String cartasknum = cartasknumText.getText().toString();
@@ -832,6 +852,10 @@ public class N_sampleAddActivity extends BaseActivity {
 
 
                 break;
+
+            case 1004:
+                String sampnum = data.getStringExtra("sampnum");
+                sampnumText.setText(sampnum);
         }
     }
 

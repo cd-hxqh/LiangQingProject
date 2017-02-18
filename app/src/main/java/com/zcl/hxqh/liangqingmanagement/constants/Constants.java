@@ -84,6 +84,11 @@ public class Constants {
     //扦样单的表名
     public static final String N_SAMPLE_NAME = "N_SAMPLE";
 
+    //送检编号的appid
+    public static final String N_QCLSAMP_APPID = "N_SAMPLE";
+    //送检编号的表名
+    public static final String N_QCLSAMP_NAME = "N_QCLSAMP";
+
     //货运预报的appid
     public static final String N_CAR_APPID = "N_CAR";
     //货运预报的表名
@@ -98,6 +103,7 @@ public class Constants {
 
     //扦样单的表名
     public static final String ALNDOMAIN_NAME = "ALNDOMAIN";
+
     //任务编号的表名
     public static final String N_QCTASKLINE_NAME = "N_QCTASKLINE";
     //车辆作业的表名

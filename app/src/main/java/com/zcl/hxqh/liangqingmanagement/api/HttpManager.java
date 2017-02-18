@@ -184,6 +184,16 @@ public class HttpManager {
     }
 
     /**
+     * 设置送检编号的接口
+     */
+    public static String getN_QCLSAMP(String value, int curpage, int showcount) {
+        if (value.equals("")) {
+            return "{'appid':'" + Constants.N_QCLSAMP_APPID + "','objectname':'" + Constants.N_QCLSAMP_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'SAMPNUM'}";
+        }
+        return "{'appid':'" + Constants.N_QCLSAMP_APPID + "','objectname':'" + Constants.N_QCLSAMP_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'SAMPNUM','sinorsearch':{'SAMPNUM':'" + value + "','DESCRIPTION':'" + value + "'}}";
+    }
+
+    /**
      * 设置保管员货位的接口
      */
     public static String getN_TASKPLAN(String value, String nowtime, int curpage, int showcount) {
