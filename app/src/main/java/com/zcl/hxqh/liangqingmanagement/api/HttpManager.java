@@ -23,10 +23,11 @@ public class HttpManager {
     private static final String TAG = "HttpManager";
 
     /**
-     * 设置仓储粮情检查单的接口
+     * 设置收件箱的接口
      */
-    public static String getWFASSIGNMENT(int curpage, int showcount) {
-            return "{'appid':'" + Constants.INBOX_APPID + "','objectname':'" + Constants.INBOX_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read'}";
+    public static String getWFASSIGNMENT(String persionid, int curpage, int showcount) {
+            return "{'appid':'" + Constants.WFASSIGNMENT_APPID + "','objectname':'" + Constants.WFASSIGNMENT_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WFASSIGNMENTID DESC','condition':{'ASSIGNCODE':'" + persionid + "','ASSIGNSTATUS':'=活动'}}";
+
     }
 
     /**
@@ -54,9 +55,9 @@ public class HttpManager {
      */
     public static String getN_CAR(String value, String enterby, int curpage, int showcount) {
         if (value.equals("")) {
-            return "{'appid':'" + Constants.N_CAR_APPID + "','objectname':'" + Constants.N_CAR_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'CARNUM DESC'}";
+            return "{'appid':'" + Constants.N_CAR_APPID + "','objectname':'" + Constants.N_CAR_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'CARNUM DESC','condition':{'ENTERBY':'=" + enterby + "'}}";
         }
-        return "{'appid':'" + Constants.N_CAR_APPID + "','objectname':'" + Constants.N_CAR_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'CARNUM DESC','sinorsearch':{'CARNUM':'" + value + "','DESCRIPTION':'" + value + "'}}";
+        return "{'appid':'" + Constants.N_CAR_APPID + "','objectname':'" + Constants.N_CAR_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'CARNUM DESC','condition':{'ENTERBY':'=" + enterby + "'},'sinorsearch':{'CARNUM':'" + value + "','DESCRIPTION':'" + value + "'}}";
     }
 
     /**

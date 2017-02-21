@@ -36,18 +36,11 @@ import android.os.Vibrator;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.flyco.animation.BaseAnimatorSet;
-import com.flyco.animation.BounceEnter.BounceTopEnter;
-import com.flyco.animation.SlideExit.SlideBottomExit;
-import com.flyco.dialog.listener.OnBtnClickL;
-import com.flyco.dialog.widget.NormalDialog;
-import com.lzy.imagepicker.bean.ImageItem;
+import com.zcl.hxqh.liangqingmanagement.AppManager;
 import com.zcl.hxqh.liangqingmanagement.R;
 import com.zcl.hxqh.liangqingmanagement.api.HttpManager;
 import com.zcl.hxqh.liangqingmanagement.api.HttpRequestHandler;
@@ -64,7 +57,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 
@@ -510,6 +502,20 @@ public class CardLoginActivity extends BaseActivity {
         if (vibrate) {
             Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
             vibrator.vibrate(VIBRATE_DURATION);
+        }
+    }
+
+    private long exitTime = 0;
+
+    @Override
+    public void onBackPressed() {
+
+
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_LONG).show();
+            exitTime = System.currentTimeMillis();
+        } else {
+            AppManager.AppExit(CardLoginActivity.this);
         }
     }
 }

@@ -1,29 +1,20 @@
 package com.zcl.hxqh.liangqingmanagement.view.activity;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.flyco.animation.BaseAnimatorSet;
 import com.zcl.hxqh.liangqingmanagement.AppManager;
 import com.zcl.hxqh.liangqingmanagement.R;
 import com.zcl.hxqh.liangqingmanagement.adapter.BaseQuickAdapter;
@@ -35,20 +26,10 @@ import com.zcl.hxqh.liangqingmanagement.api.HttpRequestHandler;
 import com.zcl.hxqh.liangqingmanagement.api.JsonUtils;
 import com.zcl.hxqh.liangqingmanagement.bean.Results;
 import com.zcl.hxqh.liangqingmanagement.constants.Constants;
-import com.zcl.hxqh.liangqingmanagement.dialog.FlippingLoadingDialog;
 import com.zcl.hxqh.liangqingmanagement.model.ProdctBean;
 import com.zcl.hxqh.liangqingmanagement.model.WFASSIGNMENT;
 import com.zcl.hxqh.liangqingmanagement.model.WORKORDER;
 import com.zcl.hxqh.liangqingmanagement.until.AccountUtils;
-import com.zcl.hxqh.liangqingmanagement.until.MessageUtils;
-import com.zcl.hxqh.liangqingmanagement.view.fragment.CclqjcdFragment;
-import com.zcl.hxqh.liangqingmanagement.view.fragment.HyybFragment;
-import com.zcl.hxqh.liangqingmanagement.view.fragment.N_cartaskFragment;
-import com.zcl.hxqh.liangqingmanagement.view.fragment.NavigationDrawerFragment;
-import com.zcl.hxqh.liangqingmanagement.view.fragment.PersonFragment;
-import com.zcl.hxqh.liangqingmanagement.view.fragment.QydFragment;
-import com.zcl.hxqh.liangqingmanagement.view.fragment.WilineFragment;
-import com.zcl.hxqh.liangqingmanagement.view.fragment.WorkOrderFragment;
 import com.zcl.hxqh.liangqingmanagement.view.widght.SwipeRefreshLayout;
 
 import java.util.ArrayList;
@@ -57,7 +38,7 @@ import java.util.List;
 /**
  * MainActivity
  */
-public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener{
+public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener {
     private ImageView memberImg;
     private TextView memberText;
     private ViewPager viewPager;
@@ -69,8 +50,8 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     private List<View> viewPagerList;//GridView作为一个View对象添加到ViewPager集合中
     private int currentPage;//当前页
     private ArrayList<String> list = new ArrayList<>();//appid集合
-    private String[] proName = {"仓储基础工作" , "扦样单", "货运预报","工单管理", "工位管理", "人员查询", "车辆查询",
-              "其他"};
+    private String[] proName = {"仓储基础工作", "扦样单", "货运预报", "工单管理", "工位管理", "人员查询", "车辆查询",
+            "其他"};
 
     LinearLayoutManager layoutManager;
     /**
@@ -93,6 +74,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
 
     ArrayList<WFASSIGNMENT> items = new ArrayList<WFASSIGNMENT>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,30 +122,30 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         memberText.setText(AccountUtils.getdisplayName(MainActivity.this));
         listDatas = new ArrayList<ProdctBean>();
         if (list != null && list.size() != 0) {
-            if (list.contains(Constants.N_GRAINJC_APPID)){//粮情标准单
-                listDatas.add(new ProdctBean(proName[0],Constants.N_GRAINJC_APPID, R.drawable.item_lqbz));
+            if (list.contains(Constants.N_GRAINJC_APPID)) {//粮情标准单
+                listDatas.add(new ProdctBean(proName[0], Constants.N_GRAINJC_APPID, R.drawable.item_lqbz));
             }
-            if (list.contains(Constants.N_SAMPLE_APPID)){//扦样单
-                listDatas.add(new ProdctBean(proName[1],Constants.N_SAMPLE_APPID, R.drawable.item_qyd));
+            if (list.contains(Constants.N_SAMPLE_APPID)) {//扦样单
+                listDatas.add(new ProdctBean(proName[1], Constants.N_SAMPLE_APPID, R.drawable.item_qyd));
             }
-            if (list.contains(Constants.N_CAR_APPID)){//货运预报
-                listDatas.add(new ProdctBean(proName[2],Constants.N_CAR_APPID, R.drawable.item_hyyb));
+            if (list.contains(Constants.N_CAR_APPID)) {//货运预报
+                listDatas.add(new ProdctBean(proName[2], Constants.N_CAR_APPID, R.drawable.item_hyyb));
             }
-            if (list.contains(Constants.WORKORDER_APPID)){//工单管理
-                listDatas.add(new ProdctBean(proName[3],Constants.WORKORDER_APPID, R.drawable.item_gdgl));
+            if (list.contains(Constants.WORKORDER_APPID)) {//工单管理
+                listDatas.add(new ProdctBean(proName[3], Constants.WORKORDER_APPID, R.drawable.item_gdgl));
             }
-            if (list.contains(Constants.N_WTLINE_APPID)){//工位管理
-                listDatas.add(new ProdctBean(proName[4],Constants.N_WTLINE_APPID, R.drawable.item_gwgl));
+            if (list.contains(Constants.N_WTLINE_APPID)) {//工位管理
+                listDatas.add(new ProdctBean(proName[4], Constants.N_WTLINE_APPID, R.drawable.item_gwgl));
             }
-            if (list.contains(Constants.PERSON_APPID)){//人员查询
-                listDatas.add(new ProdctBean(proName[5],Constants.PERSON_APPID, R.drawable.item_rycx));
+            if (list.contains(Constants.PERSON_APPID)) {//人员查询
+                listDatas.add(new ProdctBean(proName[5], Constants.PERSON_APPID, R.drawable.item_rycx));
             }
-            if (list.contains(Constants.N_CARTASK_NAME)){//车辆查询
-                listDatas.add(new ProdctBean(proName[6],Constants.N_CARTASK_NAME, R.drawable.item_car));
+            if (list.contains(Constants.N_CARTASK_NAME)) {//车辆查询
+                listDatas.add(new ProdctBean(proName[6], Constants.N_CARTASK_NAME, R.drawable.item_car));
             }
 
 //            if (list.contains(Constants.N_GRAINJC_APPID)){//其他
-                listDatas.add(new ProdctBean(proName[7],"其他", R.drawable.item_qt));
+            listDatas.add(new ProdctBean(proName[7], "其他", R.drawable.item_qt));
 //            }
 
         }
@@ -187,37 +169,37 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 //                        Toast.makeText(MainActivity.this, ((ProdctBean) obj).getName(), Toast.LENGTH_SHORT).show();
                         ProdctBean prodctBean = (ProdctBean) obj;
                         Intent intent;
-                        switch (prodctBean.getAppid()){
+                        switch (prodctBean.getAppid()) {
                             case Constants.N_GRAINJC_APPID:
-                                intent = new Intent(MainActivity.this,CclqjcdActivity.class);
+                                intent = new Intent(MainActivity.this, CclqjcdActivity.class);
                                 startActivity(intent);
                                 break;
                             case Constants.N_SAMPLE_APPID:
-                                intent = new Intent(MainActivity.this,QydActivity.class);
+                                intent = new Intent(MainActivity.this, QydActivity.class);
                                 startActivity(intent);
                                 break;
                             case Constants.N_CAR_APPID:
-                                intent = new Intent(MainActivity.this,HyybActivity.class);
+                                intent = new Intent(MainActivity.this, HyybActivity.class);
                                 startActivity(intent);
                                 break;
                             case Constants.N_WTLINE_APPID:
-                                intent = new Intent(MainActivity.this,WtlineActivity.class);
+                                intent = new Intent(MainActivity.this, WtlineActivity.class);
                                 startActivity(intent);
                                 break;
                             case Constants.PERSON_APPID:
-                                intent = new Intent(MainActivity.this,PersonActivity.class);
+                                intent = new Intent(MainActivity.this, PersonActivity.class);
                                 startActivity(intent);
                                 break;
                             case Constants.N_CARTASK_NAME:
-                                intent = new Intent(MainActivity.this,N_cartaskActivity.class);
+                                intent = new Intent(MainActivity.this, N_cartaskActivity.class);
                                 startActivity(intent);
                                 break;
                             case Constants.WORKORDER_APPID:
-                                intent = new Intent(MainActivity.this,WorkOrderActivity.class);
+                                intent = new Intent(MainActivity.this, WorkOrderActivity.class);
                                 startActivity(intent);
                                 break;
                             case "其他":
-                                intent = new Intent(MainActivity.this,SettingActivity.class);
+                                intent = new Intent(MainActivity.this, SettingActivity.class);
                                 startActivity(intent);
                                 break;
                         }
@@ -230,7 +212,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         //设置ViewPager适配器
         viewPager.setAdapter(new MyViewPagerAdapter(viewPagerList));
 
-        if (totalPage==1){
+        if (totalPage == 1) {
             group.setVisibility(View.GONE);
         }
         //添加小圆点
@@ -267,7 +249,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
      * 获取数据*
      */
     private void getData() {
-        HttpManager.getDataPagingInfo(MainActivity.this, HttpManager.getWFASSIGNMENT(page, 20), new HttpRequestHandler<Results>() {
+        HttpManager.getDataPagingInfo(MainActivity.this, HttpManager.getWFASSIGNMENT(AccountUtils.getloginUserName(MainActivity.this), page, 20), new HttpRequestHandler<Results>() {
             @Override
             public void onSuccess(Results results) {
 //                Log.i(TAG, "data=" + results);
@@ -353,6 +335,20 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     public void onRefresh() {
         page = 1;
         getData();
+    }
+
+    private long exitTime = 0;
+
+    @Override
+    public void onBackPressed() {
+
+
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_LONG).show();
+            exitTime = System.currentTimeMillis();
+        } else {
+            AppManager.AppExit(MainActivity.this);
+        }
     }
 
 }

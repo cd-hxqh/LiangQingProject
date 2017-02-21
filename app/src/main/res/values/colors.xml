@@ -40,4 +40,6 @@
     <color name="possible_result_points">#c0ffff00</color>
     <color name="light_gray_1">#f5f5f5</color>
     <color name="blue_color">#00529d</color> <!--蓝色-->
+
+    <color name="top_bj">#41c378</color> <!--淡绿色-->
 </resources>

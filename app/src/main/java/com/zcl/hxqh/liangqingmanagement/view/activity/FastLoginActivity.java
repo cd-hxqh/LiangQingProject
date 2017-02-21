@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zcl.hxqh.liangqingmanagement.AppManager;
 import com.zcl.hxqh.liangqingmanagement.R;
 import com.zcl.hxqh.liangqingmanagement.dialog.FlippingLoadingDialog;
 import com.zcl.hxqh.liangqingmanagement.until.AccountUtils;
@@ -230,5 +231,19 @@ public class FastLoginActivity extends BaseActivity {
             finish();
         }
     };
+
+    private long exitTime = 0;
+
+    @Override
+    public void onBackPressed() {
+
+
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_LONG).show();
+            exitTime = System.currentTimeMillis();
+        } else {
+            AppManager.AppExit(FastLoginActivity.this);
+        }
+    }
 
 }
