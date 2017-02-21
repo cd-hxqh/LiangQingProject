@@ -167,21 +167,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             AccountUtils.setIpAddress(LoginActivity.this,Constants.HTTP_API_IP);
         }
 
-//        waiwangRadio.setChecked(true);
-//        radioGroup.setOnCheckedChangeListener(radioGroupOnCheckedChangeListener);
-    }
+}
 
 
-//    private RadioGroup.OnCheckedChangeListener radioGroupOnCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
-//        @Override
-//        public void onCheckedChanged(RadioGroup group, int checkedId) {
-//            if (checkedId == neiwangRadio.getId()) {
-//                AccountUtils.setIpAddress(LoginActivity.this, Constants.HTTPZHENGSHI_API_IP);
-//            } else if (checkedId == waiwangRadio.getId()) {
-//                AccountUtils.setIpAddress(LoginActivity.this, Constants.HTTP_API_IP);
-//            }
-//        }
-//    };
 
 
     /**
@@ -196,7 +184,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     /**
-     * 获取用户名密码数据*
+     * 获取用户名显示权限数据*
      */
     private void getUserApp(final String username) {
         new AsyncTask<String, String, String>() {

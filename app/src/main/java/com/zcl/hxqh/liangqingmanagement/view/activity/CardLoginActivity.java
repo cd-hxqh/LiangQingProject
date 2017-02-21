@@ -57,6 +57,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
 
@@ -64,6 +65,7 @@ import java.util.Locale;
  * An {@link Activity} which handles a broadcast of a new tag that the device just discovered.
  */
 public class CardLoginActivity extends BaseActivity {
+    private static final String TAG="CardLoginActivity";
 
 
     private TextView ConnectSetting;//连接设置
@@ -143,12 +145,6 @@ public class CardLoginActivity extends BaseActivity {
     }
 
 
-    private View.OnClickListener backImageViewOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            finish();
-        }
-    };
 
     private View.OnClickListener connectsettingOnClickListener = new View.OnClickListener() {
         @Override
@@ -268,12 +264,7 @@ public class CardLoginActivity extends BaseActivity {
                 tagId = dumpTagData(tag);
 
             }
-            getAsyncTask("8116389");
-//                Intent bIntent = getIntent();
-//                bIntent.putExtra("tagId", tagId);
-//                setResult(1002, intent);
-//                finish();
-//            buildTagViews(tagId);
+            getAsyncTask(tagId);
         }
     }
 
@@ -281,10 +272,11 @@ public class CardLoginActivity extends BaseActivity {
      * 获取用户名密码数据*
      */
     private void getAsyncTask(final String cardnum) {
+        Log.i(TAG,"cardnum="+cardnum);
         new AsyncTask<String, String, String>() {
             @Override
             protected String doInBackground(String... strings) {
-                return AndroidClientService.mobilelogin_Mobile_1(CardLoginActivity.this,cardnum );
+                return AndroidClientService.mobilelogin_Mobile_1(CardLoginActivity.this,cardnum);
             }
 
             @Override
@@ -295,8 +287,6 @@ public class CardLoginActivity extends BaseActivity {
                         JSONArray jsonArray = new JSONArray(s);
                         JSONObject jsonObject = jsonArray.getJSONObject(0);
                         if (jsonObject.has("loginid")&&jsonObject.has("password")){
-//                            AccountUtils.setUserName(CardLoginActivity.this,jsonObject.getString("loginid"));
-//                            startIntent();
                             login(jsonObject.getString("loginid"),jsonObject.getString("password"));
                         }else {
                             MessageUtils.showErrorMessage(CardLoginActivity.this,s);
@@ -337,7 +327,7 @@ public class CardLoginActivity extends BaseActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            startIntent();
+                            getUserApp(mUsername);
                         }
                     }
 
@@ -346,7 +336,7 @@ public class CardLoginActivity extends BaseActivity {
                         if (data != null) {
                             MessageUtils.showMiddleToast(CardLoginActivity.this, getString(R.string.login_successful_hint));
 
-                            startIntent();
+                            getUserApp(mUsername);
                         }
                     }
 
@@ -359,6 +349,7 @@ public class CardLoginActivity extends BaseActivity {
     }
 
     private boolean isJsonArrary(String data){
+        Log.i(TAG,"data="+data);
         try {
             JSONArray jsonArray = new JSONArray(data);
         } catch (JSONException e) {
@@ -370,9 +361,10 @@ public class CardLoginActivity extends BaseActivity {
     /**
      * 跳转至主界面*
      */
-    private void startIntent() {
+    private void startIntent(ArrayList<String> list) {
         Intent intent = new Intent();
         intent.setClass(this, MainActivity.class);
+        intent.putExtra("appidArray",list);
         startActivity(intent);
         overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
     }
@@ -432,27 +424,40 @@ public class CardLoginActivity extends BaseActivity {
     }
 
 
-//    /**
-//     * 显示结果
-//     **/
-//    void buildTagViews(String msgs) {
-//        if (msgs == null || msgs.equals("")) {
-//            return;
-//        }
-//
-//        mTagContent.setVisibility(View.GONE);
-//
-//        LayoutInflater inflater = LayoutInflater.from(this);
-//        LinearLayout content = tagContent;
-//
-//        // Parse the first message in the list
-//        // Build views for all of the sub records
-//        Date now = new Date();
-//        TextView timeView = new TextView(this);
-//        timeView.setText(TIME_FORMAT.format(now) + "\n" + "磁卡号:" + msgs);
-//        content.addView(timeView, 0);
-//
-//    }
+    /**
+     * 获取用户名显示权限数据*
+     */
+    private void getUserApp(final String username) {
+        new AsyncTask<String, String, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                return AndroidClientService.mobilelogin_getUserApp(CardLoginActivity.this,username);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                if (isJsonArrary(s)){
+                    try {
+                        JSONArray jsonArray = new JSONArray(s);
+                        JSONObject jsonObject;
+                        ArrayList<String > arrayList = new ArrayList<String>();
+                        for (int i =0;i<jsonArray.length();i++){
+                            jsonObject = jsonArray.getJSONObject(i);
+                            if (jsonObject.has("appid")){
+                                arrayList.add(jsonObject.getString("appid"));
+                            }
+                        }
+                        startIntent(arrayList);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    MessageUtils.showErrorMessage(CardLoginActivity.this,"获取权限失败");
+                }
+            }
+        }.execute();
+    }
 
 
     @Override

@@ -23,13 +23,11 @@ import android.widget.TextView;
 import com.zcl.hxqh.liangqingmanagement.R;
 import com.zcl.hxqh.liangqingmanagement.adapter.BaseQuickAdapter;
 import com.zcl.hxqh.liangqingmanagement.adapter.HyybListAdapter;
-import com.zcl.hxqh.liangqingmanagement.adapter.QydListAdapter;
 import com.zcl.hxqh.liangqingmanagement.api.HttpManager;
 import com.zcl.hxqh.liangqingmanagement.api.HttpRequestHandler;
 import com.zcl.hxqh.liangqingmanagement.api.JsonUtils;
 import com.zcl.hxqh.liangqingmanagement.bean.Results;
 import com.zcl.hxqh.liangqingmanagement.model.N_CAR;
-import com.zcl.hxqh.liangqingmanagement.model.N_SAMPLE;
 import com.zcl.hxqh.liangqingmanagement.until.AccountUtils;
 import com.zcl.hxqh.liangqingmanagement.view.widght.SwipeRefreshLayout;
 
@@ -134,7 +132,7 @@ public class HyybActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     private View.OnClickListener addImageOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent1 = new Intent(HyybActivity.this, N_sampleAddActivity.class);
+            Intent intent1 = new Intent(HyybActivity.this, N_carAddActivity.class);
             startActivityForResult(intent1, 0);
         }
     };
