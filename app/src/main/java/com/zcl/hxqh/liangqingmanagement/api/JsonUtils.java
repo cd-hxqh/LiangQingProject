@@ -773,7 +773,11 @@ public class JsonUtils {
                     Object value = null;
                     value = getOrSet.invoke(n_sample);
                     if (value != null) {
-                        jsonObject.put(name, value + "");
+                        if (name.equals("SAMPNUM")){
+                            jsonObject.put("sampnum", value + "");
+                        }else {
+                            jsonObject.put(name, value + "");
+                        }
                     }
                 } catch (NoSuchMethodException e) {
                     e.printStackTrace();
