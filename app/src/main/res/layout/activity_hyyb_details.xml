@@ -292,6 +292,258 @@
                 android:layout_height="@dimen/dimens_line"
                 android:background="@drawable/line"></View>
 
+            <LinearLayout
+                android:id="@+id/actualqc1_linearlayout_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/actualqc1_text"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+
+                <TextView
+                    android:id="@+id/actualqc1_text_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:background="@color/transparent"
+                    android:drawablePadding="@dimen/dimen_5"
+                    android:gravity="right"
+                    android:hint="@string/have_not_data"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/actualqc1_view_id"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_line"
+                android:background="@drawable/line"></View>
+
+            <LinearLayout
+                android:id="@+id/actualqty_linearlayout_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/actualqty_text"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+
+                <TextView
+                    android:id="@+id/actualqty_text_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:background="@color/transparent"
+                    android:drawablePadding="@dimen/dimen_5"
+                    android:gravity="right"
+                    android:hint="@string/have_not_data"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/actualqty_view_id"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_line"
+                android:background="@drawable/line"></View>
+
+            <LinearLayout
+                android:id="@+id/actualqc2_linearlayout_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/actualqc2_text"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+
+                <TextView
+                    android:id="@+id/actualqc2_text_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:background="@color/transparent"
+                    android:drawablePadding="@dimen/dimen_5"
+                    android:gravity="right"
+                    android:hint="@string/have_not_data"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/actualqc2_view_id"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_line"
+                android:background="@drawable/line"></View>
+
+            <LinearLayout
+                android:id="@+id/actualqc3_linearlayout_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/actualqc3_text"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+
+                <TextView
+                    android:id="@+id/actualqc3_text_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:background="@color/transparent"
+                    android:drawablePadding="@dimen/dimen_5"
+                    android:gravity="right"
+                    android:hint="@string/have_not_data"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/actualqc3_view_id"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_line"
+                android:background="@drawable/line"></View>
+
+            <LinearLayout
+                android:id="@+id/actualqc4_linearlayout_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/actualqc4_text"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+
+                <TextView
+                    android:id="@+id/actualqc4_text_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:background="@color/transparent"
+                    android:drawablePadding="@dimen/dimen_5"
+                    android:gravity="right"
+                    android:hint="@string/have_not_data"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/actualqc4_view_id"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_line"
+                android:background="@drawable/line"></View>
+
+            <LinearLayout
+                android:id="@+id/actualqc5_linearlayout_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/actualqc5_text"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+
+                <TextView
+                    android:id="@+id/actualqc5_text_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:background="@color/transparent"
+                    android:drawablePadding="@dimen/dimen_5"
+                    android:gravity="right"
+                    android:hint="@string/have_not_data"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/actualqc5_view_id"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_line"
+                android:background="@drawable/line"></View>
+
+            <LinearLayout
+                android:id="@+id/actualqc6_linearlayout_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/actualqc6_text"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+
+                <TextView
+                    android:id="@+id/actualqc6_text_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:background="@color/transparent"
+                    android:drawablePadding="@dimen/dimen_5"
+                    android:gravity="right"
+                    android:hint="@string/have_not_data"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/actualqc6_view_id"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_line"
+                android:background="@drawable/line"></View>
+
 
             <LinearLayout
                 android:layout_width="match_parent"

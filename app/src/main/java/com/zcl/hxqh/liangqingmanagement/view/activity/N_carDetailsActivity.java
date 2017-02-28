@@ -3,15 +3,12 @@ package com.zcl.hxqh.liangqingmanagement.view.activity;
 import android.animation.LayoutTransition;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,7 +23,6 @@ import com.flyco.dialog.entity.DialogMenuItem;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.listener.OnOperItemClickL;
 import com.flyco.dialog.widget.NormalDialog;
-import com.flyco.dialog.widget.NormalListDialog;
 import com.zcl.hxqh.liangqingmanagement.R;
 import com.zcl.hxqh.liangqingmanagement.api.HttpManager;
 import com.zcl.hxqh.liangqingmanagement.api.HttpRequestHandler;
@@ -36,12 +32,7 @@ import com.zcl.hxqh.liangqingmanagement.constants.Constants;
 import com.zcl.hxqh.liangqingmanagement.dialog.FlippingLoadingDialog;
 import com.zcl.hxqh.liangqingmanagement.model.ALNDOMAIN;
 import com.zcl.hxqh.liangqingmanagement.model.N_CAR;
-import com.zcl.hxqh.liangqingmanagement.model.N_CARTASK;
-import com.zcl.hxqh.liangqingmanagement.model.N_QCTASKLINE;
-import com.zcl.hxqh.liangqingmanagement.model.N_SAMPLE;
 import com.zcl.hxqh.liangqingmanagement.model.N_TASKPLAN;
-import com.zcl.hxqh.liangqingmanagement.model.N_WAGONS;
-import com.zcl.hxqh.liangqingmanagement.until.AccountUtils;
 import com.zcl.hxqh.liangqingmanagement.until.MessageUtils;
 import com.zcl.hxqh.liangqingmanagement.until.T;
 import com.zcl.hxqh.liangqingmanagement.view.widght.ShareBottomDialog;
@@ -106,6 +97,51 @@ public class N_carDetailsActivity extends BaseActivity {
      * 车辆类型
      */
     private TextView cartypeText;
+    /**
+     * 水分%
+     */
+
+    private LinearLayout actualqc1Layout;
+    private TextView actualqc1Text;
+    private View actualqc1View;
+    /**
+     * 数量
+     */
+    private LinearLayout actualqtyLayout;
+    private TextView actualqtyText;
+    private View actualqtyView;
+
+    /**
+     * 杂质含量%
+     */
+    private LinearLayout actualqc2Layout;
+    private TextView actualqc2Text;
+    private View actualqc2View;
+    /**
+     * 不完善含量%
+     */
+    private LinearLayout actualqc3Layout;
+    private TextView actualqc3Text;
+    private View actualqc3View;
+    /**
+     * 容重g/l%
+     */
+    private LinearLayout actualqc4Layout;
+    private TextView actualqc4Text;
+    private View actualqc4View;
+    /**
+     * 生霉含量%
+     */
+    private LinearLayout actualqc5Layout;
+    private TextView actualqc5Text;
+    private View actualqc5View;
+    /**
+     * 脂肪酸值
+     */
+    private LinearLayout actualqc6Layout;
+    private TextView actualqc6Text;
+    private View actualqc6View;
+
 
     /**
      * 计划总量
@@ -188,6 +224,35 @@ public class N_carDetailsActivity extends BaseActivity {
         foodtypesText = (TextView) findViewById(R.id.hyyb_foodtypes);
         theamountofmoneyText = (TextView) findViewById(R.id.hyyb_theamountofmoney);
         cartypeText = (TextView) findViewById(R.id.hyyb_cartype);
+
+        actualqc1Text = (TextView) findViewById(R.id.actualqc1_text_id);
+        actualqc1Layout = (LinearLayout) findViewById(R.id.actualqc1_linearlayout_id);
+        actualqc1View = (View) findViewById(R.id.actualqc1_view_id);
+
+        actualqtyText = (TextView) findViewById(R.id.actualqty_text_id);
+        actualqtyLayout = (LinearLayout) findViewById(R.id.actualqty_linearlayout_id);
+        actualqtyView = (View) findViewById(R.id.actualqty_view_id);
+
+        actualqc2Text = (TextView) findViewById(R.id.actualqc2_text_id);
+        actualqc2Layout = (LinearLayout) findViewById(R.id.actualqc2_linearlayout_id);
+        actualqc2View = (View) findViewById(R.id.actualqc2_view_id);
+
+        actualqc3Text = (TextView) findViewById(R.id.actualqc3_text_id);
+        actualqc3Layout = (LinearLayout) findViewById(R.id.actualqc3_linearlayout_id);
+        actualqc3View = (View) findViewById(R.id.actualqc3_view_id);
+
+        actualqc4Text = (TextView) findViewById(R.id.actualqc4_text_id);
+        actualqc4Layout = (LinearLayout) findViewById(R.id.actualqc4_linearlayout_id);
+        actualqc4View = (View) findViewById(R.id.actualqc4_view_id);
+
+        actualqc5Text = (TextView) findViewById(R.id.actualqc5_text_id);
+        actualqc5Layout = (LinearLayout) findViewById(R.id.actualqc5_linearlayout_id);
+        actualqc5View = (View) findViewById(R.id.actualqc5_view_id);
+
+        actualqc6Text = (TextView) findViewById(R.id.actualqc6_text_id);
+        actualqc6Layout = (LinearLayout) findViewById(R.id.actualqc6_linearlayout_id);
+        actualqc6View = (View) findViewById(R.id.actualqc6_view_id);
+
         plantotalText = (EditText) findViewById(R.id.hyyb_plantotal);
         planstatusText = (EditText) findViewById(R.id.hyyb_planstatus);
         enterdateText = (TextView) findViewById(R.id.hyyb_enterdate);
@@ -223,6 +288,43 @@ public class N_carDetailsActivity extends BaseActivity {
             foodtypesText.setText(n_car.getFOODTYPES());
             theamountofmoneyText.setText(n_car.getTHEAMOUNTOFMONEY());
             cartypeText.setText(n_car.getCARTYPE());
+
+            if (n_car.getFOODTYPES().equals("玉米")) {
+                actualqc1Text.setText(n_car.getACTUALQC1());
+                actualqtyText.setText(n_car.getACTUALQTY());
+                actualqc2Text.setText(n_car.getACTUALQC2());
+
+                actualqc3Text.setText(n_car.getACTUALQC3());
+                actualqc4Text.setText(n_car.getACTUALQC4());
+                actualqc5Text.setText(n_car.getACTUALQC5());
+                actualqc6Text.setText(n_car.getACTUALQC6());
+            } else if (n_car.getFOODTYPES().equals("大豆") || n_car.getFOODTYPES().equals("稻谷")) {
+
+                actualqc1Text.setText(n_car.getACTUALQC1());
+                actualqtyText.setText(n_car.getACTUALQTY());
+                actualqc2Text.setText(n_car.getACTUALQC2());
+
+                actualqc3Layout.setVisibility(View.GONE);
+                actualqc3View.setVisibility(View.GONE);
+                actualqc4Layout.setVisibility(View.GONE);
+                actualqc4View.setVisibility(View.GONE);
+                actualqc5Layout.setVisibility(View.GONE);
+                actualqc5View.setVisibility(View.GONE);
+                actualqc6Layout.setVisibility(View.GONE);
+                actualqc6View.setVisibility(View.GONE);
+            } else if (n_car.getFOODTYPES().equals("小麦")) {
+                actualqc1Text.setText(n_car.getACTUALQC1());
+                actualqtyText.setText(n_car.getACTUALQTY());
+                actualqc2Text.setText(n_car.getACTUALQC2());
+
+                actualqc3Text.setText(n_car.getACTUALQC3());
+                actualqc4Text.setText(n_car.getACTUALQC4());
+
+                actualqc5Layout.setVisibility(View.GONE);
+                actualqc5View.setVisibility(View.GONE);
+                actualqc6Layout.setVisibility(View.GONE);
+                actualqc6View.setVisibility(View.GONE);
+            }
             plantotalText.setText(n_car.getPLANTOTAL());
             planstatusText.setText(n_car.getPLANSTATUS());
             enterdateText.setText(n_car.getENTERDATE());

@@ -102,6 +102,53 @@ public class N_carAddActivity extends BaseActivity {
      */
     private TextView cartypeText;
 
+
+    /**
+     * 水分%
+     */
+
+    private LinearLayout actualqc1Layout;
+    private TextView actualqc1Text;
+    private View actualqc1View;
+    /**
+     * 数量
+     */
+    private LinearLayout actualqtyLayout;
+    private TextView actualqtyText;
+    private View actualqtyView;
+
+    /**
+     * 杂质含量%
+     */
+    private LinearLayout actualqc2Layout;
+    private TextView actualqc2Text;
+    private View actualqc2View;
+    /**
+     * 不完善含量%
+     */
+    private LinearLayout actualqc3Layout;
+    private TextView actualqc3Text;
+    private View actualqc3View;
+    /**
+     * 容重g/l%
+     */
+    private LinearLayout actualqc4Layout;
+    private TextView actualqc4Text;
+    private View actualqc4View;
+    /**
+     * 生霉含量%
+     */
+    private LinearLayout actualqc5Layout;
+    private TextView actualqc5Text;
+    private View actualqc5View;
+    /**
+     * 脂肪酸值
+     */
+    private LinearLayout actualqc6Layout;
+    private TextView actualqc6Text;
+    private View actualqc6View;
+
+
     /**
      * 计划总量
      **/
@@ -178,6 +225,33 @@ public class N_carAddActivity extends BaseActivity {
         foodtypesText = (TextView) findViewById(R.id.hyyb_foodtypes);
         theamountofmoneyText = (TextView) findViewById(R.id.hyyb_theamountofmoney);
         cartypeText = (TextView) findViewById(R.id.hyyb_cartype);
+        actualqc1Text = (TextView) findViewById(R.id.actualqc1_text_id);
+        actualqc1Layout = (LinearLayout) findViewById(R.id.actualqc1_linearlayout_id);
+        actualqc1View = (View) findViewById(R.id.actualqc1_view_id);
+
+        actualqtyText = (TextView) findViewById(R.id.actualqty_text_id);
+        actualqtyLayout = (LinearLayout) findViewById(R.id.actualqty_linearlayout_id);
+        actualqtyView = (View) findViewById(R.id.actualqty_view_id);
+
+        actualqc2Text = (TextView) findViewById(R.id.actualqc2_text_id);
+        actualqc2Layout = (LinearLayout) findViewById(R.id.actualqc2_linearlayout_id);
+        actualqc2View = (View) findViewById(R.id.actualqc2_view_id);
+
+        actualqc3Text = (TextView) findViewById(R.id.actualqc3_text_id);
+        actualqc3Layout = (LinearLayout) findViewById(R.id.actualqc3_linearlayout_id);
+        actualqc3View = (View) findViewById(R.id.actualqc3_view_id);
+
+        actualqc4Text = (TextView) findViewById(R.id.actualqc4_text_id);
+        actualqc4Layout = (LinearLayout) findViewById(R.id.actualqc4_linearlayout_id);
+        actualqc4View = (View) findViewById(R.id.actualqc4_view_id);
+
+        actualqc5Text = (TextView) findViewById(R.id.actualqc5_text_id);
+        actualqc5Layout = (LinearLayout) findViewById(R.id.actualqc5_linearlayout_id);
+        actualqc5View = (View) findViewById(R.id.actualqc5_view_id);
+
+        actualqc6Text = (TextView) findViewById(R.id.actualqc6_text_id);
+        actualqc6Layout = (LinearLayout) findViewById(R.id.actualqc6_linearlayout_id);
+        actualqc6View = (View) findViewById(R.id.actualqc6_view_id);
         plantotalText = (EditText) findViewById(R.id.hyyb_plantotal);
         planstatusText = (EditText) findViewById(R.id.hyyb_planstatus);
         enterdateText = (TextView) findViewById(R.id.hyyb_enterdate);
@@ -189,8 +263,6 @@ public class N_carAddActivity extends BaseActivity {
         ViewGroup container = (ViewGroup) findViewById(R.id.container);
         LayoutTransition transition = new LayoutTransition();
         container.setLayoutTransition(transition);
-
-
 
 
         setDataListener();
@@ -210,6 +282,33 @@ public class N_carAddActivity extends BaseActivity {
         plannumText.setOnClickListener(plannumTextOnClickListener);
         foodtypesText.setOnClickListener(foodtypesTextOnClickListner);
         carlineButton.setOnClickListener(carlineOnClickListener);
+        actualqc1Text.setVisibility(View.GONE);
+        actualqc1Layout.setVisibility(View.GONE);
+        actualqc1View.setVisibility(View.GONE);
+
+        actualqtyText.setVisibility(View.GONE);
+        actualqtyLayout.setVisibility(View.GONE);
+        actualqtyView.setVisibility(View.GONE);
+
+        actualqc2Text.setVisibility(View.GONE);
+        actualqc2Layout.setVisibility(View.GONE);
+        actualqc2View.setVisibility(View.GONE);
+
+        actualqc3Text.setVisibility(View.GONE);
+        actualqc3Layout.setVisibility(View.GONE);
+        actualqc3View.setVisibility(View.GONE);
+
+        actualqc4Text.setVisibility(View.GONE);
+        actualqc4Layout.setVisibility(View.GONE);
+        actualqc4View.setVisibility(View.GONE);
+
+        actualqc5Text.setVisibility(View.GONE);
+        actualqc5Layout.setVisibility(View.GONE);
+        actualqc5View.setVisibility(View.GONE);
+
+        actualqc6Text.setVisibility(View.GONE);
+        actualqc6Layout.setVisibility(View.GONE);
+        actualqc6View.setVisibility(View.GONE);
     }
 
     private View.OnClickListener backImageViewOnClickListener = new View.OnClickListener() {
@@ -299,6 +398,7 @@ public class N_carAddActivity extends BaseActivity {
 
         }
     }
+
     /**
      * 显示选项框
      **/
@@ -371,7 +471,7 @@ public class N_carAddActivity extends BaseActivity {
         }
     }
 
-    private String getNowTime(){
+    private String getNowTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(new Date());
     }
@@ -423,7 +523,7 @@ public class N_carAddActivity extends BaseActivity {
         new AsyncTask<String, String, String>() {
             @Override
             protected String doInBackground(String... strings) {
-                return AndroidClientService.addAndUpdateN_CAR(N_carAddActivity.this, JsonUtils.encapsulationN_CAR(getN_CAR(),null));
+                return AndroidClientService.addAndUpdateN_CAR(N_carAddActivity.this, JsonUtils.encapsulationN_CAR(getN_CAR(), null));
             }
 
             @Override
@@ -464,12 +564,12 @@ public class N_carAddActivity extends BaseActivity {
         return n_car;
     }
 
-    private boolean isOK(){
-        if (descriptionText.getText().toString().equals("")){
+    private boolean isOK() {
+        if (descriptionText.getText().toString().equals("")) {
             MessageUtils.showMiddleToast(N_carAddActivity.this, "请输入描述");
             return false;
         }
-        if (foodtypesText.getText().toString().equals("")){
+        if (foodtypesText.getText().toString().equals("")) {
             MessageUtils.showMiddleToast(N_carAddActivity.this, "请输入品种");
             return false;
         }

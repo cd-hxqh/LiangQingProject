@@ -371,4 +371,11 @@
     <string name="attachment_details">图片查看</string>
     <string name="work_commit">图片上传</string>
     <string name="qxgd_text">消缺工单</string>
+    <string name="actualqc1_text">水分%:</string>
+    <string name="actualqty_text">数量:</string>
+    <string name="actualqc2_text">杂质含量%:</string>
+    <string name="actualqc3_text">不完善含量%:</string>
+    <string name="actualqc4_text">容重g/l%:</string>
+    <string name="actualqc5_text">生霉含量%:</string>
+    <string name="actualqc6_text">脂肪酸值:</string>
 </resources>
