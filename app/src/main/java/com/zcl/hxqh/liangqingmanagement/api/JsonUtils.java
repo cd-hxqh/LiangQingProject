@@ -13,6 +13,8 @@ import com.zcl.hxqh.liangqingmanagement.model.N_CAR;
 import com.zcl.hxqh.liangqingmanagement.model.N_CARLINE;
 import com.zcl.hxqh.liangqingmanagement.model.N_CARTASK;
 import com.zcl.hxqh.liangqingmanagement.model.N_GRAINJC;
+import com.zcl.hxqh.liangqingmanagement.model.N_LABAPY;
+import com.zcl.hxqh.liangqingmanagement.model.N_LABAPYRULE;
 import com.zcl.hxqh.liangqingmanagement.model.N_QCLSAMP;
 import com.zcl.hxqh.liangqingmanagement.model.N_QCTASKLINE;
 import com.zcl.hxqh.liangqingmanagement.model.N_SAMPLE;
@@ -494,6 +496,112 @@ public class JsonUtils {
         }
 
     }
+
+
+    /**
+     * 用工验收
+     */
+    public static ArrayList<N_LABAPY> parsingN_LABAPY(Context ctx, String data) {
+        ArrayList<N_LABAPY> list = null;
+        N_LABAPY n_labapy = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            JSONObject jsonObject;
+            list = new ArrayList<N_LABAPY>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                n_labapy = new N_LABAPY();
+                jsonObject = jsonArray.getJSONObject(i);
+                Field[] field = n_labapy.getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
+                for (int j = 0; j < field.length; j++) {     //遍历所有属性
+                    field[j].setAccessible(true);
+                    String name = field[j].getName();    //获取属性的名字
+                    if (jsonObject.has(name) && jsonObject.getString(name) != null && !jsonObject.getString(name).equals("")) {
+                        try {
+                            // 调用getter方法获取属性值
+                            Method getOrSet = n_labapy.getClass().getMethod("get" + name);
+                            Object value = getOrSet.invoke(n_labapy);
+                            if (value == null) {
+                                //调用setter方法设属性值
+                                Class[] parameterTypes = new Class[1];
+                                parameterTypes[0] = field[j].getType();
+                                getOrSet = n_labapy.getClass().getDeclaredMethod("set" + name, parameterTypes);
+                                getOrSet.invoke(n_labapy, jsonObject.getString(name));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+                list.add(n_labapy);
+            }
+            return list;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+    /**
+     * 验收标准与评分
+     */
+    public static ArrayList<N_LABAPYRULE> parsingN_LABAPYRULE(Context ctx, String data) {
+        ArrayList<N_LABAPYRULE> list = null;
+        N_LABAPYRULE n_labapyrule = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            JSONObject jsonObject;
+            list = new ArrayList<N_LABAPYRULE>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                n_labapyrule = new N_LABAPYRULE();
+                jsonObject = jsonArray.getJSONObject(i);
+                Field[] field = n_labapyrule.getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
+                for (int j = 0; j < field.length; j++) {     //遍历所有属性
+                    field[j].setAccessible(true);
+                    String name = field[j].getName();    //获取属性的名字
+                    if (jsonObject.has(name) && jsonObject.getString(name) != null && !jsonObject.getString(name).equals("")) {
+                        try {
+                            // 调用getter方法获取属性值
+                            Method getOrSet = n_labapyrule.getClass().getMethod("get" + name);
+                            Object value = getOrSet.invoke(n_labapyrule);
+                            if (value == null) {
+                                //调用setter方法设属性值
+                                Class[] parameterTypes = new Class[1];
+                                parameterTypes[0] = field[j].getType();
+                                getOrSet = n_labapyrule.getClass().getDeclaredMethod("set" + name, parameterTypes);
+                                getOrSet.invoke(n_labapyrule, jsonObject.getString(name));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+                list.add(n_labapyrule);
+            }
+            return list;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * 选项值
@@ -1106,6 +1214,26 @@ public class JsonUtils {
             return null;
         }
 
+    }
+
+
+
+
+    /**
+     * 封装扦样单
+     **/
+
+    public static String encapsulationN_labapys(String sn,String scroe) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("SN",sn);
+            jsonObject.put("SCORE",scroe);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.i(TAG, "jsonObject=" + "["+jsonObject.toString()+"]");
+        return jsonObject.toString();
     }
 
 

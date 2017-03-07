@@ -72,6 +72,40 @@ public class HttpManager {
 
 
     /**
+     * 设置用工验收的接口
+     */
+    public static String getN_LABAPY(String value, String linkman, int curpage, int showcount) {
+
+        if (value.equals("")) {
+            return "{'appid':'" + Constants.N_LABAPYS_APPID + "','objectname':'" + Constants.N_LABAPYS_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'N_LABAPYNUM DESC','condition':{'LINKMAN':'=" + linkman  + "','STATUS':'=已初审'}}";
+        }
+        return "{'appid':'" + Constants.N_LABAPYS_APPID + "','objectname':'" + Constants.N_LABAPYS_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'N_LABAPYNUM DESC','condition':{'LINKMAN':'=" + linkman + ",'STATUS':'=已初审'},'sinorsearch':{'CARNUM':'" + value + "','DESCRIPTION':'" + value + "'}}";
+
+    }
+
+
+    /**
+     * 验收标准与评分
+     */
+    public static String getN_LABAPYRULE(String value,String labapynum, int curpage, int showcount) {
+
+        if (value.equals("")) {
+            return "{'appid':'" + Constants.N_LABAPYS_APPID + "','objectname':'" + Constants.N_LABAPYRULE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'SN ASC','condition':{'LABAPYNUM':'=" + labapynum+"'}}";
+        }
+        return "{'appid':'" + Constants.N_LABAPYS_APPID + "','objectname':'" + Constants.N_LABAPYRULE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'SN ASC','condition':{'LABAPYNUM':'=" + labapynum + "'},'sinorsearch':{'SN':'" + value + "','ITEM':'" + value + "','SCORE':'" + value + "'}}";
+
+    }
+
+
+
+
+
+
+
+
+
+
+    /**
      * 设置考勤管理的接口
      */
     public static String getN_WTLINE(String value, String start, String yesterday, String ip, int curpage, int showcount) {

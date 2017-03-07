@@ -260,6 +260,52 @@ public class AndroidClientService {
 
 
     /**
+     * 用工验收修改
+     */
+    public static String updateN_LABAPY(final Context cxt,String n_labapynum,String workload,  String json) {
+
+        Log.i(TAG,"n_labapynum="+n_labapynum+",workload="+workload+",json="+json);
+
+        String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.carwebserviceURL;
+
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "n_carLABAPY");
+        soapReq.addProperty("N_LABAPYNUM", n_labapynum);//用工编号
+        soapReq.addProperty("WORKLOAD", workload);//工作量
+        soapReq.addProperty("json", json);//封装数据
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }
+        String obj = null;
+        try {
+            obj = soapEnvelope.getResponse().toString();
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return obj;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
      * 消缺工单
      */
     public static String addN_WTLINE(final Context cxt, String cardid, String ip) {

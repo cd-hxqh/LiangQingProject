@@ -178,6 +178,23 @@
             android:label="WorkOrderActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".view.activity.N_labapysActivity"
+            android:label="N_labapysActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.N_labapysDetailsActivity"
+            android:label="N_labapysDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.N_labapyruleActivity"
+            android:label="N_labapyruleActivity"
+            android:screenOrientation="portrait" />
+
+
+
+
+
+        <activity
             android:name=".view.activity.SettingActivity"
             android:label="WorkOrderActivity"
             android:screenOrientation="portrait" />
@@ -211,6 +228,7 @@
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:theme="@android:style/Theme.Translucent" />
+
 
         <provider
             android:name="android.support.v4.content.FileProvider"

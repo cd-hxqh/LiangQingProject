@@ -138,6 +138,13 @@ public class Constants {
     //设备的表名
     public static final String ASSET_NAME = "ASSET";
 
+    //用工验收的appid
+    public static final String N_LABAPYS_APPID = "N_LABAPYYS";
+    //用工验收的表名
+    public static final String N_LABAPYS_NAME = "N_LABAPY";
+    //验收标准与评分
+    public static final String N_LABAPYRULE_NAME = "N_LABAPYRULE";
+
     /**附件appid**/
     public static final String DOCLINKS_APPID = "DOCLINKS";
     /**附件表名**/

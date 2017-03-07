@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.telephony.TelephonyManager;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
@@ -17,33 +16,37 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.flyco.animation.BaseAnimatorSet;
+import com.flyco.animation.BounceEnter.BounceTopEnter;
+import com.flyco.animation.SlideExit.SlideBottomExit;
+import com.flyco.dialog.listener.OnBtnEditClickL;
+import com.flyco.dialog.widget.NormalEditTextDialog;
 import com.zcl.hxqh.liangqingmanagement.R;
-import com.zcl.hxqh.liangqingmanagement.adapter.WulineListAdapter;
+import com.zcl.hxqh.liangqingmanagement.adapter.BaseQuickAdapter;
+import com.zcl.hxqh.liangqingmanagement.adapter.N_labapyruleAdapter;
 import com.zcl.hxqh.liangqingmanagement.api.HttpManager;
 import com.zcl.hxqh.liangqingmanagement.api.HttpRequestHandler;
 import com.zcl.hxqh.liangqingmanagement.api.JsonUtils;
 import com.zcl.hxqh.liangqingmanagement.bean.Results;
-import com.zcl.hxqh.liangqingmanagement.model.N_WTLINE;
+import com.zcl.hxqh.liangqingmanagement.model.N_LABAPYRULE;
 import com.zcl.hxqh.liangqingmanagement.view.widght.SwipeRefreshLayout;
 
-import java.text.SimpleDateFormat;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/2/15.
- * 工位管理页面
+ * 验收标准与评分
  */
 
-public class WtlineActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener{
-    private static final String TAG = "WtlineActivity";
+public class N_labapyruleActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener {
+    private static final String TAG = "N_labapyruleActivity";
     /**
      * 返回按钮
      */
@@ -52,7 +55,11 @@ public class WtlineActivity extends BaseActivity implements SwipeRefreshLayout.O
      * 标题
      */
     private TextView titleTextView;
-    private ImageView addImage;
+
+    /**
+     * 提交按钮
+     **/
+    private ImageButton submitBtn;
     LinearLayoutManager layoutManager;
 
 
@@ -71,12 +78,11 @@ public class WtlineActivity extends BaseActivity implements SwipeRefreshLayout.O
     /**
      * 适配器*
      */
-    private WulineListAdapter wulineListAdapter;
+    private N_labapyruleAdapter n_labapyruleAdapter;
     /**
      * 编辑框*
      */
     private EditText search;
-    private RelativeLayout editLayout;
     /**
      * 查询条件*
      */
@@ -84,20 +90,36 @@ public class WtlineActivity extends BaseActivity implements SwipeRefreshLayout.O
     private int page = 1;
 
 
-    ArrayList<N_WTLINE> items = new ArrayList<N_WTLINE>();
+    ArrayList<N_LABAPYRULE> items = new ArrayList<N_LABAPYRULE>();
+
+    private String labapynum;
+
+
+    private BaseAnimatorSet mBasIn;
+    private BaseAnimatorSet mBasOut;
+
+    private List<N_LABAPYRULE> listnew=new ArrayList<N_LABAPYRULE>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+        initData();
         findViewById();
         initView();
     }
+
+
+    private void initData() {
+        labapynum = getIntent().getExtras().getString("LABAPYNUM");
+    }
+
 
     @Override
     protected void findViewById() {
         backImageView = (ImageView) findViewById(R.id.title_back_id);
         titleTextView = (TextView) findViewById(R.id.title_name);
-        addImage = (ImageView) findViewById(R.id.title_add);
+        submitBtn = (ImageButton) findViewById(R.id.sbmittext_id);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView_id);
         refresh_layout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         nodatalayout = (LinearLayout) findViewById(R.id.have_not_data_id);
@@ -112,11 +134,13 @@ public class WtlineActivity extends BaseActivity implements SwipeRefreshLayout.O
                 finish();
             }
         });
-        titleTextView.setText(R.string.wtline_title);
-        addImage.setVisibility(View.VISIBLE);
-        addImage.setImageResource(R.drawable.ic_dk);
-        addImage.setOnClickListener(addImageOnClickListener);
+        titleTextView.setText(R.string.n_labapyrule_title);
+        submitBtn.setVisibility(View.VISIBLE);
+        submitBtn.setOnClickListener(submitBtnBtnOnClickListener);
         setSearchEdit();
+
+        mBasIn = new BounceTopEnter();
+        mBasOut = new SlideBottomExit();
 
         layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -133,12 +157,13 @@ public class WtlineActivity extends BaseActivity implements SwipeRefreshLayout.O
         refresh_layout.setOnLoadListener(this);
     }
 
-    private View.OnClickListener addImageOnClickListener = new View.OnClickListener() {
+    private View.OnClickListener submitBtnBtnOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(WtlineActivity.this, Nfc_Activity.class);
-            intent.putExtra("type", "wiline");
-            startActivityForResult(intent, 0);
+            Intent intent = getIntent();
+            intent.putExtra("n_labapyrules", (Serializable) listnew);
+            setResult(N_labapysDetailsActivity.SCORE_RESULTCODE, intent);
+            finish();
         }
     };
 
@@ -146,7 +171,7 @@ public class WtlineActivity extends BaseActivity implements SwipeRefreshLayout.O
     public void onStart() {
         super.onStart();
         refresh_layout.setRefreshing(true);
-        initAdapter(new ArrayList<N_WTLINE>());
+        initAdapter(new ArrayList<N_LABAPYRULE>());
         items = new ArrayList<>();
         getData(searchText);
     }
@@ -154,7 +179,6 @@ public class WtlineActivity extends BaseActivity implements SwipeRefreshLayout.O
     @Override
     public void onLoad() {
         page++;
-
         getData(searchText);
     }
 
@@ -179,12 +203,12 @@ public class WtlineActivity extends BaseActivity implements SwipeRefreshLayout.O
                     // 先隐藏键盘
                     ((InputMethodManager) search.getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
                             .hideSoftInputFromWindow(
-                                    WtlineActivity.this.getCurrentFocus()
+                                    N_labapyruleActivity.this.getCurrentFocus()
                                             .getWindowToken(),
                                     InputMethodManager.HIDE_NOT_ALWAYS);
                     searchText = search.getText().toString();
-                    wulineListAdapter.removeAll(items);
-                    items = new ArrayList<N_WTLINE>();
+                    n_labapyruleAdapter.removeAll(items);
+                    items = new ArrayList<N_LABAPYRULE>();
                     nodatalayout.setVisibility(View.GONE);
                     refresh_layout.setRefreshing(true);
                     page = 1;
@@ -201,13 +225,7 @@ public class WtlineActivity extends BaseActivity implements SwipeRefreshLayout.O
      * 获取数据*
      */
     private void getData(String search) {
-
-        String imei = ((TelephonyManager) WtlineActivity.this.getSystemService(WtlineActivity.this.TELEPHONY_SERVICE))
-                .getDeviceId();
-
-        Log.i(TAG, "imei=" + imei)
-        ;
-        HttpManager.getDataPagingInfo(WtlineActivity.this, HttpManager.getN_WTLINE(search, getCurrentTime(),getYesterdayTime(), imei, page, 20), new HttpRequestHandler<Results>() {
+        HttpManager.getDataPagingInfo(N_labapyruleActivity.this, HttpManager.getN_LABAPYRULE(search, labapynum, page, 20), new HttpRequestHandler<Results>() {
             @Override
             public void onSuccess(Results results) {
                 Log.i(TAG, "data=" + results);
@@ -215,7 +233,7 @@ public class WtlineActivity extends BaseActivity implements SwipeRefreshLayout.O
 
             @Override
             public void onSuccess(Results results, int totalPages, int currentPage) {
-                ArrayList<N_WTLINE> item = JsonUtils.parsingN_WTLINE(WtlineActivity.this, results.getResultlist());
+                ArrayList<N_LABAPYRULE> item = JsonUtils.parsingN_LABAPYRULE(N_labapyruleActivity.this, results.getResultlist());
                 refresh_layout.setRefreshing(false);
                 refresh_layout.setLoading(false);
                 if (item == null || item.isEmpty()) {
@@ -224,7 +242,7 @@ public class WtlineActivity extends BaseActivity implements SwipeRefreshLayout.O
 
                     if (item != null || item.size() != 0) {
                         if (page == 1) {
-                            items = new ArrayList<N_WTLINE>();
+                            items = new ArrayList<N_LABAPYRULE>();
                             initAdapter(items);
                         }
                         for (int i = 0; i < item.size(); i++) {
@@ -251,45 +269,58 @@ public class WtlineActivity extends BaseActivity implements SwipeRefreshLayout.O
     /**
      * 获取数据*
      */
-    private void initAdapter(final List<N_WTLINE> list) {
-        wulineListAdapter = new WulineListAdapter(WtlineActivity.this, R.layout.line_list_item, list);
-        recyclerView.setAdapter(wulineListAdapter);
-//        wulineListAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, int position) {
-//                Intent intent = new Intent(getActivity(), N_wtlineDetailsActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("n_wtline", items.get(position));
-//                intent.putExtras(bundle);
-//                startActivityForResult(intent, 0);
-//            }
-//        });
+    private void initAdapter(final List<N_LABAPYRULE> list) {
+        n_labapyruleAdapter = new N_labapyruleAdapter(N_labapyruleActivity.this, R.layout.list_item_n_labapyrule, list);
+        recyclerView.setAdapter(n_labapyruleAdapter);
+        n_labapyruleAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                showAlertDialog(list.get(position).getSCORE(), list, position);
+            }
+        });
     }
 
     /**
      * 添加数据*
      */
-    private void addData(final List<N_WTLINE> list) {
-        wulineListAdapter.addData(list);
+    private void addData(final List<N_LABAPYRULE> list) {
+        n_labapyruleAdapter.addData(list);
     }
 
 
     /**
-     * 获取系统当前时间
-     **/
-    private String getCurrentTime() {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
-        String time = df.format(new Date());
-        return time;
+     * 修改评分
+     */
+    public void showAlertDialog(String score, final List<N_LABAPYRULE> list, final int position) {
+        final NormalEditTextDialog dialog = new NormalEditTextDialog(N_labapyruleActivity.this);
+        dialog.title("修改评分");
+        dialog.content(score)//
+                .showAnim(mBasIn)//
+                .dismissAnim(mBasOut)//
+                .show();
+
+        dialog.setOnBtnClickL(
+                new OnBtnEditClickL() {
+                    @Override
+                    public void onBtnClick(String text) {
+                        Log.i(TAG, "111111");
+                        dialog.dismiss();
+                    }
+                }, new OnBtnEditClickL() {
+                    @Override
+                    public void onBtnClick(String text) {
+                        Log.i(TAG, "22222"+list.size());
+                        dialog.dismiss();
+                        list.get(position).setSCORE(text);
+                        initAdapter(list);
+                        listnew=new ArrayList<N_LABAPYRULE>();
+                        for(N_LABAPYRULE n_labapyrule:list){
+                            listnew.add(n_labapyrule);
+                        }
+                    }
+                }
+        );
     }
-    /**
-     * 获取系统当前时间
-     **/
-    private String getYesterdayTime() {
-        Calendar cal   =   Calendar.getInstance();
-        cal.add(Calendar.DATE,   -1);
-        String yesterday = new SimpleDateFormat( "yyyy-MM-dd ").format(cal.getTime());
-        return yesterday;
-    }
+
 
 }

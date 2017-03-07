@@ -51,7 +51,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     private int currentPage;//当前页
     private ArrayList<String> list = new ArrayList<>();//appid集合
     private String[] proName = {"仓储基础工作", "扦样单", "货运预报", "工单管理", "工位管理", "人员查询", "车辆查询",
-            "其他"};
+            "用工验收","其他"};
 
     LinearLayoutManager layoutManager;
     /**
@@ -143,9 +143,12 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
             if (list.contains(Constants.N_CARTASK_NAME)) {//车辆查询
                 listDatas.add(new ProdctBean(proName[6], Constants.N_CARTASK_NAME, R.drawable.item_car));
             }
+            if (list.contains(Constants.N_CARTASK_NAME)) {//用工验收
+                listDatas.add(new ProdctBean(proName[7], Constants.N_LABAPYS_APPID, R.drawable.item_labapys));
+            }
 
-//            if (list.contains(Constants.N_GRAINJC_APPID)){//其他
-            listDatas.add(new ProdctBean(proName[7], "其他", R.drawable.item_qt));
+
+            listDatas.add(new ProdctBean(proName[8], "其他", R.drawable.item_qt));
 //            }
 
         }
@@ -196,6 +199,10 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                                 break;
                             case Constants.WORKORDER_APPID:
                                 intent = new Intent(MainActivity.this, WorkOrderActivity.class);
+                                startActivity(intent);
+                                break;
+                            case Constants.N_LABAPYS_APPID:
+                                intent = new Intent(MainActivity.this, N_labapysActivity.class);
                                 startActivity(intent);
                                 break;
                             case "其他":

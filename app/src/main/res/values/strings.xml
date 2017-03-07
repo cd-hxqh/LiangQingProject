@@ -378,4 +378,18 @@
     <string name="actualqc4_text">容重g/l%:</string>
     <string name="actualqc5_text">生霉含量%:</string>
     <string name="actualqc6_text">脂肪酸值:</string>
+    <string name="n_labapy_text">用工验收</string>
+    <string name="details_text">工作内容:</string>
+    <string name="wtline_title">工位管理</string>
+    <string name="amcrew_bz">班组:</string>
+    <string name="workload_text">工作量:</string>
+    <string name="linkman_text">用工人:</string>
+    <string name="ysstart_text">实际开始时间:</string>
+    <string name="ysend_text">实际结束时间:</string>
+    <string name="n_labapyrule_text">验收标准与评分</string>
+    <string name="n_labapyrule_title">验收标准与评分</string>
+    <string name="sn_text">序号:</string>
+    <string name="item_text">项目:</string>
+    <string name="score_text">参考标准:</string>
+    <string name="rule_text">评价:</string>
 </resources>
