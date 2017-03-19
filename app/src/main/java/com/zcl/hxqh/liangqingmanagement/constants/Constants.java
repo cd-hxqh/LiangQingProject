@@ -42,6 +42,12 @@ public class Constants {
     //登录webservice新增接口
     public static final String LoginwebserviceURL = "/meaweb/services/MOBILELOGIN_";
 
+    //移动设备查询
+    public static final String MobileassteURL = "/meaweb/services/MOBILEASSTE";
+
+    //工具设备
+    public static final String MOBILETOOLSURL = "/meaweb/services/MOBILETOOLS";
+
     //通用接口查询
     public static final String BASE_URL =  "/maximo/mobile/common/api";
 
@@ -149,6 +155,23 @@ public class Constants {
     public static final String DOCLINKS_APPID = "DOCLINKS";
     /**附件表名**/
     public static final String DOCLINKS_NAME = "DOCLINKS";
+
+    /**移动设备借用appid**/
+    public static final String N_MOVEASSE_APPID = "N_MOVEASSE";
+    /**移动设备归还appid**/
+    public static final String N_MOVEASSE1_APPID = "N_MOVEASSE1";
+    /**移动设备查询appid**/
+    public static final String N_MOVEASSE2_APPID = "N_MOVEASSE2";
+    /**工具设备借用appid**/
+    public static final String N_MOVEASSE3_APPID = "N_MOVEASSE3";
+    /**工具设备归还appid**/
+    public static final String N_MOVEASSE4_APPID = "N_MOVEASSE4";
+    /**工具设备查询appid**/
+    public static final String N_MOVEASSE5_APPID = "N_MOVEASSE5";
+    /**移动设备表名**/
+    public static final String INVUSE_NAME = "INVUSE";
+    /**实际领用**/
+    public static final String INVUSELINE_NAME = "INVUSELINE";
 
 
 

@@ -2,12 +2,16 @@ package com.zcl.hxqh.liangqingmanagement.view.activity;
 
 import android.animation.LayoutTransition;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -122,6 +126,10 @@ public class N_sampleAddActivity extends BaseActivity {
      */
     private TextView objText;
     /**
+     * 扦样对象选择
+     **/
+    private ImageView objImageView;
+    /**
      * 车辆作业单号
      */
     private TextView cartasknumText;
@@ -153,7 +161,7 @@ public class N_sampleAddActivity extends BaseActivity {
     private View carnoView;
 
     /**
-     * 选择图标
+     * 车号选择图标
      **/
     private ImageView carnoImageView;
     /**
@@ -226,6 +234,7 @@ public class N_sampleAddActivity extends BaseActivity {
         n_qctasklinenumText = (EditText) findViewById(R.id.n_qctasklinenum_text_id);
         linenumImageView = (ImageView) findViewById(R.id.n_qctasklinenum_image_id);
         objText = (TextView) findViewById(R.id.obj_text_id);
+        objImageView = (ImageView) findViewById(R.id.obj_image_id);
         cartasknumText = (TextView) findViewById(R.id.cartasknum_text_id);
         cartasknumLayout = (LinearLayout) findViewById(R.id.cartasknum_layout_id);
         cartasknum = (View) findViewById(R.id.cartasknum_view_id);
@@ -289,8 +298,34 @@ public class N_sampleAddActivity extends BaseActivity {
 
         carnoImageView.setOnClickListener(carnoimageViewOnClickListener);
 
+        objImageView.setOnClickListener(objImageViewOnClickLstener);
+        carnoText.setOnEditorActionListener(carnoTextOnEditorActionListener);
+
 
     }
+
+
+    /**
+     * 车号手输
+     **/
+    private TextView.OnEditorActionListener carnoTextOnEditorActionListener = new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+            if (i == EditorInfo.IME_ACTION_SEARCH) {
+                // 先隐藏键盘
+                ((InputMethodManager) carnoText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                        .hideSoftInputFromWindow(
+                                N_sampleAddActivity.this.getCurrentFocus()
+                                        .getWindowToken(),
+                                InputMethodManager.HIDE_NOT_ALWAYS);
+                 String carno=carnoText.getText().toString();
+                getN_QCTASKLINENUM1Info(carno);
+                return true;
+            }
+            return false;
+        }
+    };
+
 
     /**
      * 是否火车
@@ -302,10 +337,13 @@ public class N_sampleAddActivity extends BaseActivity {
                 locLayout.setVisibility(View.GONE);
                 locView.setVisibility(View.GONE);
                 carnoImageView.setVisibility(View.VISIBLE);
+                objImageView.setVisibility(View.VISIBLE);
+                objText.setText("玉米");
             } else {
                 carnoImageView.setVisibility(View.GONE);
                 locLayout.setVisibility(View.VISIBLE);
                 locView.setVisibility(View.VISIBLE);
+                objImageView.setVisibility(View.GONE);
             }
         }
     };
@@ -355,10 +393,21 @@ public class N_sampleAddActivity extends BaseActivity {
         }
     };
 
+    /**
+     * 扦样对象
+     **/
+    private View.OnClickListener objImageViewOnClickLstener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            getOptionsValue("扦样对象", HttpManager.getALNDOMAIN(Constants.CROPSTYPE), objText);
+        }
+    };
+
     private View.OnClickListener codeImageViewOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(N_sampleAddActivity.this, MipcaActivityCapture.class);
+            intent.putExtra("mark", 0);
             startActivityForResult(intent, 0);
         }
     };
@@ -814,7 +863,7 @@ public class N_sampleAddActivity extends BaseActivity {
                 String samplenum = data.getExtras().getString("result");
                 samplenumText.setText(samplenum);
                 break;
-            case 1002:
+            case 1002: //车号
                 String tagId = data.getExtras().getString("tagId");
                 if (!tagId.equals("")) {
                     tagIdText.setText(tagId);
@@ -841,21 +890,17 @@ public class N_sampleAddActivity extends BaseActivity {
                     isLayout.setVisibility(View.GONE);
                     isView.setVisibility(View.GONE);
                 }
-
-
                 break;
             case 1003:
                 String wagonnum = data.getExtras().getString("wagonnum");
                 //根据是否火车与车号获取检验任务编号与扦样对象
                 carnoText.setText(wagonnum);
                 getN_QCTASKLINENUM1Info(wagonnum);
-
-
                 break;
-
             case 1004:
                 String sampnum = data.getStringExtra("sampnum");
                 sampnumText.setText(sampnum);
+                getSAMPNUMInfo(sampnum);
         }
     }
 
@@ -870,6 +915,32 @@ public class N_sampleAddActivity extends BaseActivity {
             @Override
             protected String doInBackground(String... strings) {
                 String reviseresult = AndroidClientService.addN_SAMPLE1LOC(N_sampleAddActivity.this, loc, AccountUtils.getloginUserName(N_sampleAddActivity.this));
+                return reviseresult;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                showN_QCTASKLINENUMInfo(s);
+                mLoadingDialog.dismiss();
+
+
+            }
+        }.execute();
+
+    }
+
+    /**
+     * 根据送检编号**获取车辆信息
+     **/
+
+    private void getSAMPNUMInfo(final String sampum) {
+        getLoadingDialog("请稍后...");
+
+        new AsyncTask<String, String, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                String reviseresult = AndroidClientService.getSAMPNUM(N_sampleAddActivity.this, sampum, AccountUtils.getloginUserName(N_sampleAddActivity.this));
                 return reviseresult;
             }
 

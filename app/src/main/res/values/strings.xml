@@ -221,8 +221,8 @@
     <string name="tagid_text">一卡通号:</string>
 
     <!-- 二微码扫描 -->
-    <string name="scan_text">请将条码放入框内</string>
-    <string name="scanning_text">条码扫描</string>
+    <string name="scan_text">请将二维码/条码放入框内</string>
+    <string name="scanning_text">二维码/条码扫描</string>
 
 
     <!--Nfc扫描-->
@@ -392,4 +392,40 @@
     <string name="item_text">项目:</string>
     <string name="score_text">参考标准:</string>
     <string name="rule_text">评价:</string>
+    <string name="setting_title">设置</string>
+    <string name="set_password_text">设置手势密码</string>
+    <string name="version_text">版本信息</string>
+    <string name="version_content">\u3000\u3000智能运营管理中心是大连直属库2016年争创标杆库策划的“一个中心、五个基地”的重点项目之一。项目的主要目标是按照“创新、协调、绿色、开放、共享”的理念全面升级“五个做实”，实现包仓制升级、仓储标准化两大突破，全面打造“五个做实”升级版，助推大连直属库由“大库”走向“强库”</string>
+    <string name="version_company_name">技术支持:北京恒信启华信息技术股份有限公司</string>
+    <string name="version_name">当前版本:</string>
+    <string name="can_not_find_version_name">暂无版本</string>
+
+    <!--移动设备-->
+    <string name="invusenum_text">申请单编号:</string>
+    <string name="usetype_text">类型:</string>
+    <string name="rotassetnum_text">移动设备编号:</string>
+    <string name="ydsbms">移动设备描述:</string>
+    <string name="jyghxm_text">借用/归还人姓名:</string>
+    <string name="actualdate_text">实际日期:</string>
+    <string name="seaching_text">正在查询...</string>
+    <string name="ydsbcx_text">移动设备查询</string>
+    <string name="issueto_text">归还人:</string>
+    <string name="th_text">退回</string>
+    <string name="ydsbjy_text">移动设备借用</string>
+    <string name="ydsbgh_text">移动设备归还</string>
+    <string name="productionplansnum_text">计划编号:</string>
+    <string name="plandesc_text">计划描述:</string>
+    <string name="enterby1_text">录入人:</string>
+    <string name="enterdate1_text">录入时间:</string>
+    <string name="n_taskasset_text">计划领用</string>
+    <string name="invuseline1_text">实际领用</string>
+    <string name="jyr_text">借用人:</string>
+    <string name="issuetoname_text">名称:</string>
+    <string name="loctation_text">位置:</string>
+    <string name="finsh_sbumit_text">完成提交</string>
+    <string name="gjjy_text">工具借用</string>
+    <string name="gjgh_text">工具归还</string>
+    <string name="gjcx_text">工具查询</string>
+    <string name="gj_num">工具编号:</string>
+    <string name="gjms_text">工具描述:</string>
 </resources>

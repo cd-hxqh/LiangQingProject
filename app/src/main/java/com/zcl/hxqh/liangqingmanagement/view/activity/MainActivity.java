@@ -39,6 +39,11 @@ import java.util.List;
  * MainActivity
  */
 public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener {
+
+    public static final int ROTASSETNUM_CODE = 10001;  //移动设备查询
+
+    public static final int ITEMNUM_CODE = 10002;  //工具查询查询
+
     private ImageView memberImg;
     private TextView memberText;
     private ViewPager viewPager;
@@ -51,7 +56,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     private int currentPage;//当前页
     private ArrayList<String> list = new ArrayList<>();//appid集合
     private String[] proName = {"仓储基础工作", "扦样单", "货运预报", "工单管理", "工位管理", "人员查询", "车辆查询",
-            "用工验收","其他"};
+            "用工验收", "移动设备借用", "移动设备归还", "移动设备查询", "工具借用", "工具归还", "工具查询", "其他"};
 
     LinearLayoutManager layoutManager;
     /**
@@ -146,10 +151,15 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
             if (list.contains(Constants.N_CARTASK_NAME)) {//用工验收
                 listDatas.add(new ProdctBean(proName[7], Constants.N_LABAPYS_APPID, R.drawable.item_labapys));
             }
-
-
-            listDatas.add(new ProdctBean(proName[8], "其他", R.drawable.item_qt));
-//            }
+            if (list.contains(Constants.N_MOVEASSE_APPID)) {//移动设备或工具
+                listDatas.add(new ProdctBean(proName[8], Constants.N_MOVEASSE_APPID, R.drawable.item_ydsbjy));
+                listDatas.add(new ProdctBean(proName[9], Constants.N_MOVEASSE1_APPID, R.drawable.ic_invuseline));
+                listDatas.add(new ProdctBean(proName[10], Constants.N_MOVEASSE2_APPID, R.drawable.item_ydsbcx));
+                listDatas.add(new ProdctBean(proName[11], Constants.N_MOVEASSE3_APPID, R.drawable.item_gjjy));
+                listDatas.add(new ProdctBean(proName[12], Constants.N_MOVEASSE4_APPID, R.drawable.item_gjgh));
+                listDatas.add(new ProdctBean(proName[13], Constants.N_MOVEASSE5_APPID, R.drawable.item_gjcx));
+            }
+            listDatas.add(new ProdctBean(proName[14], "其他", R.drawable.item_qt));
 
         }
         //总的页数向上取整
@@ -204,6 +214,36 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                             case Constants.N_LABAPYS_APPID:
                                 intent = new Intent(MainActivity.this, N_labapysActivity.class);
                                 startActivity(intent);
+                                break;
+                            case Constants.N_MOVEASSE_APPID:
+                                intent = new Intent(MainActivity.this, InvuseActivity.class);
+                                intent.putExtra("mark", ROTASSETNUM_CODE);
+                                startActivityForResult(intent, 0);
+                                break;
+                            case Constants.N_MOVEASSE1_APPID:
+                                intent = new Intent(MainActivity.this, GhAddActivity.class);
+                                intent.putExtra("mark", ROTASSETNUM_CODE);
+                                startActivityForResult(intent, 0);
+                                break;
+                            case Constants.N_MOVEASSE2_APPID:
+                                intent = new Intent(MainActivity.this, MipcaActivityCapture.class);
+                                intent.putExtra("mark", ROTASSETNUM_CODE);
+                                startActivityForResult(intent, 0);
+                                break;
+                            case Constants.N_MOVEASSE3_APPID:
+                                intent = new Intent(MainActivity.this, InvuseActivity.class);
+                                intent.putExtra("mark", ITEMNUM_CODE);
+                                startActivityForResult(intent, 0);
+                                break;
+                            case Constants.N_MOVEASSE4_APPID:
+                                intent = new Intent(MainActivity.this, GhAddActivity.class);
+                                intent.putExtra("mark", ITEMNUM_CODE);
+                                startActivityForResult(intent, 0);
+                                break;
+                            case Constants.N_MOVEASSE5_APPID:
+                                intent = new Intent(MainActivity.this, MipcaActivityCapture.class);
+                                intent.putExtra("mark", ITEMNUM_CODE);
+                                startActivityForResult(intent, 0);
                                 break;
                             case "其他":
                                 intent = new Intent(MainActivity.this, SettingActivity.class);

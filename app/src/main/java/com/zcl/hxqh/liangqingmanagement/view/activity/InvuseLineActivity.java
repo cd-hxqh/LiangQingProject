@@ -22,36 +22,38 @@ import android.widget.TextView;
 
 import com.zcl.hxqh.liangqingmanagement.R;
 import com.zcl.hxqh.liangqingmanagement.adapter.BaseQuickAdapter;
-import com.zcl.hxqh.liangqingmanagement.adapter.CarNoListAdapter;
+import com.zcl.hxqh.liangqingmanagement.adapter.InvuseLineListAdapter;
 import com.zcl.hxqh.liangqingmanagement.api.HttpManager;
 import com.zcl.hxqh.liangqingmanagement.api.HttpRequestHandler;
 import com.zcl.hxqh.liangqingmanagement.api.JsonUtils;
 import com.zcl.hxqh.liangqingmanagement.bean.Results;
-import com.zcl.hxqh.liangqingmanagement.model.N_WAGONS;
+import com.zcl.hxqh.liangqingmanagement.model.INVUSELINE;
 import com.zcl.hxqh.liangqingmanagement.view.widght.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 选项值
- **/
+ * Created by Administrator on 2017/2/15.
+ * 实际领用
+ */
 
-public class CarNoXZActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener {
-
-    private static final String TAG = "CarNoXZActivity";
-
-    /**
-     * 标题*
-     */
-    private TextView titleTextView;
+public class InvuseLineActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener {
+    private static final String TAG = "InvuseLineActivity";
     /**
      * 返回按钮
      */
     private ImageView backImageView;
-
+    /**
+     * 标题
+     */
+    private TextView titleTextView;
     LinearLayoutManager layoutManager;
 
+    /**
+     * 新增
+     **/
+    private ImageView addImageView;
 
     /**
      * RecyclerView*
@@ -68,7 +70,7 @@ public class CarNoXZActivity extends BaseActivity implements SwipeRefreshLayout.
     /**
      * 适配器*
      */
-    private CarNoListAdapter carNoListAdapter;
+    private InvuseLineListAdapter invuseLineListAdapter;
     /**
      * 编辑框*
      */
@@ -79,39 +81,50 @@ public class CarNoXZActivity extends BaseActivity implements SwipeRefreshLayout.
     private String searchText = "";
     private int page = 1;
 
-    ArrayList<N_WAGONS> items = new ArrayList<N_WAGONS>();
 
+    ArrayList<INVUSELINE> items = new ArrayList<INVUSELINE>();
+
+    private String invusenum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_xxz_list);
+        setContentView(R.layout.activity_list);
+        getInitData();
         findViewById();
         initView();
-
     }
 
-
+    private void getInitData() {
+        invusenum = getIntent().getExtras().getString("invusenum");
+    }
 
     @Override
     protected void findViewById() {
         backImageView = (ImageView) findViewById(R.id.title_back_id);
         titleTextView = (TextView) findViewById(R.id.title_name);
+        addImageView = (ImageView) findViewById(R.id.title_add);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView_id);
         refresh_layout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         nodatalayout = (LinearLayout) findViewById(R.id.have_not_data_id);
         search = (EditText) findViewById(R.id.search_edit);
-
-
     }
 
     @Override
     protected void initView() {
-        backImageView.setOnClickListener(backImageViewOnClickListener);
-        titleTextView.setText(R.string.xxz_text);
+        backImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        titleTextView.setText(R.string.invuseline1_text);
+        addImageView.setImageResource(R.drawable.ic_add);
+        addImageView.setVisibility(View.VISIBLE);
+        addImageView.setOnClickListener(addImageOnClickListener);
         setSearchEdit();
 
-        layoutManager = new LinearLayoutManager(CarNoXZActivity.this);
+        layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         layoutManager.scrollToPosition(0);
         recyclerView.setLayoutManager(layoutManager);
@@ -124,31 +137,30 @@ public class CarNoXZActivity extends BaseActivity implements SwipeRefreshLayout.
 
         refresh_layout.setOnRefreshListener(this);
         refresh_layout.setOnLoadListener(this);
-
-        initAdapter(new ArrayList<N_WAGONS>());
-        items = new ArrayList<>();
-        getData(searchText);
     }
 
-
-    private View.OnClickListener backImageViewOnClickListener = new View.OnClickListener() {
+    private View.OnClickListener addImageOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            finish();
+            Intent intent=getIntent();
+            intent.setClass(InvuseLineActivity.this, JyAddActivity.class);
+            intent.putExtra("invusenum", invusenum);
+            startActivityForResult(intent, 0);
         }
     };
-
 
     @Override
     public void onStart() {
         super.onStart();
-
+        refresh_layout.setRefreshing(true);
+        initAdapter(new ArrayList<INVUSELINE>());
+        items = new ArrayList<>();
+        getData(searchText);
     }
 
     @Override
     public void onLoad() {
         page++;
-
         getData(searchText);
     }
 
@@ -156,7 +168,6 @@ public class CarNoXZActivity extends BaseActivity implements SwipeRefreshLayout.
     public void onRefresh() {
         page = 1;
         getData(searchText);
-
     }
 
 
@@ -174,12 +185,12 @@ public class CarNoXZActivity extends BaseActivity implements SwipeRefreshLayout.
                     // 先隐藏键盘
                     ((InputMethodManager) search.getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
                             .hideSoftInputFromWindow(
-                                    getCurrentFocus()
+                                    InvuseLineActivity.this.getCurrentFocus()
                                             .getWindowToken(),
                                     InputMethodManager.HIDE_NOT_ALWAYS);
                     searchText = search.getText().toString();
-                    carNoListAdapter.removeAll(items);
-                    items = new ArrayList<N_WAGONS>();
+                    invuseLineListAdapter.removeAll(items);
+                    items = new ArrayList<INVUSELINE>();
                     nodatalayout.setVisibility(View.GONE);
                     refresh_layout.setRefreshing(true);
                     page = 1;
@@ -196,7 +207,7 @@ public class CarNoXZActivity extends BaseActivity implements SwipeRefreshLayout.
      * 获取数据*
      */
     private void getData(String search) {
-        HttpManager.getDataPagingInfo(CarNoXZActivity.this, HttpManager.getN_WAGONS(search,"=一次过磅,=二次过磅,=已到库并确认,=已完成作业,=已开始作业,=已扦样,=已检验,=待确认",page,20), new HttpRequestHandler<Results>() {
+        HttpManager.getDataPagingInfo(InvuseLineActivity.this, HttpManager.getINVUSELINE(search, invusenum, page, 20), new HttpRequestHandler<Results>() {
             @Override
             public void onSuccess(Results results) {
                 Log.i(TAG, "data=" + results);
@@ -204,7 +215,7 @@ public class CarNoXZActivity extends BaseActivity implements SwipeRefreshLayout.
 
             @Override
             public void onSuccess(Results results, int totalPages, int currentPage) {
-                ArrayList<N_WAGONS> item = JsonUtils.parsingN_WAGONS(CarNoXZActivity.this, results.getResultlist());
+                ArrayList<INVUSELINE> item = JsonUtils.parsingINVUSELINE(InvuseLineActivity.this, results.getResultlist());
                 refresh_layout.setRefreshing(false);
                 refresh_layout.setLoading(false);
                 if (item == null || item.isEmpty()) {
@@ -213,8 +224,8 @@ public class CarNoXZActivity extends BaseActivity implements SwipeRefreshLayout.
 
                     if (item != null || item.size() != 0) {
                         if (page == 1) {
-                            items = new ArrayList<N_WAGONS>();
-                            initAdapter(new ArrayList<N_WAGONS>());
+                            items = new ArrayList<INVUSELINE>();
+                            initAdapter(items);
                         }
                         for (int i = 0; i < item.size(); i++) {
                             items.add(item.get(i));
@@ -240,17 +251,17 @@ public class CarNoXZActivity extends BaseActivity implements SwipeRefreshLayout.
     /**
      * 获取数据*
      */
-    private void initAdapter(final List<N_WAGONS> list) {
-        carNoListAdapter = new CarNoListAdapter(CarNoXZActivity.this, R.layout.list_item, list);
-        recyclerView.setAdapter(carNoListAdapter);
-        carNoListAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+    private void initAdapter(final List<INVUSELINE> list) {
+        invuseLineListAdapter = new InvuseLineListAdapter(InvuseLineActivity.this, R.layout.list_item_hyyb, list);
+        recyclerView.setAdapter(invuseLineListAdapter);
+        invuseLineListAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = getIntent();
-                intent.putExtra("wagonnum", list.get(position).getWAGONNUM());
-                setResult(1003, intent);
-                finish();
-
+                Intent intent = new Intent(InvuseLineActivity.this, InvuseLine1DetailsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("invuseline", items.get(position));
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 0);
             }
         });
     }
@@ -258,7 +269,8 @@ public class CarNoXZActivity extends BaseActivity implements SwipeRefreshLayout.
     /**
      * 添加数据*
      */
-    private void addData(final List<N_WAGONS> list) {
-        carNoListAdapter.addData(list);
+    private void addData(final List<INVUSELINE> list) {
+        invuseLineListAdapter.addData(list);
     }
+
 }

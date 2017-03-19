@@ -25,7 +25,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.google.zxing.ResultPoint;
@@ -39,7 +38,6 @@ import java.util.HashSet;
  * This view is overlaid on top of the camera preview. It adds the viewfinder
  * rectangle and partial transparency outside it, as well as the laser scanner
  * animation and result points.
- *
  */
 public final class ViewfinderView extends View {
     private static final String TAG = "ViewfinderView";
@@ -119,7 +117,7 @@ public final class ViewfinderView extends View {
 
         density = context.getResources().getDisplayMetrics().density;
         //将像素转换成dp
-        ScreenRate = (int)(20 * density);
+        ScreenRate = (int) (20 * density);
 
         paint = new Paint();
         Resources resources = getResources();
@@ -139,7 +137,7 @@ public final class ViewfinderView extends View {
         }
 
         //初始化中间线滑动的最上边和最下边
-        if(!isFirst){
+        if (!isFirst) {
             isFirst = true;
             slideTop = frame.top;
             slideBottom = frame.bottom;
@@ -158,7 +156,6 @@ public final class ViewfinderView extends View {
         canvas.drawRect(frame.right + 1, frame.top, width, frame.bottom + 1,
                 paint);
         canvas.drawRect(0, frame.bottom + 1, width, height, paint);
-
 
 
         if (resultBitmap != null) {
@@ -189,10 +186,10 @@ public final class ViewfinderView extends View {
 
             //绘制中间的线,每次刷新界面，中间的线往下移动SPEEN_DISTANCE
             slideTop += SPEEN_DISTANCE;
-            if(slideTop >= frame.bottom){
+            if (slideTop >= frame.bottom) {
                 slideTop = frame.top;
             }
-            canvas.drawRect(frame.left + MIDDLE_LINE_PADDING, slideTop - MIDDLE_LINE_WIDTH/2, frame.right - MIDDLE_LINE_PADDING,slideTop + MIDDLE_LINE_WIDTH/2, paint);
+            canvas.drawRect(frame.left + MIDDLE_LINE_PADDING, slideTop - MIDDLE_LINE_WIDTH / 2, frame.right - MIDDLE_LINE_PADDING, slideTop + MIDDLE_LINE_WIDTH / 2, paint);
 
 
             //画扫描框下面的字
@@ -200,10 +197,10 @@ public final class ViewfinderView extends View {
             paint.setTextSize(TEXT_SIZE * density);
             paint.setAlpha(0x40);
             paint.setTypeface(Typeface.create("System", Typeface.BOLD));
-            Log.i(TAG, "frame.left=" + frame.left);
-            canvas.drawText(getResources().getString(R.string.scan_text), frame.left+20, (float) (frame.bottom + (float)TEXT_PADDING_TOP *density), paint);
-
-
+            String msg = getResources().getString(R.string.scan_text);
+            Rect rect=new Rect();
+            paint.getTextBounds(msg, 0, msg.length(), rect);
+            canvas.drawText(msg, (frame.right - frame.left) / 2 + frame.left - rect.width() / 2, (float) (frame.bottom + (float) TEXT_PADDING_TOP * density), paint);
 
             Collection<ResultPoint> currentPossible = possibleResultPoints;
             Collection<ResultPoint> currentLast = lastPossibleResultPoints;
@@ -245,8 +242,7 @@ public final class ViewfinderView extends View {
      * Draw a bitmap with the result points highlighted instead of the live
      * scanning display.
      *
-     * @param barcode
-     *            An image of the decoded barcode.
+     * @param barcode An image of the decoded barcode.
      */
     public void drawResultBitmap(Bitmap barcode) {
         resultBitmap = barcode;

@@ -157,6 +157,39 @@ public class AndroidClientService {
         }
         return obj;
     }
+    /**
+     * 根据送检编号获取
+     */
+    public static String getSAMPNUM(final Context cxt, String sampnum, String enterby) {
+
+        String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.qywebservice1URL;
+
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "n_sample1samplenum");
+        soapReq.addProperty("sampnum", sampnum);//送检编号
+        soapReq.addProperty("enterby", enterby);//取样人
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+            return null;
+        }
+        String obj = null;
+        try {
+            obj = soapEnvelope.getResponse().toString();
+            Log.i(TAG, "obj=" + obj);
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return obj;
+    }
 
     /**
      * 根据是否火车与车号获取任务检查单号
@@ -470,6 +503,172 @@ public class AndroidClientService {
         }
         return webResult;
     }
+
+
+
+
+    /**
+     * 获取移动设备查询结果
+     */
+    public static String getmobileinfo(Context context, String rotassetnum) {
+        String ip_adress = AccountUtils.getIpAddress(context) + Constants.MobileassteURL;
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "mobileassteMobileAsste");
+        soapReq.addProperty("ROTASSETNUM", rotassetnum);//用户名
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException | XmlPullParserException e) {
+            return null;
+        }
+        String obj = null;
+        String webResult = null;
+        try {
+            webResult = soapEnvelope.getResponse().toString();
+            Log.i(TAG, "webResult=" + webResult);
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return webResult;
+    }
+    /**
+     * 获取工具查询结果
+     */
+    public static String getIteminfo(Context context, String itemnum) {
+        String ip_adress = AccountUtils.getIpAddress(context) + Constants.MOBILETOOLSURL;
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "mobiletoolsMobileItem");
+        soapReq.addProperty("ITEMNUM", itemnum);//编号
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException | XmlPullParserException e) {
+            return null;
+        }
+        String obj = null;
+        String webResult = null;
+        try {
+            webResult = soapEnvelope.getResponse().toString();
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return webResult;
+    }
+    /**
+     * 移动设备借用
+     */
+    public static String postInvuseLine(Context context, String json) {
+        String ip_adress = AccountUtils.getIpAddress(context) + Constants.MobileassteURL;
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "mobileassteMobileBorrow");
+        soapReq.addProperty("json", json);//son
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException | XmlPullParserException e) {
+            return null;
+        }
+        String obj = null;
+        String webResult = null;
+        try {
+            webResult = soapEnvelope.getResponse().toString();
+            Log.i(TAG, "webResult=" + webResult);
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return webResult;
+    }
+
+    /**
+     * 工具借用
+     */
+    public static String postItemJy(Context context, String json) {
+        String ip_adress = AccountUtils.getIpAddress(context) + Constants.MOBILETOOLSURL;
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "mobiletoolsMobileBorrow");
+        soapReq.addProperty("json", json);//json
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException | XmlPullParserException e) {
+            return null;
+        }
+        String obj = null;
+        String webResult = null;
+        try {
+            webResult = soapEnvelope.getResponse().toString();
+            Log.i(TAG, "webResult=" + webResult);
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return webResult;
+    }
+    /**
+     * 移动设备归还
+     */
+    public static String postGuiHuai(Context context, String json) {
+        String ip_adress = AccountUtils.getIpAddress(context) + Constants.MobileassteURL;
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "mobileassteMobileBack");
+        soapReq.addProperty("json", json);//son
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException | XmlPullParserException e) {
+            return null;
+        }
+        String webResult = null;
+        try {
+            webResult = soapEnvelope.getResponse().toString();
+            Log.i(TAG, "webResult=" + webResult);
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return webResult;
+    }
+    /**
+     * 工具归还
+     */
+    public static String postGJGuiHuai(Context context, String json) {
+        String ip_adress = AccountUtils.getIpAddress(context) + Constants.MOBILETOOLSURL;
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "mobiletoolsMobileBack");
+        soapReq.addProperty("json", json);//json
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException | XmlPullParserException e) {
+            return null;
+        }
+        String webResult = null;
+        try {
+            webResult = soapEnvelope.getResponse().toString();
+            Log.i(TAG, "webResult=" + webResult);
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return webResult;
+    }
+
+
 
     /**
      * 设置手势密码

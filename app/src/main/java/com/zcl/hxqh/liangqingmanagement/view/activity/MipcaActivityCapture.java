@@ -30,9 +30,12 @@ import java.util.Vector;
 
 /**
  * Initial the camera
+ *
  * @author Ryan.Tang
  */
 public class MipcaActivityCapture extends BaseActivity implements Callback {
+
+    private static final String TAG = "MipcaActivityCapture";
 
     private CaptureActivityHandler handler;
     private ViewfinderView viewfinderView;
@@ -47,17 +50,23 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
 
     private int mark;
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_capture);
         //ViewUtil.addTopView(getApplicationContext(), this, R.string.scan_card);
         CameraManager.init(getApplication());
+
+        intData();
+
+
         viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
 
         ImageView mButtonBack = (ImageView) findViewById(R.id.title_back_id);
-        TextView textView=(TextView)findViewById(R.id.title_name);
+        TextView textView = (TextView) findViewById(R.id.title_name);
         textView.setText(getString(R.string.scanning_text));
         mButtonBack.setOnClickListener(new OnClickListener() {
 
@@ -70,6 +79,13 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
 
+    }
+
+    /**
+     * 获取数据标识
+     **/
+    private void intData() {
+        mark = getIntent().getExtras().getInt("mark");
     }
 
     @Override
@@ -124,6 +140,7 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
 
     /**
      * 处理扫描结果
+     *
      * @param result
      */
     public void handleDecode(Result result) {
@@ -132,7 +149,22 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
         String resultString = result.getText();
         if (resultString.equals("")) {
             Toast.makeText(MipcaActivityCapture.this, "Scan failed!", Toast.LENGTH_SHORT).show();
-        }else {
+        }
+        if (mark == MainActivity.ROTASSETNUM_CODE) {
+            Intent resultIntent = getIntent();
+            resultIntent.setClass(MipcaActivityCapture.this, InvuselineDetailsActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("result", resultString);
+            resultIntent.putExtras(bundle);
+            startActivityForResult(resultIntent,0);
+        }else if (mark == MainActivity.ITEMNUM_CODE) {
+            Intent resultIntent = getIntent();
+            resultIntent.setClass(MipcaActivityCapture.this, InvuselineDetailsActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("result", resultString);
+            resultIntent.putExtras(bundle);
+            startActivityForResult(resultIntent,0);
+        } else {
             Intent resultIntent = getIntent();
             Bundle bundle = new Bundle();
             bundle.putString("result", resultString);

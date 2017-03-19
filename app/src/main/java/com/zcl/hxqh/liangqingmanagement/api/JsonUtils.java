@@ -9,6 +9,8 @@ import com.zcl.hxqh.liangqingmanagement.constants.Constants;
 import com.zcl.hxqh.liangqingmanagement.model.ALNDOMAIN;
 import com.zcl.hxqh.liangqingmanagement.model.Asset;
 import com.zcl.hxqh.liangqingmanagement.model.Doclinks;
+import com.zcl.hxqh.liangqingmanagement.model.INVUSE;
+import com.zcl.hxqh.liangqingmanagement.model.INVUSELINE;
 import com.zcl.hxqh.liangqingmanagement.model.N_CAR;
 import com.zcl.hxqh.liangqingmanagement.model.N_CARLINE;
 import com.zcl.hxqh.liangqingmanagement.model.N_CARTASK;
@@ -450,6 +452,109 @@ public class JsonUtils {
         }
 
     }
+
+    /**
+     * 移动设备借用
+     */
+    public static ArrayList<INVUSE> parsingINVUSE(Context ctx, String data) {
+        ArrayList<INVUSE> list = null;
+        INVUSE invuse = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            JSONObject jsonObject;
+            list = new ArrayList<INVUSE>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                invuse = new INVUSE();
+                jsonObject = jsonArray.getJSONObject(i);
+                Field[] field = invuse.getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
+                for (int j = 0; j < field.length; j++) {     //遍历所有属性
+                    field[j].setAccessible(true);
+                    String name = field[j].getName();    //获取属性的名字
+                    if (jsonObject.has(name) && jsonObject.getString(name) != null && !jsonObject.getString(name).equals("")) {
+                        try {
+                            // 调用getter方法获取属性值
+                            Method getOrSet = invuse.getClass().getMethod("get" + name);
+                            Object value = getOrSet.invoke(invuse);
+                            if (value == null) {
+                                //调用setter方法设属性值
+                                Class[] parameterTypes = new Class[1];
+                                parameterTypes[0] = field[j].getType();
+                                getOrSet = invuse.getClass().getDeclaredMethod("set" + name, parameterTypes);
+                                getOrSet.invoke(invuse, jsonObject.getString(name));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+                list.add(invuse);
+            }
+            return list;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+    /**
+     * 实际领用
+     */
+    public static ArrayList<INVUSELINE> parsingINVUSELINE(Context ctx, String data) {
+        ArrayList<INVUSELINE> list = null;
+        INVUSELINE invuseline = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            JSONObject jsonObject;
+            list = new ArrayList<INVUSELINE>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                invuseline = new INVUSELINE();
+                jsonObject = jsonArray.getJSONObject(i);
+                Field[] field = invuseline.getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
+                for (int j = 0; j < field.length; j++) {     //遍历所有属性
+                    field[j].setAccessible(true);
+                    String name = field[j].getName();    //获取属性的名字
+                    if (jsonObject.has(name) && jsonObject.getString(name) != null && !jsonObject.getString(name).equals("")) {
+                        try {
+                            // 调用getter方法获取属性值
+                            Method getOrSet = invuseline.getClass().getMethod("get" + name);
+                            Object value = getOrSet.invoke(invuseline);
+                            if (value == null) {
+                                //调用setter方法设属性值
+                                Class[] parameterTypes = new Class[1];
+                                parameterTypes[0] = field[j].getType();
+                                getOrSet = invuseline.getClass().getDeclaredMethod("set" + name, parameterTypes);
+                                getOrSet.invoke(invuseline, jsonObject.getString(name));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+                list.add(invuseline);
+            }
+            return list;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * 缺陷工单

@@ -3,7 +3,6 @@ package com.zcl.hxqh.liangqingmanagement.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,7 +25,10 @@ public class SettingActivity extends BaseActivity {
      */
     private TextView titleTextView;
 
+    /**设置手势**/
     private RelativeLayout FastLoginLayout;
+    /**版本信息**/
+    private RelativeLayout versionRelativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class SettingActivity extends BaseActivity {
         titleTextView = (TextView) findViewById(R.id.title_name);
 
         FastLoginLayout = (RelativeLayout) findViewById(R.id.fast_login_layout);
+        versionRelativeLayout = (RelativeLayout) findViewById(R.id.version_layout);
     }
 
     @Override
@@ -52,15 +55,27 @@ public class SettingActivity extends BaseActivity {
                 finish();
             }
         });
-        titleTextView.setText("设置");
+        titleTextView.setText(R.string.setting_title);
 
         FastLoginLayout.setOnClickListener(FastLoginOnClickListener);
+        versionRelativeLayout.setOnClickListener(versionRelativeLayoutOnClickListener);
     }
 
+    /**设置手势密码**/
     private View.OnClickListener FastLoginOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(SettingActivity.this,FastLoginSettingActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    /**版本信息**/
+
+    private View.OnClickListener versionRelativeLayoutOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(SettingActivity.this,VersionActivity.class);
             startActivity(intent);
         }
     };

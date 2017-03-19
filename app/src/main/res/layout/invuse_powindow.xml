@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <!--<TextView-->
+        <!--android:id="@+id/n_taskasset_text_id"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="@dimen/dimen_5"-->
+        <!--android:padding="@dimen/dimen_10"-->
+        <!--android:text="@string/n_taskasset_text"-->
+        <!--android:textSize="@dimen/dimens_16sp" />-->
+
+
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="@drawable/line"></View>-->
+
+    <TextView
+        android:id="@+id/invuseline_text_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_5"
+        android:padding="@dimen/dimen_10"
+        android:text="@string/invuseline1_text"
+        android:textSize="@dimen/dimens_16sp" />
+
+
+</LinearLayout>

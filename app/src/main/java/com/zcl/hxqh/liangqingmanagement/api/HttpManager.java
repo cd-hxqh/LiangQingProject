@@ -60,6 +60,27 @@ public class HttpManager {
         return "{'appid':'" + Constants.N_CAR_APPID + "','objectname':'" + Constants.N_CAR_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'CARNUM DESC','condition':{'ENTERBY':'=" + enterby + "'},'sinorsearch':{'CARNUM':'" + value + "','DESCRIPTION':'" + value + "'}}";
     }
 
+
+    /**
+     * 设置移动设备借用的接口
+     */
+    public static String getINVUSE(String value,int curpage, int showcount) {
+        if (value.equals("")) {
+            return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.INVUSE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INVUSENUM ASC','condition':{'STATUS':'!=完成'}}";
+        }
+        return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.INVUSE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INVUSENUM ASC','condition':{'STATUS':'!=完成'},'sinorsearch':{'INVUSENUM':'" + value + "','DESCRIPTION':'" + value + "'}}";
+    }
+    /**
+     * 设置移动设备实际领用的接口
+     */
+    public static String getINVUSELINE(String value,String invusenum,int curpage, int showcount) {
+        if (value.equals("")) {
+            return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.INVUSELINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INVUSELINENUM ASC','condition':{'INVUSENUM':'="+invusenum+"'}}";
+        }
+        return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.INVUSELINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INVUSELINENUM ASC','condition':{'INVUSENUM':'="+invusenum+"''},'sinorsearch':{'ITEMNUM':'" + value + "','ROTASSETNUMDESC':'" + value + "'}}";
+    }
+
+
     /**
      * 设置货运预报明细的接口
      */

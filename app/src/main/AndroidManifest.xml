@@ -189,9 +189,42 @@
             android:name=".view.activity.N_labapyruleActivity"
             android:label="N_labapyruleActivity"
             android:screenOrientation="portrait" />
-
-
-
+        <activity
+            android:name=".view.activity.VersionActivity"
+            android:label="VersionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.InvuselineDetailsActivity"
+            android:label="InvuselineDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.GhAddActivity"
+            android:label="GhAddActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.InvuseActivity"
+            android:label="InvuseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.InvuseDetailsActivity"
+            android:label="InvuseDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.InvuseLineActivity"
+            android:label="InvuseLineActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.InvuseLine1DetailsActivity"
+            android:label="InvuseLine1DetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.JyAddActivity"
+            android:label="JyAddActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.GjjyActivity"
+            android:label="GjjyActivity"
+            android:screenOrientation="portrait" />
 
 
         <activity
