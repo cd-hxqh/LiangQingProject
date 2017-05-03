@@ -3,7 +3,6 @@ package com.zcl.hxqh.liangqingmanagement.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,7 +50,7 @@ public class WorkOrderActivity extends BaseActivity {
                 finish();
             }
         });
-        titleTextView.setText("工单管理");
+        titleTextView.setText(R.string.workorder_text);
         qxWorkorder.setOnClickListener(qxWorkorderOnClickListener);
         jjWorkorder.setOnClickListener(jjWorkorderOnClickListener);
     }

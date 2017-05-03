@@ -1,15 +1,20 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/title_main"></include>
+    <include
+        android:id="@+id/title_main"
+        layout="@layout/title_main"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_50"></include>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/title_main"
         android:scrollbars="vertical">
 
         <LinearLayout
@@ -216,5 +221,19 @@
         </LinearLayout>
     </ScrollView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
-</LinearLayout>
+        <Button
+            android:id="@+id/status_btn_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_enable_green"
+            android:text="@string/xgzt_text"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+</RelativeLayout>

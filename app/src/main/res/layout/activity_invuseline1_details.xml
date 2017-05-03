@@ -63,6 +63,7 @@
                 android:padding="@dimen/dimen_10">
 
                 <TextView
+                    android:id="@+id/num_title_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/rotassetnum_text"
@@ -94,6 +95,7 @@
                 android:padding="@dimen/dimen_10">
 
                 <TextView
+                    android:id="@+id/desc_title_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ydsbms"

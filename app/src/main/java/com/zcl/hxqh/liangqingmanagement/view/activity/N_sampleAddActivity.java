@@ -689,7 +689,11 @@ public class N_sampleAddActivity extends BaseActivity {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             sb = new StringBuffer();
             monthOfYear = monthOfYear + 1;
-            sb.append(year + "-" + monthOfYear + "-" + "0" + dayOfMonth);
+            if (dayOfMonth < 10) {
+                sb.append(year + "-" + monthOfYear + "-" + "0" + dayOfMonth);
+            } else {
+                sb.append(year + "-" + monthOfYear + "-" + dayOfMonth);
+            }
 
             enterdateText.setText(sb.toString());
         }

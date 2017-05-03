@@ -25,6 +25,7 @@ import com.flyco.dialog.widget.NormalDialog;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.Utils;
 import com.lzy.imagepicker.bean.ImageItem;
+import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import com.lzy.imagepicker.view.CropImageView;
 import com.zcl.hxqh.liangqingmanagement.R;
@@ -102,6 +103,7 @@ public class WorkorderJinJiAddActivity extends BaseActivity implements ImageLoad
     private ImagePicker imagePicker;
 
     private int i;
+    ArrayList<ImageItem> imageItems;
 
 
     @Override
@@ -191,7 +193,10 @@ public class WorkorderJinJiAddActivity extends BaseActivity implements ImageLoad
     private View.OnClickListener cameraImageViewOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            imagePicker.takePicture(WorkorderJinJiAddActivity.this, ImagePicker.REQUEST_CODE_TAKE);
+//            imagePicker.takePicture(WorkorderJinJiAddActivity.this, ImagePicker.REQUEST_CODE_TAKE);
+            ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
+            Intent intent = new Intent(WorkorderJinJiAddActivity.this, ImageGridActivity.class);
+            startActivityForResult(intent, ImagePicker.REQUEST_CODE_TAKE);
         }
     };
 
@@ -273,19 +278,25 @@ public class WorkorderJinJiAddActivity extends BaseActivity implements ImageLoad
             }
         }
 
-        //如果是裁剪，因为裁剪指定了存储的Uri，所以返回的data一定为null
-        if (resultCode == RESULT_OK && requestCode == imagePicker.REQUEST_CODE_TAKE) {
-//            //发送广播通知图片增加了
-            ImageItem imageItem = new ImageItem();
-            imageItem.path = imagePicker.getTakeImageFile().getAbsolutePath();
-            imagePicker.clearSelectedImages();
-            imagePicker.addSelectedImageItem(0, imageItem, true);
+//        //如果是裁剪，因为裁剪指定了存储的Uri，所以返回的data一定为null
+//        if (requestCode == imagePicker.REQUEST_CODE_TAKE) {
+////            //发送广播通知图片增加了
+//            ImageItem imageItem = new ImageItem();
+//            imageItem.path = imagePicker.getTakeImageFile().getAbsolutePath();
+//            imagePicker.clearSelectedImages();
+//            imagePicker.addSelectedImageItem(0, imageItem, true);
+////
+//            ArrayList<ImageItem> images = (ArrayList<ImageItem>) imagePicker.getSelectedImages();
+//            selImageList.addAll(images);
+//            adapter.setImages(selImageList);
 //
-            ArrayList<ImageItem> images = (ArrayList<ImageItem>) imagePicker.getSelectedImages();
-            selImageList.addAll(images);
+//
+//        }
+
+        if (data != null && requestCode == imagePicker.REQUEST_CODE_TAKE) {
+            imageItems = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+            selImageList.addAll(imageItems);
             adapter.setImages(selImageList);
-
-
         }
 
     }
@@ -367,15 +378,14 @@ public class WorkorderJinJiAddActivity extends BaseActivity implements ImageLoad
                 mLoadingDialog.setText("正在上传图片...");
                 for (ImageItem imageItem : adapter.getImages()) {
                     i++;
-                    Log.i(TAG,"i="+i);
                     startAsyncTask(imageItem.path, msg);
                 }
 
-            } else if(adapter.getImages().size() == 0){
+            } else if (adapter.getImages().size() == 0) {
                 mLoadingDialog.dismiss();
                 MessageUtils.showMiddleToast(WorkorderJinJiAddActivity.this, "新建成功");
                 finish();
-            }else{
+            } else {
                 mLoadingDialog.dismiss();
                 MessageUtils.showMiddleToast(WorkorderJinJiAddActivity.this, msg);
                 finish();
@@ -393,7 +403,6 @@ public class WorkorderJinJiAddActivity extends BaseActivity implements ImageLoad
      * 提交图片
      **/
     private void startAsyncTask(String fileName, final String ownid) {
-        Log.i(TAG, "fileName=" + fileName + ",ownid=" + ownid + ",i=" + i);
         File f = new File(fileName);
 
         ImageCompressUtils.from(WorkorderJinJiAddActivity.this)

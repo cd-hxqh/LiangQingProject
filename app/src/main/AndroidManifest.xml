@@ -221,10 +221,6 @@
             android:name=".view.activity.JyAddActivity"
             android:label="JyAddActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.activity.GjjyActivity"
-            android:label="GjjyActivity"
-            android:screenOrientation="portrait" />
 
 
         <activity

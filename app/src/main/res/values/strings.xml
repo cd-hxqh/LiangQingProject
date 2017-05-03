@@ -428,4 +428,8 @@
     <string name="gjcx_text">工具查询</string>
     <string name="gj_num">工具编号:</string>
     <string name="gjms_text">工具描述:</string>
+    <string name="workorder_text">工单管理</string>
+    <string name="wcxdcr_text">未查询到此人</string>
+    <string name="cxcw_text">查询错误</string>
+    <string name="xgzt_text">修改状态</string>
 </resources>

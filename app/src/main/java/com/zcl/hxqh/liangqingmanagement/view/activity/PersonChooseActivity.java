@@ -21,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zcl.hxqh.liangqingmanagement.R;
-import com.zcl.hxqh.liangqingmanagement.adapter.AssetListAdapter;
 import com.zcl.hxqh.liangqingmanagement.adapter.BaseQuickAdapter;
 import com.zcl.hxqh.liangqingmanagement.adapter.PersonAdapter;
 import com.zcl.hxqh.liangqingmanagement.api.HttpManager;
@@ -210,7 +209,7 @@ public class PersonChooseActivity extends BaseActivity implements SwipeRefreshLa
 
             @Override
             public void onSuccess(Results results, int totalPages, int currentPage) {
-                ArrayList<PERSON> item = JsonUtils.parsingPERSON(PersonChooseActivity.this, results.getResultlist());
+                ArrayList<PERSON> item = JsonUtils.parsingPERSON(results.getResultlist());
                 refresh_layout.setRefreshing(false);
                 refresh_layout.setLoading(false);
                 if (item == null || item.isEmpty()) {

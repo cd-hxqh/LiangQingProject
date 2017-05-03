@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,36 +27,32 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
+import butterknife.OnClick;
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+
+public class LoginActivity extends BaseActivity {
     private static final String TAG = "LoginActivity";
-    private EditText mUsername;
-    private EditText mPassword;
+    @Bind(R.id.login_username_edit)
+    EditText mUsername;
+    @Bind(R.id.login_password_edit)
+    EditText mPassword;
+    @Bind(R.id.btn_login)
+    Button loginBtn;
+    @Bind(R.id.checkBox)
+    CheckBox checkBox; //记住密码
+    @Bind(R.id.connect_setting)
+    TextView connectsetting;//连接设置
+    @Bind(R.id.card_login)
+    TextView cardloginText;//员工卡登录
+    @Bind(R.id.fast_login)
+    TextView fastloginText;//快速登录
 
-    private Button loginBtn;
-
-    private CheckBox checkBox; //记住密码
-
-    private TextView connectsetting;//连接设置
-
-    private TextView cardloginText;//员工卡登录
-
-    private TextView fastloginText;//快速登录
-
-//    private RadioGroup radioGroup;
-//    /**
-//     * 内网*
-//     */
-//    private RadioButton neiwangRadio;
-//    /**
-//     * 外网*
-//     */
-//    private RadioButton waiwangRadio;
 
     private boolean isRemember; //是否记住密码
 
-    String userName; //用户名
-    String userPassWorld; //密码
     String imei; //imei
 
     private long exitTime = 0;
@@ -66,13 +60,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected FlippingLoadingDialog mLoadingDialog;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        ButterKnife.bind(this);
         Bugly.init(getApplicationContext(), "2d01706f1a", true);
 
         imei = ((TelephonyManager) getSystemService(TELEPHONY_SERVICE))
@@ -83,7 +75,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
         findViewById();
         initView();
-        setEvent();
 
 
     }
@@ -91,10 +82,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void findViewById() {
 
-        mUsername = (EditText) findViewById(R.id.login_username_edit);
-        mPassword = (EditText) findViewById(R.id.login_password_edit);
-
-        loginBtn = (Button) findViewById(R.id.btn_login);
 
         boolean isChecked = AccountUtils.getIsChecked(LoginActivity.this);
         if (isChecked) {
@@ -102,74 +89,57 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             mPassword.setText(AccountUtils.getUserPassword(LoginActivity.this));
         }
 
-//        radioGroup = (RadioGroup) findViewById(R.id.radiogroup_id);
-//        waiwangRadio = (RadioButton) findViewById(R.id.waiwang_id);
-//        neiwangRadio = (RadioButton) findViewById(R.id.neiwang_id);
 
-
-        checkBox = (CheckBox) findViewById(R.id.checkBox);
-
-        connectsetting = (TextView) findViewById(R.id.connect_setting);
-        cardloginText = (TextView) findViewById(R.id.card_login);
-        fastloginText = (TextView) findViewById(R.id.fast_login);
-    }
-
-    /**
-     * 设置事件监听*
-     */
-    private void setEvent() {
-        checkBox.setOnCheckedChangeListener(cheBoxOnCheckedChangListener);
-        connectsetting.setOnClickListener(connectsettingOnClickListener);
-        cardloginText.setOnClickListener(cardloginOnClickListener);
-        fastloginText.setOnClickListener(fastloginOnClickListener);
     }
 
 
-    private CompoundButton.OnCheckedChangeListener cheBoxOnCheckedChangListener = new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            isRemember = isChecked;
-        }
-    };
+    //记住密码
+    @OnCheckedChanged(R.id.checkBox)
+    void onChecked(boolean isChecked) {
+        isRemember = isChecked;
+    }
 
-    private View.OnClickListener connectsettingOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(LoginActivity.this,ConnectSettingActivity.class);
-            startActivity(intent);
-        }
-    };
+    @OnClick(R.id.connect_setting)
+    void setConnectsettingOnClickListener() {
+        Intent intent = new Intent(LoginActivity.this, ConnectSettingActivity.class);
+        startActivityForResult(intent, 0);
+    }
 
-    private View.OnClickListener cardloginOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(LoginActivity.this,CardLoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    };
+    @OnClick(R.id.card_login)
+    void cardloginOnClickListener() {
+        Intent intent = new Intent(LoginActivity.this, CardLoginActivity.class);
+        startActivityForResult(intent, 0);
+    }
 
-    private View.OnClickListener fastloginOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(LoginActivity.this,FastLoginActivity.class);
-            startActivity(intent);
-            finish();
+    @OnClick(R.id.fast_login)
+    void fastloginOnClickListener() {
+        Intent intent = new Intent(LoginActivity.this, FastLoginActivity.class);
+        startActivityForResult(intent, 0);
+    }
+
+    @OnClick(R.id.btn_login)
+    void setLoginBtn() {
+        if (mUsername.getText().length() == 0) {
+            mUsername.setError(getString(R.string.login_error_empty_user));
+            mUsername.requestFocus();
+        } else if (mPassword.getText().length() == 0) {
+            mPassword.setError(getString(R.string.login_error_empty_passwd));
+            mPassword.requestFocus();
+        } else {
+            login();
         }
-    };
+    }
+
 
     @Override
     protected void initView() {
-        loginBtn.setOnClickListener(this);
 
-        if (AccountUtils.getIpAddress(LoginActivity.this)==null
-                ||AccountUtils.getIpAddress(LoginActivity.this).equals("")){//初始化地址
-            AccountUtils.setIpAddress(LoginActivity.this,Constants.HTTP_API_IP);
+        if (AccountUtils.getIpAddress(LoginActivity.this) == null
+                || AccountUtils.getIpAddress(LoginActivity.this).equals("")) {//初始化地址
+            AccountUtils.setIpAddress(LoginActivity.this, Constants.HTTP_API_IP);
         }
 
-}
-
-
+    }
 
 
     /**
@@ -178,7 +148,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void startIntent(ArrayList<String> list) {
         Intent intent = new Intent();
         intent.setClass(this, MainActivity.class);
-        intent.putExtra("appidArray",list);
+        intent.putExtra("appidArray", list);
         startActivity(intent);
         overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
     }
@@ -190,20 +160,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         new AsyncTask<String, String, String>() {
             @Override
             protected String doInBackground(String... strings) {
-                return AndroidClientService.mobilelogin_getUserApp(LoginActivity.this,username);
+                return AndroidClientService.mobilelogin_getUserApp(LoginActivity.this, username);
             }
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                if (isJsonArrary(s)){
+                if (isJsonArrary(s)) {
                     try {
                         JSONArray jsonArray = new JSONArray(s);
                         JSONObject jsonObject;
-                        ArrayList<String > arrayList = new ArrayList<String>();
-                        for (int i =0;i<jsonArray.length();i++){
+                        ArrayList<String> arrayList = new ArrayList<String>();
+                        for (int i = 0; i < jsonArray.length(); i++) {
                             jsonObject = jsonArray.getJSONObject(i);
-                            if (jsonObject.has("appid")){
+                            if (jsonObject.has("appid")) {
                                 arrayList.add(jsonObject.getString("appid"));
                             }
                         }
@@ -211,30 +181,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }else {
-                    MessageUtils.showErrorMessage(LoginActivity.this,"获取权限失败");
+                } else {
+                    MessageUtils.showErrorMessage(LoginActivity.this, "获取权限失败");
                 }
             }
         }.execute();
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_login:
-                if (mUsername.getText().length() == 0) {
-                    mUsername.setError(getString(R.string.login_error_empty_user));
-                    mUsername.requestFocus();
-                } else if (mPassword.getText().length() == 0) {
-                    mPassword.setError(getString(R.string.login_error_empty_passwd));
-                    mPassword.requestFocus();
-                } else {
-                    login();
-                }
-                break;
-
-        }
     }
 
 
@@ -263,8 +214,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 JSONObject object = new JSONObject(data);
                                 JSONObject LoginDetails = object.getJSONObject("userLoginDetails");
                                 AccountUtils.setLoginDetails(LoginActivity.this, LoginDetails.getString("insertOrg"), LoginDetails.getString("insertSite"),
-                                        LoginDetails.getString("personId"), object.getString("userName"), LoginDetails.getString("displayName"),LoginDetails.getString("loginUserName"));
-//                            findByDepartment(LoginDetails.getString("personId"));
+                                        LoginDetails.getString("personId"), object.getString("userName"), LoginDetails.getString("displayName"), LoginDetails.getString("loginUserName"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -308,7 +258,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         return mLoadingDialog;
     }
 
-    private boolean isJsonArrary(String data){
+    private boolean isJsonArrary(String data) {
         try {
             JSONArray jsonArray = new JSONArray(data);
         } catch (JSONException e) {

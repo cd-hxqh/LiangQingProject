@@ -270,6 +270,7 @@ public class JsonUtils {
         }
 
     }
+
     /**
      * 考勤管理
      */
@@ -315,6 +316,7 @@ public class JsonUtils {
         }
 
     }
+
     /**
      * 用工记录
      */
@@ -498,6 +500,7 @@ public class JsonUtils {
         }
 
     }
+
     /**
      * 实际领用
      */
@@ -543,17 +546,6 @@ public class JsonUtils {
         }
 
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     /**
@@ -648,6 +640,7 @@ public class JsonUtils {
         }
 
     }
+
     /**
      * 验收标准与评分
      */
@@ -695,19 +688,6 @@ public class JsonUtils {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * 选项值
      */
@@ -753,6 +733,7 @@ public class JsonUtils {
         }
 
     }
+
     /**
      * 任务编号
      */
@@ -798,6 +779,7 @@ public class JsonUtils {
         }
 
     }
+
     /**
      * 车辆作业
      */
@@ -843,6 +825,7 @@ public class JsonUtils {
         }
 
     }
+
     /**
      * 车皮跟踪
      */
@@ -892,7 +875,7 @@ public class JsonUtils {
     /**
      * 人员查询
      */
-    public static ArrayList<PERSON> parsingPERSON(Context ctx, String data) {
+    public static ArrayList<PERSON> parsingPERSON(String data) {
         ArrayList<PERSON> list = null;
         PERSON n_car = null;
         try {
@@ -966,9 +949,10 @@ public class JsonUtils {
             e.printStackTrace();
         }
 
-        Log.i(TAG, "jsonObject=" + "["+jsonObject.toString()+"]");
-        return "["+jsonObject.toString()+"]";
+        Log.i(TAG, "jsonObject=" + "[" + jsonObject.toString() + "]");
+        return "[" + jsonObject.toString() + "]";
     }
+
     /**
      * 封装扦样单
      **/
@@ -986,9 +970,9 @@ public class JsonUtils {
                     Object value = null;
                     value = getOrSet.invoke(n_sample);
                     if (value != null) {
-                        if (name.equals("SAMPNUM")){
+                        if (name.equals("SAMPNUM")) {
                             jsonObject.put("sampnum", value + "");
-                        }else {
+                        } else {
                             jsonObject.put(name, value + "");
                         }
                     }
@@ -1004,15 +988,15 @@ public class JsonUtils {
             e.printStackTrace();
         }
 
-        Log.i(TAG, "jsonObject=" + "["+jsonObject.toString()+"]");
-        return "["+jsonObject.toString()+"]";
+        Log.i(TAG, "jsonObject=" + "[" + jsonObject.toString() + "]");
+        return "[" + jsonObject.toString() + "]";
     }
 
     /**
      * 封装货运预报
      **/
 
-    public static String encapsulationN_CAR(N_CAR n_car,ArrayList<N_CARLINE> carlines) {
+    public static String encapsulationN_CAR(N_CAR n_car, ArrayList<N_CARLINE> carlines) {
         JSONObject jsonObject = new JSONObject();
         try {
             Field[] field = n_car.getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
@@ -1038,54 +1022,52 @@ public class JsonUtils {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if (carlines==null||carlines.size()==0) {
+        if (carlines == null || carlines.size() == 0) {
             try {
                 jsonObject.put("CarLine", new JSONArray());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             JSONObject object = new JSONObject();
-                JSONArray carlineArray = new JSONArray();
-                JSONObject carlineObj;
-                for (int i = 0; i < carlines.size(); i++) {
-                    carlineObj = new JSONObject();
-                    Field[] field1 = carlines.get(i).getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
-                    for (int j = 0; j < field1.length; j++) {
-                        field1[j].setAccessible(true);
-                        String name = field1[j].getName();//获取属性的名字
-                        Method getOrSet = null;
-                        try {
-                            getOrSet = carlines.get(i).getClass().getMethod("get" + name);
-                            Object value = null;
-                            value = getOrSet.invoke(carlines.get(i));
-                            if (value != null) {
-                                carlineObj.put(name, value + "");
+            JSONArray carlineArray = new JSONArray();
+            JSONObject carlineObj;
+            for (int i = 0; i < carlines.size(); i++) {
+                carlineObj = new JSONObject();
+                Field[] field1 = carlines.get(i).getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
+                for (int j = 0; j < field1.length; j++) {
+                    field1[j].setAccessible(true);
+                    String name = field1[j].getName();//获取属性的名字
+                    Method getOrSet = null;
+                    try {
+                        getOrSet = carlines.get(i).getClass().getMethod("get" + name);
+                        Object value = null;
+                        value = getOrSet.invoke(carlines.get(i));
+                        if (value != null) {
+                            carlineObj.put(name, value + "");
 
-                            }
-                        } catch (NoSuchMethodException e) {
-                            e.printStackTrace();
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        } catch (InvocationTargetException e) {
-                            e.printStackTrace();
-                        } catch (JSONException e) {
+                        }
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    }
-                    carlineArray.put(carlineObj);
                 }
+                carlineArray.put(carlineObj);
+            }
             try {
                 jsonObject.put("CarLine", carlineArray);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        Log.i(TAG, "jsonObject=" + "["+jsonObject.toString()+"]");
-        return "["+jsonObject.toString()+"]";
+        Log.i(TAG, "jsonObject=" + "[" + jsonObject.toString() + "]");
+        return "[" + jsonObject.toString() + "]";
     }
-
 
 
     /**
@@ -1277,7 +1259,7 @@ public class JsonUtils {
      * 附件类*
      */
     public static ArrayList<Doclinks> parsingDoclinks(Context ctx, String data) {
-        Log.i(TAG,"ddddata="+data);
+        Log.i(TAG, "ddddata=" + data);
         ArrayList<Doclinks> list = null;
         Doclinks doclinks = null;
         try {
@@ -1322,22 +1304,20 @@ public class JsonUtils {
     }
 
 
-
-
     /**
      * 封装扦样单
      **/
 
-    public static String encapsulationN_labapys(String sn,String scroe) {
+    public static String encapsulationN_labapys(String sn, String scroe) {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("SN",sn);
-            jsonObject.put("SCORE",scroe);
+            jsonObject.put("SN", sn);
+            jsonObject.put("SCORE", scroe);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        Log.i(TAG, "jsonObject=" + "["+jsonObject.toString()+"]");
+        Log.i(TAG, "jsonObject=" + "[" + jsonObject.toString() + "]");
         return jsonObject.toString();
     }
 

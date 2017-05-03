@@ -257,7 +257,8 @@ public class InvuseLineActivity extends BaseActivity implements SwipeRefreshLayo
         invuseLineListAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(InvuseLineActivity.this, InvuseLine1DetailsActivity.class);
+                Intent intent=getIntent();
+                intent.setClass(InvuseLineActivity.this, InvuseLine1DetailsActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("invuseline", items.get(position));
                 intent.putExtras(bundle);

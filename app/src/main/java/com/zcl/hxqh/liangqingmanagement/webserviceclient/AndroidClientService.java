@@ -157,6 +157,7 @@ public class AndroidClientService {
         }
         return obj;
     }
+
     /**
      * 根据送检编号获取
      */
@@ -295,9 +296,9 @@ public class AndroidClientService {
     /**
      * 用工验收修改
      */
-    public static String updateN_LABAPY(final Context cxt,String n_labapynum,String workload,  String json) {
+    public static String updateN_LABAPY(final Context cxt, String n_labapynum, String workload, String json) {
 
-        Log.i(TAG,"n_labapynum="+n_labapynum+",workload="+workload+",json="+json);
+        Log.i(TAG, "n_labapynum=" + n_labapynum + ",workload=" + workload + ",json=" + json);
 
         String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.carwebserviceURL;
 
@@ -325,17 +326,6 @@ public class AndroidClientService {
         }
         return obj;
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     /**
@@ -409,7 +399,6 @@ public class AndroidClientService {
     public static String saveQX(final Context cxt, String personid, String elc_no, String lim_sht, String pla_no,
                                 String fun_crw, String fun_per, String fum_dtm, String lim_not, String worktype, String supervisor,
                                 String recreq, String schedfinish) {
-
 
 
         String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.WorkOrderwebserviceURL;
@@ -505,8 +494,6 @@ public class AndroidClientService {
     }
 
 
-
-
     /**
      * 获取移动设备查询结果
      */
@@ -534,6 +521,7 @@ public class AndroidClientService {
         }
         return webResult;
     }
+
     /**
      * 获取工具查询结果
      */
@@ -560,6 +548,37 @@ public class AndroidClientService {
         }
         return webResult;
     }
+
+
+    /**
+     * 修改状态
+     */
+    public static String MobileBorrowChangeStatus(Context context, String invusenum) {
+        String ip_adress = AccountUtils.getIpAddress(context) + Constants.MOBILETOOLSURL;
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "mobiletoolsMobileBorrowChangeStatus");
+        soapReq.addProperty("INVUSENUM", invusenum);//INVUSENUM
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException | XmlPullParserException e) {
+            return "";
+        }
+        String obj = null;
+        String webResult = null;
+        try {
+            webResult = soapEnvelope.getResponse().toString();
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+            return "";
+        }
+        return webResult;
+    }
+
+
     /**
      * 移动设备借用
      */
@@ -615,6 +634,7 @@ public class AndroidClientService {
         }
         return webResult;
     }
+
     /**
      * 移动设备归还
      */
@@ -641,6 +661,7 @@ public class AndroidClientService {
         }
         return webResult;
     }
+
     /**
      * 工具归还
      */
@@ -669,11 +690,10 @@ public class AndroidClientService {
     }
 
 
-
     /**
      * 设置手势密码
      */
-    public static String mobilelogin_Imagepassword(Context context, String username,String password) {
+    public static String mobilelogin_Imagepassword(Context context, String username, String password) {
         String ip_adress = AccountUtils.getIpAddress(context) + Constants.LoginwebserviceURL;
         SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         soapEnvelope.implicitTypes = true;
@@ -702,7 +722,7 @@ public class AndroidClientService {
     /**
      * 手势密码登录
      */
-    public static String mobilelogin_ImageLogin(Context context, String username,String password) {
+    public static String mobilelogin_ImageLogin(Context context, String username, String password) {
         String ip_adress = AccountUtils.getIpAddress(context) + Constants.LoginwebserviceURL;
         SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         soapEnvelope.implicitTypes = true;

@@ -7,11 +7,14 @@ import android.support.v7.app.ActionBarActivity;
 import com.zcl.hxqh.liangqingmanagement.AppManager;
 import com.zcl.hxqh.liangqingmanagement.BaseApplication;
 
+import butterknife.ButterKnife;
+
 
 public abstract class BaseActivity extends ActionBarActivity {
     private ProgressDialog mProgressDialog;
 
     protected BaseApplication baseApplication;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,11 +24,10 @@ public abstract class BaseActivity extends ActionBarActivity {
     }
 
 
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        ButterKnife.unbind(this);
         //结束Activity&从堆栈中移除
         AppManager.getAppManager().finishActivity(this);
     }
@@ -67,7 +69,7 @@ public abstract class BaseActivity extends ActionBarActivity {
     /**
      *
      */
-    protected BaseApplication getBaseApplication(){
+    protected BaseApplication getBaseApplication() {
         return baseApplication;
     }
 

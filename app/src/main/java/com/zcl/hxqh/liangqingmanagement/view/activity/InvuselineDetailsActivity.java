@@ -2,7 +2,6 @@ package com.zcl.hxqh.liangqingmanagement.view.activity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,6 +46,8 @@ public class InvuselineDetailsActivity extends BaseActivity {
     private TextView descTitle; //设备描述标题
     private TextView ydsbmsText; //移动设备描述
 
+    private TextView locationText; //位置
+
     private TextView jyghxmText; //借用、归还人姓名
 
     private TextView carlineText; //实际日期
@@ -56,6 +57,7 @@ public class InvuselineDetailsActivity extends BaseActivity {
     protected FlippingLoadingDialog mLoadingDialog;
 
     private int mark;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +74,6 @@ public class InvuselineDetailsActivity extends BaseActivity {
     private void geiIntentData() {
 
         mark = getIntent().getExtras().getInt("mark");
-        Log.i(TAG, "mark" + mark);
         rotassetnum = getIntent().getExtras().getString("result");
     }
 
@@ -88,6 +89,7 @@ public class InvuselineDetailsActivity extends BaseActivity {
         rotassetnumText = (TextView) findViewById(R.id.rotassetnum_text_id);
         descTitle = (TextView) findViewById(R.id.desctitle_id);
         ydsbmsText = (TextView) findViewById(R.id.ydsbms_id);
+        locationText = (TextView) findViewById(R.id.location_text_id);
         jyghxmText = (TextView) findViewById(R.id.jyghxm_text_id);
         carlineText = (TextView) findViewById(R.id.actualdate_text_id);
     }
@@ -129,13 +131,11 @@ public class InvuselineDetailsActivity extends BaseActivity {
             @Override
             protected String doInBackground(String... strings) {
                 String reviseresult = null;
-                Log.i(TAG,"mark="+mark);
                 if (mark == MainActivity.ROTASSETNUM_CODE) { //移动设备查询
                     reviseresult = AndroidClientService.getmobileinfo(InvuselineDetailsActivity.this, rotassetnum);
                 }else if(mark == MainActivity.ITEMNUM_CODE){ //工具查询
                     reviseresult = AndroidClientService.getIteminfo(InvuselineDetailsActivity.this, rotassetnum);
                 }
-                Log.i(TAG,"reviseresult="+reviseresult);
                 return reviseresult;
             }
 
@@ -171,11 +171,13 @@ public class InvuselineDetailsActivity extends BaseActivity {
             }else if(mark==MainActivity.ITEMNUM_CODE){
                 num = json.getString("itemnum");
             }
+            String location = json.getString("location");
             String displayname = json.getString("displayname");
             invusenumText.setText(invusenum);
             usetypeText.setText(usetype);
             rotassetnumText.setText(num);
             ydsbmsText.setText(description);
+            locationText.setText(location);
             jyghxmText.setText(displayname);
             carlineText.setText(actualdate);
 
@@ -183,6 +185,26 @@ public class InvuselineDetailsActivity extends BaseActivity {
         } catch (JSONException e) {
             try {
                 JSONObject jsonObject = new JSONObject(result);
+                String actualdate = jsonObject.getString("actualdate");
+                String usetype = jsonObject.getString("usetype");
+                String description = jsonObject.getString("description");
+                String invusenum = jsonObject.getString("invusenum");
+                String num=null;
+                if (mark==MainActivity.ROTASSETNUM_CODE){
+
+                    num = jsonObject.getString("rotassetnum");
+                }else if(mark==MainActivity.ITEMNUM_CODE){
+                    num = jsonObject.getString("itemnum");
+                }
+                String location = jsonObject.getString("location");
+                String displayname = jsonObject.getString("displayname");
+                invusenumText.setText(invusenum);
+                usetypeText.setText(usetype);
+                rotassetnumText.setText(num);
+                ydsbmsText.setText(description);
+                locationText.setText(location);
+                jyghxmText.setText(displayname);
+                carlineText.setText(actualdate);
                 MessageUtils.showMiddleToast(InvuselineDetailsActivity.this, jsonObject.getString("msg"));
             } catch (JSONException e1) {
                 e1.printStackTrace();

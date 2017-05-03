@@ -371,7 +371,7 @@ public class PersonDetailsActivity extends BaseActivity implements SwipeRefreshL
             @Override
             public void onSuccess(Results results, int totalPages, int currentPage) {
                 refresh_layout2.setRefreshing(false);
-                ArrayList<PERSON> item = JsonUtils.parsingPERSON(PersonDetailsActivity.this, results.getResultlist());
+                ArrayList<PERSON> item = JsonUtils.parsingPERSON(results.getResultlist());
                 if (item != null && item.size() == 1) {
                     PERSON person = item.get(0);
                     displaynameTextView.setText(person.getDISPLAYNAME());

@@ -64,11 +64,11 @@ public class HttpManager {
     /**
      * 设置移动设备借用的接口
      */
-    public static String getINVUSE(String value,int curpage, int showcount) {
+    public static String getINVUSE(String value,String fromstoreloc,int curpage, int showcount) {
         if (value.equals("")) {
-            return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.INVUSE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INVUSENUM ASC','condition':{'STATUS':'!=完成'}}";
+            return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.INVUSE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INVUSENUM ASC','condition':{'STATUS':'!=完成','FROMSTORELOC':'="+fromstoreloc+"'}}";
         }
-        return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.INVUSE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INVUSENUM ASC','condition':{'STATUS':'!=完成'},'sinorsearch':{'INVUSENUM':'" + value + "','DESCRIPTION':'" + value + "'}}";
+        return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.INVUSE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INVUSENUM ASC','condition':{'STATUS':'!=完成','FROMSTORELOC':'="+fromstoreloc+"'},'sinorsearch':{'INVUSENUM':'" + value + "','DESCRIPTION':'" + value + "'}}";
     }
     /**
      * 设置移动设备实际领用的接口
@@ -287,6 +287,14 @@ public class HttpManager {
     }
 
 
+
+    /**
+     * 设置根据卡号查询人员地址*
+     */
+    public static String setPersonUrl(String cardnum) {
+        return "{'appid':'" + Constants.PERSON_APPID + "','objectname':'" + Constants.PERSON_NAME + "','option':'read','condition':{'N_CARDNUM':'="+cardnum+"'}}";
+    }
+
     /**
      * 使用用户名密码登录
      *
@@ -369,6 +377,7 @@ public class HttpManager {
     public static void getDataPagingInfo(final Context cxt, String data, final HttpRequestHandler<Results> handler) {
         Log.i(TAG, "data=" + data);
         String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.BASE_URL;
+
         Log.i(TAG, "ip_adress=" + ip_adress);
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();

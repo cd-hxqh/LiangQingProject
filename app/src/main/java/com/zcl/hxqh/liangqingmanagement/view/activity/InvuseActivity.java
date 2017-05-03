@@ -40,6 +40,8 @@ import java.util.List;
 
 public class InvuseActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener {
     private static final String TAG = "InvuseActivity";
+    private static final String K90 = "K90";
+    private static final String K80 = "K80";
     /**
      * 返回按钮
      */
@@ -92,7 +94,7 @@ public class InvuseActivity extends BaseActivity implements SwipeRefreshLayout.O
     }
 
     private void initData() {
-        mark=getIntent().getExtras().getInt("mark");
+        mark = getIntent().getExtras().getInt("mark");
     }
 
     @Override
@@ -113,9 +115,9 @@ public class InvuseActivity extends BaseActivity implements SwipeRefreshLayout.O
                 finish();
             }
         });
-        if(mark==MainActivity.ROTASSETNUM_CODE){
+        if (mark == MainActivity.ROTASSETNUM_CODE) {
             titleTextView.setText(R.string.ydsbjy_text);
-        }else if(mark==MainActivity.ITEMNUM_CODE){
+        } else if (mark == MainActivity.ITEMNUM_CODE) {
             titleTextView.setText(R.string.gjjy_text);
         }
 
@@ -135,7 +137,6 @@ public class InvuseActivity extends BaseActivity implements SwipeRefreshLayout.O
         refresh_layout.setOnRefreshListener(this);
         refresh_layout.setOnLoadListener(this);
     }
-
 
 
     @Override
@@ -196,7 +197,15 @@ public class InvuseActivity extends BaseActivity implements SwipeRefreshLayout.O
      * 获取数据*
      */
     private void getData(String search) {
-        HttpManager.getDataPagingInfo(InvuseActivity.this, HttpManager.getINVUSE(search, page, 20), new HttpRequestHandler<Results>() {
+        String fromstoreloc = null;
+        if (mark == MainActivity.ROTASSETNUM_CODE) {
+            fromstoreloc = K90;
+        } else if (mark == MainActivity.ITEMNUM_CODE) {
+            fromstoreloc = K80;
+        }
+
+
+        HttpManager.getDataPagingInfo(InvuseActivity.this, HttpManager.getINVUSE(search, fromstoreloc, page, 20), new HttpRequestHandler<Results>() {
             @Override
             public void onSuccess(Results results) {
                 Log.i(TAG, "data=" + results);
@@ -246,7 +255,7 @@ public class InvuseActivity extends BaseActivity implements SwipeRefreshLayout.O
         invuseListAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent=getIntent();
+                Intent intent = getIntent();
                 intent.setClass(InvuseActivity.this, InvuseDetailsActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("invuse", items.get(position));
