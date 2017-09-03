@@ -13,7 +13,7 @@ public class Constants {
     /**
      * 默认 外网*
      */
-    public static final String HTTP_API_IP = "http://218.25.141.113";
+    public static final String HTTP_API_IP = "http://218.25.141.113:9080";
     //本地
 //    public static final String HTTP_API_IP = "http://192.168.101.164:7001";
     /**
@@ -168,10 +168,18 @@ public class Constants {
     public static final String N_MOVEASSE4_APPID = "N_MOVEASSE4";
     /**工具设备查询appid**/
     public static final String N_MOVEASSE5_APPID = "N_MOVEASSE5";
+    /**调车作业指令单appid**/
+    public static final String N_INSTRUCS_APPID = "N_INSTRUCS";
+
     /**移动设备表名**/
     public static final String INVUSE_NAME = "INVUSE";
     /**实际领用**/
     public static final String INVUSELINE_NAME = "INVUSELINE";
+
+    /**调车作业指令单表名**/
+    public static final String N_INSTRUCSTASK_NAME = "N_INSTRUCSTASK";
+    /**调车作业指令单行表名**/
+    public static final String N_INSTRUCTIONS_NAME = "N_INSTRUCTIONS";
 
 
 

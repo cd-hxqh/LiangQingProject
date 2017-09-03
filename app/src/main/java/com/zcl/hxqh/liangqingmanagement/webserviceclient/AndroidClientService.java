@@ -272,7 +272,7 @@ public class AndroidClientService {
         SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         soapEnvelope.implicitTypes = true;
         soapEnvelope.dotNet = true;
-        SoapObject soapReq = new SoapObject(NAMESPACE, "n_caradd ");
+        SoapObject soapReq = new SoapObject(NAMESPACE, "n_caradd");
         soapReq.addProperty("json", json);//封装数据
         soapEnvelope.setOutputSoapObject(soapReq);
         HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);

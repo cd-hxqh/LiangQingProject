@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -85,6 +86,7 @@ public class LoginActivity extends BaseActivity {
 
         boolean isChecked = AccountUtils.getIsChecked(LoginActivity.this);
         if (isChecked) {
+            checkBox.setChecked(isChecked);
             mUsername.setText(AccountUtils.getUserName(LoginActivity.this));
             mPassword.setText(AccountUtils.getUserPassword(LoginActivity.this));
         }
@@ -166,6 +168,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
+                Log.e(TAG, "s=" + s);
                 if (isJsonArrary(s)) {
                     try {
                         JSONArray jsonArray = new JSONArray(s);

@@ -15,6 +15,8 @@ import com.zcl.hxqh.liangqingmanagement.model.N_CAR;
 import com.zcl.hxqh.liangqingmanagement.model.N_CARLINE;
 import com.zcl.hxqh.liangqingmanagement.model.N_CARTASK;
 import com.zcl.hxqh.liangqingmanagement.model.N_GRAINJC;
+import com.zcl.hxqh.liangqingmanagement.model.N_INSTRUCSTASK;
+import com.zcl.hxqh.liangqingmanagement.model.N_INSTRUCTIONS;
 import com.zcl.hxqh.liangqingmanagement.model.N_LABAPY;
 import com.zcl.hxqh.liangqingmanagement.model.N_LABAPYRULE;
 import com.zcl.hxqh.liangqingmanagement.model.N_QCLSAMP;
@@ -500,6 +502,101 @@ public class JsonUtils {
         }
 
     }
+
+
+    /**
+     * 调车作业指令单
+     */
+    public static ArrayList<N_INSTRUCSTASK> parsingN_INSTRUCSTASK(Context ctx, String data) {
+        ArrayList<N_INSTRUCSTASK> list = null;
+        N_INSTRUCSTASK n_instrucstask = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            JSONObject jsonObject;
+            list = new ArrayList<N_INSTRUCSTASK>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                n_instrucstask = new N_INSTRUCSTASK();
+                jsonObject = jsonArray.getJSONObject(i);
+                Field[] field = n_instrucstask.getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
+                for (int j = 0; j < field.length; j++) {     //遍历所有属性
+                    field[j].setAccessible(true);
+                    String name = field[j].getName();    //获取属性的名字
+                    if (jsonObject.has(name) && jsonObject.getString(name) != null && !jsonObject.getString(name).equals("")) {
+                        try {
+                            // 调用getter方法获取属性值
+                            Method getOrSet = n_instrucstask.getClass().getMethod("get" + name);
+                            Object value = getOrSet.invoke(n_instrucstask);
+                            if (value == null) {
+                                //调用setter方法设属性值
+                                Class[] parameterTypes = new Class[1];
+                                parameterTypes[0] = field[j].getType();
+                                getOrSet = n_instrucstask.getClass().getDeclaredMethod("set" + name, parameterTypes);
+                                getOrSet.invoke(n_instrucstask, jsonObject.getString(name));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+                list.add(n_instrucstask);
+            }
+            return list;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    /**
+     * 调车作业指令单行表
+     */
+    public static ArrayList<N_INSTRUCTIONS> parsingN_INSTRUCTIONS(String data) {
+        ArrayList<N_INSTRUCTIONS> list = null;
+        N_INSTRUCTIONS n_instructions = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            JSONObject jsonObject;
+            list = new ArrayList<N_INSTRUCTIONS>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                n_instructions = new N_INSTRUCTIONS();
+                jsonObject = jsonArray.getJSONObject(i);
+                Field[] field = n_instructions.getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
+                for (int j = 0; j < field.length; j++) {     //遍历所有属性
+                    field[j].setAccessible(true);
+                    String name = field[j].getName();    //获取属性的名字
+                    if (jsonObject.has(name) && jsonObject.getString(name) != null && !jsonObject.getString(name).equals("")) {
+                        try {
+                            // 调用getter方法获取属性值
+                            Method getOrSet = n_instructions.getClass().getMethod("get" + name);
+                            Object value = getOrSet.invoke(n_instructions);
+                            if (value == null) {
+                                //调用setter方法设属性值
+                                Class[] parameterTypes = new Class[1];
+                                parameterTypes[0] = field[j].getType();
+                                getOrSet = n_instructions.getClass().getDeclaredMethod("set" + name, parameterTypes);
+                                getOrSet.invoke(n_instructions, jsonObject.getString(name));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+                list.add(n_instructions);
+            }
+            return list;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+
 
     /**
      * 实际领用

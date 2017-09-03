@@ -26,14 +26,14 @@ public class HttpManager {
      * 设置收件箱的接口
      */
     public static String getWFASSIGNMENT(String persionid, int curpage, int showcount) {
-            return "{'appid':'" + Constants.WFASSIGNMENT_APPID + "','objectname':'" + Constants.WFASSIGNMENT_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WFASSIGNMENTID DESC','condition':{'ASSIGNCODE':'" + persionid + "','ASSIGNSTATUS':'=活动'}}";
+        return "{'appid':'" + Constants.WFASSIGNMENT_APPID + "','objectname':'" + Constants.WFASSIGNMENT_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WFASSIGNMENTID DESC','condition':{'ASSIGNCODE':'" + persionid + "','ASSIGNSTATUS':'=活动'}}";
 
     }
 
     /**
      * 设置仓储粮情检查单的接口
      */
-    public static String getN_GRAINJC(String value, String worktype,int curpage, int showcount) {
+    public static String getN_GRAINJC(String value, String worktype, int curpage, int showcount) {
         if (value.equals("")) {
             return "{'appid':'" + Constants.N_GRAINJC_APPID + "','objectname':'" + Constants.N_GRAINJC_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'GRAINSNUN DESC','condition':{'WORKTYPE':'=" + worktype + "'}}";
         }
@@ -64,20 +64,21 @@ public class HttpManager {
     /**
      * 设置移动设备借用的接口
      */
-    public static String getINVUSE(String value,String fromstoreloc,int curpage, int showcount) {
+    public static String getINVUSE(String value, String fromstoreloc, int curpage, int showcount) {
         if (value.equals("")) {
-            return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.INVUSE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INVUSENUM ASC','condition':{'STATUS':'!=完成','FROMSTORELOC':'="+fromstoreloc+"'}}";
+            return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.INVUSE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INVUSENUM ASC','condition':{'STATUS':'!=完成','FROMSTORELOC':'=" + fromstoreloc + "'}}";
         }
-        return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.INVUSE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INVUSENUM ASC','condition':{'STATUS':'!=完成','FROMSTORELOC':'="+fromstoreloc+"'},'sinorsearch':{'INVUSENUM':'" + value + "','DESCRIPTION':'" + value + "'}}";
+        return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.INVUSE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INVUSENUM ASC','condition':{'STATUS':'!=完成','FROMSTORELOC':'=" + fromstoreloc + "'},'sinorsearch':{'INVUSENUM':'" + value + "','DESCRIPTION':'" + value + "'}}";
     }
+
     /**
      * 设置移动设备实际领用的接口
      */
-    public static String getINVUSELINE(String value,String invusenum,int curpage, int showcount) {
+    public static String getINVUSELINE(String value, String invusenum, int curpage, int showcount) {
         if (value.equals("")) {
-            return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.INVUSELINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INVUSELINENUM ASC','condition':{'INVUSENUM':'="+invusenum+"'}}";
+            return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.INVUSELINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INVUSELINENUM ASC','condition':{'INVUSENUM':'=" + invusenum + "'}}";
         }
-        return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.INVUSELINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INVUSELINENUM ASC','condition':{'INVUSENUM':'="+invusenum+"''},'sinorsearch':{'ITEMNUM':'" + value + "','ROTASSETNUMDESC':'" + value + "'}}";
+        return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.INVUSELINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INVUSELINENUM ASC','condition':{'INVUSENUM':'=" + invusenum + "''},'sinorsearch':{'ITEMNUM':'" + value + "','ROTASSETNUMDESC':'" + value + "'}}";
     }
 
 
@@ -98,7 +99,7 @@ public class HttpManager {
     public static String getN_LABAPY(String value, String linkman, int curpage, int showcount) {
 
         if (value.equals("")) {
-            return "{'appid':'" + Constants.N_LABAPYS_APPID + "','objectname':'" + Constants.N_LABAPYS_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'N_LABAPYNUM DESC','condition':{'LINKMAN':'=" + linkman  + "','STATUS':'=已初审'}}";
+            return "{'appid':'" + Constants.N_LABAPYS_APPID + "','objectname':'" + Constants.N_LABAPYS_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'N_LABAPYNUM DESC','condition':{'LINKMAN':'=" + linkman + "','STATUS':'=已初审'}}";
         }
         return "{'appid':'" + Constants.N_LABAPYS_APPID + "','objectname':'" + Constants.N_LABAPYS_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'N_LABAPYNUM DESC','condition':{'LINKMAN':'=" + linkman + ",'STATUS':'=已初审'},'sinorsearch':{'CARNUM':'" + value + "','DESCRIPTION':'" + value + "'}}";
 
@@ -108,22 +109,14 @@ public class HttpManager {
     /**
      * 验收标准与评分
      */
-    public static String getN_LABAPYRULE(String value,String labapynum, int curpage, int showcount) {
+    public static String getN_LABAPYRULE(String value, String labapynum, int curpage, int showcount) {
 
         if (value.equals("")) {
-            return "{'appid':'" + Constants.N_LABAPYS_APPID + "','objectname':'" + Constants.N_LABAPYRULE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'SN ASC','condition':{'LABAPYNUM':'=" + labapynum+"'}}";
+            return "{'appid':'" + Constants.N_LABAPYS_APPID + "','objectname':'" + Constants.N_LABAPYRULE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'SN ASC','condition':{'LABAPYNUM':'=" + labapynum + "'}}";
         }
         return "{'appid':'" + Constants.N_LABAPYS_APPID + "','objectname':'" + Constants.N_LABAPYRULE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'SN ASC','condition':{'LABAPYNUM':'=" + labapynum + "'},'sinorsearch':{'SN':'" + value + "','ITEM':'" + value + "','SCORE':'" + value + "'}}";
 
     }
-
-
-
-
-
-
-
-
 
 
     /**
@@ -287,13 +280,33 @@ public class HttpManager {
     }
 
 
-
     /**
      * 设置根据卡号查询人员地址*
      */
     public static String setPersonUrl(String cardnum) {
-        return "{'appid':'" + Constants.PERSON_APPID + "','objectname':'" + Constants.PERSON_NAME + "','option':'read','condition':{'N_CARDNUM':'="+cardnum+"'}}";
+        return "{'appid':'" + Constants.PERSON_APPID + "','objectname':'" + Constants.PERSON_NAME + "','option':'read','condition':{'N_CARDNUM':'=" + cardnum + "'}}";
     }
+
+
+    /**
+     * 设置调车作业指令单的接口
+     */
+    public static String getN_INSTRUCSTASK(String value, int curpage, int showcount) {
+        if (value.equals("")) {
+            return "{'appid':'" + Constants.N_INSTRUCS_APPID + "','objectname':'" + Constants.N_INSTRUCSTASK_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INSTRUCNUM DESC','condition':{'STATUS':'=待执行,=执行中,=已下达'}}";
+//            return "{'appid':'" + Constants.N_INSTRUCS_APPID + "','objectname':'" + Constants.N_INSTRUCSTASK_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INSTRUCNUM DESC'}";
+        }
+        return "{'appid':'" + Constants.N_INSTRUCS_APPID + "','objectname':'" + Constants.N_INSTRUCSTASK_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INSTRUCNUM DESC','condition':{'STATUS':'=待执行,=执行中,=已下达'},'sinorsearch':{'INSTRUCNUM':'" + value + "','STATUS':'" + value + "'}}";
+    }
+
+
+    /**
+     * 设置调车作业指令单行的接口
+     */
+    public static String getN_INSTRUCTIONS(String number, int curpage, int showcount) {
+        return "{'appid':'" + Constants.N_INSTRUCS_APPID + "','objectname':'" + Constants.N_INSTRUCTIONS_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','condition':{'NUMBER':'="+number+"'}}";
+    }
+
 
     /**
      * 使用用户名密码登录
@@ -369,7 +382,6 @@ public class HttpManager {
 
         });
     }
-
 
     /**
      * 解析返回的结果--分页*

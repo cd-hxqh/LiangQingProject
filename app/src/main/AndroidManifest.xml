@@ -296,6 +296,14 @@
             android:name=".view.activity.N_cartaskListActivity"
             android:label="N_cartaskActivity"
             android:theme="@style/SampleTheme"></activity>
+        <activity
+            android:name=".view.activity.N_instrucstaskActivity"
+            android:label="N_instrucstaskActivity"
+            android:theme="@style/SampleTheme"></activity>
+        <activity
+            android:name=".view.activity.N_instrucstaskDetailsActivity"
+            android:label="N_instrucstaskDetailsActivity"
+            android:theme="@style/SampleTheme"></activity>
     </application>
 
 </manifest>

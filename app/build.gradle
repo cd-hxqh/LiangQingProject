@@ -2,14 +2,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '23.0.1'
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "com.zcl.hxqh.liangqingmanagement"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 36
-        versionName "1.4.7"
+        versionCode 40
+        versionName "1.5.1"
     }
     buildTypes {
         release {

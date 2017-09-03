@@ -27,6 +27,11 @@
     <string name="login_department">login_department</string>
 
 
+    <!-- hint -->
+
+    <string name="have_all_data_text">已加载出全部数据</string>
+
+
     <string name="login_error_empty_user">用户名不能为空</string>
     <string name="login_error_empty_passwd">密码不能为空</string>
     <string name="error_title">错误</string>
@@ -70,7 +75,7 @@
     <string name="hint_item_num_title">暂无编号</string>
     <string name="hint_item_desc_title">暂无描述</string>
     <string name="hint_item_date_title">暂无日期</string>
-    <string name="have_not_data">暂无数据</string>
+    <string name="have_not_data">无</string>
     <!--标题-->
     <string name="cclqbzd_text_text">仓储粮情标准单</string>
     <!--粮情详情-->
@@ -432,4 +437,17 @@
     <string name="wcxdcr_text">未查询到此人</string>
     <string name="cxcw_text">查询错误</string>
     <string name="xgzt_text">修改状态</string>
+
+    <string name="zyddd_text">调车作业指令单</string>
+    <string name="zldxq_text">指令单详情</string>
+    <string name="instrucnum_text">指令单编号:</string>
+    <string name="entryby_text">录入人:</string>
+    <string name="entrydate_text">录入时间:</string>
+    <string name="zl_text">指令</string>
+    <string name="ordernum_text">顺号:</string>
+    <string name="through_text">经由:</string>
+    <string name="line_text">线别:</string>
+    <string name="wagonsg_text">车数(挂):</string>
+    <string name="wagonsz_text">车数(摘):</string>
+    <string name="memo_text">记事:</string>
 </resources>
