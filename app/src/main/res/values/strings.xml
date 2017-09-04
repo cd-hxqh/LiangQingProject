@@ -444,10 +444,10 @@
     <string name="entryby_text">录入人:</string>
     <string name="entrydate_text">录入时间:</string>
     <string name="zl_text">指令</string>
-    <string name="ordernum_text">顺号:</string>
-    <string name="through_text">经由:</string>
-    <string name="line_text">线别:</string>
-    <string name="wagonsg_text">车数(挂):</string>
-    <string name="wagonsz_text">车数(摘):</string>
-    <string name="memo_text">记事:</string>
+    <string name="ordernum_text">序号</string>
+    <string name="through_text">经由</string>
+    <string name="line_text">线别</string>
+    <string name="wagonsg_text">挂</string>
+    <string name="wagonsz_text">摘</string>
+    <string name="memo_text">记事</string>
 </resources>

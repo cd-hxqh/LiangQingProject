@@ -293,8 +293,8 @@ public class HttpManager {
      */
     public static String getN_INSTRUCSTASK(String value, int curpage, int showcount) {
         if (value.equals("")) {
-            return "{'appid':'" + Constants.N_INSTRUCS_APPID + "','objectname':'" + Constants.N_INSTRUCSTASK_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INSTRUCNUM DESC','condition':{'STATUS':'=待执行,=执行中,=已下达'}}";
-//            return "{'appid':'" + Constants.N_INSTRUCS_APPID + "','objectname':'" + Constants.N_INSTRUCSTASK_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INSTRUCNUM DESC'}";
+//            return "{'appid':'" + Constants.N_INSTRUCS_APPID + "','objectname':'" + Constants.N_INSTRUCSTASK_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INSTRUCNUM DESC','condition':{'STATUS':'=待执行,=执行中,=已下达'}}";
+            return "{'appid':'" + Constants.N_INSTRUCS_APPID + "','objectname':'" + Constants.N_INSTRUCSTASK_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INSTRUCNUM DESC'}";
         }
         return "{'appid':'" + Constants.N_INSTRUCS_APPID + "','objectname':'" + Constants.N_INSTRUCSTASK_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INSTRUCNUM DESC','condition':{'STATUS':'=待执行,=执行中,=已下达'},'sinorsearch':{'INSTRUCNUM':'" + value + "','STATUS':'" + value + "'}}";
     }
@@ -304,7 +304,7 @@ public class HttpManager {
      * 设置调车作业指令单行的接口
      */
     public static String getN_INSTRUCTIONS(String number, int curpage, int showcount) {
-        return "{'appid':'" + Constants.N_INSTRUCS_APPID + "','objectname':'" + Constants.N_INSTRUCTIONS_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','condition':{'NUMBER':'="+number+"'}}";
+        return "{'appid':'" + Constants.N_INSTRUCS_APPID + "','objectname':'" + Constants.N_INSTRUCTIONS_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','condition':{'NUMBER':'=" + number + "'}}";
     }
 
 

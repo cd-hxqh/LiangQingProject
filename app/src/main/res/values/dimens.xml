@@ -24,4 +24,6 @@
     <dimen name="dimens_line">0.5dp</dimen>
     <dimen name="dimens_30dp">30dp</dimen>
     <dimen name="dimens_20sp">20sp</dimen>
+    <dimen name="dimens_2dp">2dp</dimen>
+    <dimen name="dimens_list_w">50dp</dimen>
 </resources>

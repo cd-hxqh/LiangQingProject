@@ -136,15 +136,15 @@ public class N_instrucstaskDetailsActivity extends BaseActivity {
         finish();
     }
 
-    @OnClick(R.id.zk_imageview_id)
-    void setZlOnClickListener() {
-        if (startAnaim()) {
-            listviewLinearLayout.setVisibility(View.GONE);
-        } else {
-            listviewLinearLayout.setVisibility(View.VISIBLE);
-        }
-
-    }
+//    @OnClick(R.id.zk_imageview_id)
+//    void setZlOnClickListener() {
+//        if (startAnaim()) {
+//            listviewLinearLayout.setVisibility(View.GONE);
+//        } else {
+//            listviewLinearLayout.setVisibility(View.VISIBLE);
+//        }
+//
+//    }
 
 
     //启动动画
@@ -228,7 +228,7 @@ public class N_instrucstaskDetailsActivity extends BaseActivity {
      * 获取数据*
      */
     private void initAdapter(final List<N_INSTRUCTIONS> list) {
-        n_instructionsListAdapter = new N_instructionsListAdapter(N_instrucstaskDetailsActivity.this, R.layout.list_n_instructions_item, list);
+        n_instructionsListAdapter = new N_instructionsListAdapter(N_instrucstaskDetailsActivity.this, R.layout.list_instructions_item, list);
         recyclerView.setAdapter(n_instructionsListAdapter);
     }
 

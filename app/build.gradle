@@ -8,14 +8,20 @@ android {
         applicationId "com.zcl.hxqh.liangqingmanagement"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 40
-        versionName "1.5.1"
+        versionCode 42
+        versionName "1.5.3"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    lintOptions {
+        //即使有lint报错也不停止打包
+        checkReleaseBuilds false
+        abortOnError false
     }
 
 }
