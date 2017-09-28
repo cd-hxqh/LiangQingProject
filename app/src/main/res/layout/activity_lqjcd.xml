@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <include layout="@layout/title_main"></include>
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,6 +67,72 @@
 
                 <TextView
                     android:id="@+id/zyxcjc_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="@dimen/dimen_5"
+                    android:drawableTop="@drawable/ic_zyxcjc"
+                    android:gravity="center"
+                    android:text="@string/aqjc_text"></TextView>
+
+            </LinearLayout>
+
+
+        </TableRow>
+
+        <TableRow android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:id="@+id/fyx_linearlayout_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/fyx_text_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/dimen_5"
+                    android:drawableTop="@drawable/ic_fyx"
+                    android:gravity="center"
+                    android:text="@string/fyx_text"></TextView>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="invisible">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="@dimen/dimen_5"
+                    android:drawableTop="@drawable/ic_fyx"
+                    android:gravity="center"
+                    android:text="@string/sbssjc_text"></TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="invisible">
+
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

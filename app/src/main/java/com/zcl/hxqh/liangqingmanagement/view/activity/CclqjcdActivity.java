@@ -2,11 +2,13 @@ package com.zcl.hxqh.liangqingmanagement.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zcl.hxqh.liangqingmanagement.R;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2017/2/15.
@@ -15,68 +17,64 @@ import com.zcl.hxqh.liangqingmanagement.R;
 
 public class CclqjcdActivity extends BaseActivity {
     private static final String TAG = "CclqjcdActivity";
-    /**
-     * 返回按钮
-     */
-    private ImageView backImageView;
-    /**
-     * 标题
-     */
-    private TextView titleTextView;
-    private TextView lqjcText;//粮情检查
-    private TextView sbssaqwsjc_text;//设备设施安全卫生检查
-    private TextView zyxcjcText;//作业现场检查
+
+    @Bind(R.id.title_name)
+    TextView titleTextView;//标题
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_lqjcd);
+        ButterKnife.bind(this);
         findViewById();
         initView();
     }
 
     @Override
     protected void findViewById() {
-        backImageView = (ImageView) findViewById(R.id.title_back_id);
-        titleTextView = (TextView) findViewById(R.id.title_name);
-        lqjcText = (TextView) findViewById(R.id.lqjc_id);
-        sbssaqwsjc_text = (TextView) findViewById(R.id.sbwsjc_id);
-        zyxcjcText = (TextView) findViewById(R.id.zyxcjc_id);
     }
 
     @Override
     protected void initView() {
-        backImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        titleTextView.setText("仓储基础工作");
-        lqjcText.setOnClickListener(OnClickListener);
-        sbssaqwsjc_text.setOnClickListener(OnClickListener);
-        zyxcjcText.setOnClickListener(OnClickListener);
+        titleTextView.setText(getString(R.string.ccjcgz_text));
     }
 
-    private View.OnClickListener OnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(CclqjcdActivity.this, N_grainjcListActivity.class);
-            switch (v.getId()) {
-                case R.id.lqjc_id:
-                    intent.putExtra("worktype","粮情检查");
-                    startActivityForResult(intent, 0);
-                    break;
-                case R.id.sbwsjc_id:
-                    intent.putExtra("worktype","设备设施安全卫生检查");
-                    startActivityForResult(intent, 0);
-                    break;
-                case R.id.zyxcjc_id:
-                    intent.putExtra("worktype","作业现场检查");
-                    startActivityForResult(intent, 0);
-                    break;
-            }
+    //返回事件
+    @OnClick(R.id.title_back_id)
+    void setBackImageView() {
+        finish();
+    }
 
-        }
-    };
+    //粮情检查
+    @OnClick(R.id.lqjc_id)
+    void setLqjcTextOnClickListener() {
+        Intent intent = new Intent(CclqjcdActivity.this, N_grainjcListActivity.class);
+        intent.putExtra("worktype", getString(R.string.lqjc_text));
+        startActivityForResult(intent, 0);
+    }
+
+    //设备设施安全卫生检查
+    @OnClick(R.id.sbwsjc_id)
+    void setSbwsjcTextOnClickListener() {
+        Intent intent = new Intent(CclqjcdActivity.this, N_grainjcListActivity.class);
+        intent.putExtra("worktype", getString(R.string.sbssjc_text));
+        startActivityForResult(intent, 0);
+    }
+
+    //作业现场检查
+    @OnClick(R.id.zyxcjc_id)
+    void setZyxcjcTextOnClickListener() {
+        Intent intent = new Intent(CclqjcdActivity.this, N_grainjcListActivity.class);
+        intent.putExtra("worktype", getString(R.string.aqjc_text));
+        startActivityForResult(intent, 0);
+    }
+
+    //风雨雪三查
+    @OnClick(R.id.fyx_text_id)
+    void setFyxTextOnClickListener() {
+        Intent intent = new Intent(CclqjcdActivity.this, N_rostcActivity.class);
+        startActivityForResult(intent, 0);
+    }
+
 }

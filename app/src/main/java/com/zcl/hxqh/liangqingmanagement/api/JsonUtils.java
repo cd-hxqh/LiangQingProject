@@ -19,10 +19,13 @@ import com.zcl.hxqh.liangqingmanagement.model.N_INSTRUCSTASK;
 import com.zcl.hxqh.liangqingmanagement.model.N_INSTRUCTIONS;
 import com.zcl.hxqh.liangqingmanagement.model.N_LABAPY;
 import com.zcl.hxqh.liangqingmanagement.model.N_LABAPYRULE;
+import com.zcl.hxqh.liangqingmanagement.model.N_PRODUCTIONPLANS;
 import com.zcl.hxqh.liangqingmanagement.model.N_QCLSAMP;
 import com.zcl.hxqh.liangqingmanagement.model.N_QCTASKLINE;
+import com.zcl.hxqh.liangqingmanagement.model.N_ROSTC;
 import com.zcl.hxqh.liangqingmanagement.model.N_SAMPLE;
 import com.zcl.hxqh.liangqingmanagement.model.N_STOREINFO;
+import com.zcl.hxqh.liangqingmanagement.model.N_TASKASSET;
 import com.zcl.hxqh.liangqingmanagement.model.N_TASKPLAN;
 import com.zcl.hxqh.liangqingmanagement.model.N_WAGONS;
 import com.zcl.hxqh.liangqingmanagement.model.N_WTLINE;
@@ -635,6 +638,96 @@ public class JsonUtils {
 
                 }
                 list.add(invuseline);
+            }
+            return list;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+    /**
+     * 计划领用
+     */
+    public static ArrayList<N_PRODUCTIONPLANS> parsingN_PRODUCTIONPLANS(String data) {
+        ArrayList<N_PRODUCTIONPLANS> list = null;
+        N_PRODUCTIONPLANS n_productionplans = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            JSONObject jsonObject;
+            list = new ArrayList<N_PRODUCTIONPLANS>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                n_productionplans = new N_PRODUCTIONPLANS();
+                jsonObject = jsonArray.getJSONObject(i);
+                Field[] field = n_productionplans.getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
+                for (int j = 0; j < field.length; j++) {     //遍历所有属性
+                    field[j].setAccessible(true);
+                    String name = field[j].getName();    //获取属性的名字
+                    if (jsonObject.has(name) && jsonObject.getString(name) != null && !jsonObject.getString(name).equals("")) {
+                        try {
+                            // 调用getter方法获取属性值
+                            Method getOrSet = n_productionplans.getClass().getMethod("get" + name);
+                            Object value = getOrSet.invoke(n_productionplans);
+                            if (value == null) {
+                                //调用setter方法设属性值
+                                Class[] parameterTypes = new Class[1];
+                                parameterTypes[0] = field[j].getType();
+                                getOrSet = n_productionplans.getClass().getDeclaredMethod("set" + name, parameterTypes);
+                                getOrSet.invoke(n_productionplans, jsonObject.getString(name));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+                list.add(n_productionplans);
+            }
+            return list;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+    /**
+     * 计划领用
+     */
+    public static ArrayList<N_TASKASSET> parsingN_TASKASSET(String data) {
+        ArrayList<N_TASKASSET> list = null;
+        N_TASKASSET n_taskasset = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            JSONObject jsonObject;
+            list = new ArrayList<N_TASKASSET>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                n_taskasset = new N_TASKASSET();
+                jsonObject = jsonArray.getJSONObject(i);
+                Field[] field = n_taskasset.getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
+                for (int j = 0; j < field.length; j++) {     //遍历所有属性
+                    field[j].setAccessible(true);
+                    String name = field[j].getName();    //获取属性的名字
+                    if (jsonObject.has(name) && jsonObject.getString(name) != null && !jsonObject.getString(name).equals("")) {
+                        try {
+                            // 调用getter方法获取属性值
+                            Method getOrSet = n_taskasset.getClass().getMethod("get" + name);
+                            Object value = getOrSet.invoke(n_taskasset);
+                            if (value == null) {
+                                //调用setter方法设属性值
+                                Class[] parameterTypes = new Class[1];
+                                parameterTypes[0] = field[j].getType();
+                                getOrSet = n_taskasset.getClass().getDeclaredMethod("set" + name, parameterTypes);
+                                getOrSet.invoke(n_taskasset, jsonObject.getString(name));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+                list.add(n_taskasset);
             }
             return list;
         } catch (JSONException e) {
@@ -1350,6 +1443,58 @@ public class JsonUtils {
         }
 
     }
+
+
+    /**
+     * 风雨雪三查
+     **/
+    public static ArrayList<N_ROSTC> parsingN_ROSTC(String data) {
+        ArrayList<N_ROSTC> list = null;
+        N_ROSTC n_rostc = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            JSONObject jsonObject;
+            list = new ArrayList<N_ROSTC>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                n_rostc = new N_ROSTC();
+                jsonObject = jsonArray.getJSONObject(i);
+                Field[] field = n_rostc.getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
+                for (int j = 0; j < field.length; j++) {     //遍历所有属性
+                    field[j].setAccessible(true);
+                    String name = field[j].getName();    //获取属性的名字
+                    if (jsonObject.has(name) && jsonObject.getString(name) != null && !jsonObject.getString(name).equals("")) {
+                        try {
+                            // 调用getter方法获取属性值
+                            Method getOrSet = n_rostc.getClass().getMethod("get" + name);
+                            Object value = getOrSet.invoke(n_rostc);
+                            if (value == null) {
+                                //调用setter方法设属性值
+                                Class[] parameterTypes = new Class[1];
+                                parameterTypes[0] = field[j].getType();
+                                getOrSet = n_rostc.getClass().getDeclaredMethod("set" + name, parameterTypes);
+                                getOrSet.invoke(n_rostc, jsonObject.getString(name));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+                list.add(n_rostc);
+            }
+            return list;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+
+
+
+
 
 
     /**

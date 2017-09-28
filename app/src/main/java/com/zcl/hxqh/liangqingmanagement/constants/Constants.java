@@ -19,10 +19,10 @@ public class Constants {
     /**
      * 内网*
      */
-    public static final String HTTPZHENGSHI_API_IP = "http://10.1.88.101";
+    public static final String HTTPZHENGSHI_API_IP = "http://10.1.88.101:9080";
 
     //登陆URL
-    public static final String SIGN_IN_URL ="/maximo/mobile/system/login";
+    public static final String SIGN_IN_URL = "/maximo/mobile/system/login";
 
     //粮情检查单webservice上传接口
     public static final String lqwebserviceURL = "/meaweb/services/N_GRAINS";
@@ -49,17 +49,16 @@ public class Constants {
     public static final String MOBILETOOLSURL = "/meaweb/services/MOBILETOOLS";
 
     //通用接口查询
-    public static final String BASE_URL =  "/maximo/mobile/common/api";
-
+    public static final String BASE_URL = "/maximo/mobile/common/api";
 
 
     //生成物资编码接口
-    public static final String ITEM_GENERATE_URL ="/maximo/mobile/itemreq/createCode";
+    public static final String ITEM_GENERATE_URL = "/maximo/mobile/itemreq/createCode";
     //发送工作流接口
 
     public static final String START_FLOW_URL = "/maximo/mobile/wf/start";
     //审批工作流接口
-    public static final String APPROVAL_FLOW_URL ="/maximo/mobile/wf/approve";
+    public static final String APPROVAL_FLOW_URL = "/maximo/mobile/wf/approve";
 
 
     /**
@@ -72,7 +71,7 @@ public class Constants {
      */
 
     //收件箱appid
-    public static final String WFASSIGNMENT_APPID = "INBOX" ;
+    public static final String WFASSIGNMENT_APPID = "INBOX";
 
     //收件箱的表名
     public static final String WFASSIGNMENT_NAME = "WFASSIGNMENT";
@@ -118,12 +117,12 @@ public class Constants {
     public static final String N_WAGONS_NAME = "N_WAGONS";
 
     //车辆作业的appid
-    public static final String N_STOREINFO_APPID= "N_STOREINFO";
+    public static final String N_STOREINFO_APPID = "N_STOREINFO";
     //车皮跟踪的表名
     public static final String N_STOREINFO_NAME = "N_STOREINFO";
 
     //考勤管理的appid
-    public static final String N_WTLINE_APPID= "N_WTLINE";
+    public static final String N_WTLINE_APPID = "N_WTLINE";
     //考勤管理的表名
     public static final String N_WTLINE_NAME = "N_WTLINE";
 
@@ -151,36 +150,76 @@ public class Constants {
     //验收标准与评分
     public static final String N_LABAPYRULE_NAME = "N_LABAPYRULE";
 
-    /**附件appid**/
+    /**
+     * 附件appid
+     **/
     public static final String DOCLINKS_APPID = "DOCLINKS";
-    /**附件表名**/
+    /**
+     * 附件表名
+     **/
     public static final String DOCLINKS_NAME = "DOCLINKS";
 
-    /**移动设备借用appid**/
+    /**
+     * 移动设备借用appid
+     **/
     public static final String N_MOVEASSE_APPID = "N_MOVEASSE";
-    /**移动设备归还appid**/
+    /**
+     * 移动设备归还appid
+     **/
     public static final String N_MOVEASSE1_APPID = "N_MOVEASSE1";
-    /**移动设备查询appid**/
+    /**
+     * 移动设备查询appid
+     **/
     public static final String N_MOVEASSE2_APPID = "N_MOVEASSE2";
-    /**工具设备借用appid**/
+    /**
+     * 工具设备借用appid
+     **/
     public static final String N_MOVEASSE3_APPID = "N_MOVEASSE3";
-    /**工具设备归还appid**/
+    /**
+     * 工具设备归还appid
+     **/
     public static final String N_MOVEASSE4_APPID = "N_MOVEASSE4";
-    /**工具设备查询appid**/
+    /**
+     * 工具设备查询appid
+     **/
     public static final String N_MOVEASSE5_APPID = "N_MOVEASSE5";
-    /**调车作业指令单appid**/
+    /**
+     * 调车作业指令单appid
+     **/
     public static final String N_INSTRUCS_APPID = "N_INSTRUCS";
 
-    /**移动设备表名**/
+    /**
+     * 移动设备表名
+     **/
     public static final String INVUSE_NAME = "INVUSE";
-    /**实际领用**/
+    /**
+     * 实际领用
+     **/
     public static final String INVUSELINE_NAME = "INVUSELINE";
+    /**
+     * 计划领用
+     **/
+    public static final String N_PRODUCTIONPLANS_NAME = "N_PRODUCTIONPLANS";
 
-    /**调车作业指令单表名**/
+    public static final String N_TASKASSET_NAME = "N_TASKASSET";
+
+    /**
+     * 调车作业指令单表名
+     **/
     public static final String N_INSTRUCSTASK_NAME = "N_INSTRUCSTASK";
-    /**调车作业指令单行表名**/
+    /**
+     * 调车作业指令单行表名
+     **/
     public static final String N_INSTRUCTIONS_NAME = "N_INSTRUCTIONS";
 
+    /**
+     * 风雨雪三查-appid
+     **/
+    public static final String N_GRAINJC_APP = "N_GRAINJC";
+    /**
+     * 风雨雪三查表名
+     **/
+    public static final String N_ROSTC_NAME = "N_ROSTC";
 
 
     /**
@@ -202,9 +241,9 @@ public class Constants {
     public static final String RETURN = "RETURN";//退货
 
 
-
-
-    /**选项值**/
+    /**
+     * 选项值
+     **/
     public static final String AREA = "AREA";//区域
     public static final String FRVIEW = "FRVIEW";//处理意见
 

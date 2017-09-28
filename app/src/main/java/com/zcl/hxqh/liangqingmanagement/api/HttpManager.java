@@ -81,15 +81,32 @@ public class HttpManager {
         return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.INVUSELINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'INVUSELINENUM ASC','condition':{'INVUSENUM':'=" + invusenum + "''},'sinorsearch':{'ITEMNUM':'" + value + "','ROTASSETNUMDESC':'" + value + "'}}";
     }
 
+    /**
+     * 设置移动设备计划领用领用的接口
+     */
+    public static String getN_PRODUCTIONPLANS(String productionplansnum, int curpage, int showcount) {
+        return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.N_PRODUCTIONPLANS_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','condition':{'PRODUCTIONPLANSNUM':'=" + productionplansnum + "'}}";
+
+    }
+
+    /**
+     * 设置计划领用的接口
+     */
+    public static String getN_TASKASSET(String value, String tasknum, int curpage, int showcount) {
+        if (value.equals("")) {
+            return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.N_TASKASSET_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','condition':{'TASKNUM':'=" + tasknum + "'}}";
+        }
+        return "{'appid':'" + Constants.N_MOVEASSE_APPID + "','objectname':'" + Constants.N_TASKASSET_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','condition':{'TASKNUM':'=" + tasknum + "'},'sinorsearch':{'ITEMNUM':'" + value + "','SUM':'" + value + "'}}";
+    }
 
     /**
      * 设置货运预报明细的接口
      */
     public static String getN_CARLINE_NAME(String value, String carnum, int curpage, int showcount) {
         if (value.equals("")) {
-            return "{'appid':'" + Constants.N_CAR_APPID + "','objectname':'" + Constants.N_CARLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'CARNUM','condition':{'CARNUM':'=" + carnum + "'}}";
+            return "{'appid':'" + Constants.N_CAR_APPID + "','objectname':'" + Constants.N_CARLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'CARNUM ASC','condition':{'CARNUM':'=" + carnum + "'}}";
         }
-        return "{'appid':'" + Constants.N_CAR_APPID + "','objectname':'" + Constants.N_CARLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'CARNUM','condition':{'CARNUM':'=" + carnum + "'},'sinorsearch':{'CARNUM':'" + value + "','CARNO':'" + value + "'}}";
+        return "{'appid':'" + Constants.N_CAR_APPID + "','objectname':'" + Constants.N_CARLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'CARNUM ASC','condition':{'CARNUM':'=" + carnum + "'},'sinorsearch':{'CARNUM':'" + value + "','CARNO':'" + value + "'}}";
     }
 
 
@@ -309,6 +326,17 @@ public class HttpManager {
 
 
     /**
+     * 设置风雨雪三查
+     */
+    public static String getN_ROSTC(String value, String examiner, int curpage, int showcount) {
+        if (value.equals("")) {
+            return "{'appid':'" + Constants.N_GRAINJC_APP + "','objectname':'" + Constants.N_ROSTC_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'BEFOREDATE DESC','condition':{'STATUS':'!=归档','EXAMINER':'=" + examiner + "'}}";
+        }
+        return "{'appid':'" + Constants.N_GRAINJC_APP + "','objectname':'" + Constants.N_ROSTC_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'BEFOREDATE DESC','condition':{'STATUS':'!=归档','EXAMINER':'=" + examiner + "'},'sinorsearch':{'LOC':'" + value + "','BEFOREDATE':'" + value + "','LATEDATE':'" + value + "'}}";
+    }
+
+
+    /**
      * 使用用户名密码登录
      *
      * @param cxt
@@ -320,7 +348,6 @@ public class HttpManager {
     public static void loginWithUsername(final Context cxt, final String username, final String password, String imei,
                                          final HttpRequestHandler<String> handler) {
         String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.SIGN_IN_URL;
-        Log.i(TAG, "ip_adress=" + ip_adress);
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.put("loginid", username);
@@ -382,6 +409,7 @@ public class HttpManager {
 
         });
     }
+
 
     /**
      * 解析返回的结果--分页*
