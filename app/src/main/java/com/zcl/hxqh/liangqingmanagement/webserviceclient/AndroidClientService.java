@@ -781,5 +781,90 @@ public class AndroidClientService {
         return webResult;
     }
 
+    /**
+     * 根据时间查询天气
+     */
+    public static String postWEATHER(Context context, String beforedate) {
+        String ip_adress = AccountUtils.getIpAddress(context) + Constants.lqwebserviceURL;
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "n_grainsweather");
+        soapReq.addProperty("date", beforedate);//json
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException | XmlPullParserException e) {
+            return null;
+        }
+        String webResult = null;
+        try {
+            webResult = soapEnvelope.getResponse().toString();
+            Log.i(TAG, "webResult=" + webResult);
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return webResult;
+    }
+
+
+    /**
+     * 根据时间与货位号查询仓温仓湿
+     */
+    public static String postAweather(Context context, String beforedate, String loc) {
+        String ip_adress = AccountUtils.getIpAddress(context) + Constants.lqwebserviceURL;
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "n_grainsaweather");
+        soapReq.addProperty("date", beforedate);//date
+        soapReq.addProperty("loc", loc);//loc
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException | XmlPullParserException e) {
+            return null;
+        }
+        String webResult = null;
+        try {
+            webResult = soapEnvelope.getResponse().toString();
+            Log.i(TAG, "webResult=" + webResult);
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return webResult;
+    }
+
+
+    /**
+     * 提交新建的数据
+     */
+    public static String postN_rostc(Context context, String json) {
+        Log.e(TAG,"json="+json);
+        String ip_adress = AccountUtils.getIpAddress(context) + Constants.lqwebserviceURL;
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "n_grainsrostc");
+        soapReq.addProperty("jsons", json);//json
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException | XmlPullParserException e) {
+            return null;
+        }
+        String webResult = null;
+        try {
+            webResult = soapEnvelope.getResponse().toString();
+            Log.i(TAG, "webResult=" + webResult);
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return webResult;
+    }
+
 
 }

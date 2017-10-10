@@ -220,6 +220,10 @@ public class Constants {
      * 风雨雪三查表名
      **/
     public static final String N_ROSTC_NAME = "N_ROSTC";
+    /**
+     * 出入仓告知记录表名
+     **/
+    public static final String N_FOODJOB_NAME = "N_FOODJOB";
 
 
     /**
@@ -287,5 +291,9 @@ public class Constants {
     public static final String CFLYVIEW = "CFLYVIEW";//仓房漏雨问题描述
     public static final String DGFJVIEW = "DGFJVIEW";//仓房漏雨问题描述
     public static final String LXFJVIEW = "LXFJVIEW";//离心风机问题描述
+
+    /**风雨雪三查**/
+    public static final String POSITIONING = "POSITIONING";//发生部位
+    public static final String TAKEACTIONING = "TAKEACTIONING";//采取措施
 
 }

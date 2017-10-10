@@ -44,10 +44,10 @@ import butterknife.OnClick;
 
 
 /**
- * 风雨雪三查详情
+ * 风雨雪三查新增
  */
-public class N_rostcDetailsActivity extends BaseActivity {
-    private static String TAG = "N_rostcDetailsActivity";
+public class N_rostcAddActivity extends BaseActivity {
+    private static String TAG = "N_rostcAddActivity";
 
     @Bind(R.id.title_back_id)
     ImageView backImageView; //返回按钮
@@ -113,24 +113,21 @@ public class N_rostcDetailsActivity extends BaseActivity {
 
     private BaseAnimatorSet mBasIn;
     private BaseAnimatorSet mBasOut;
-    private ShareBottomDialog shareBottomDialog;
 
+
+    private ShareBottomDialog shareBottomDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_n_rostc_details);
         ButterKnife.bind(this);
-        geiIntentData();
         initView();
         findViewById();
         mBasIn = new BounceTopEnter();
         mBasOut = new SlideBottomExit();
     }
 
-    private void geiIntentData() {
-        n_rostc = (N_ROSTC) getIntent().getSerializableExtra("n_rostc");
-    }
 
     @Override
     protected void findViewById() {
@@ -140,37 +137,8 @@ public class N_rostcDetailsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        titleTextView.setText(R.string.scjl_text);
+        titleTextView.setText(R.string.add_jl_text);
         submitBtn.setVisibility(View.VISIBLE);
-        locTextView.setText(n_rostc.getLOC());
-        beforedateText.setText(n_rostc.getBEFOREDATE());
-        if (n_rostc.getISBFDRAINAGE().equals("Y")) {
-            isbfdrainageCheckBox.setChecked(true);
-        }
-        if (n_rostc.getISBEFORDAWCLOSE().equals("Y")) {
-            isbefordawcloseCheckBox.setChecked(true);
-        }
-
-        weatherTextView.setText(n_rostc.getWEATHER());
-        positioningTextView.setText(n_rostc.getPOSITIONING());
-        takeactioningTextView.setText(n_rostc.getTAKEACTIONING());
-        if (n_rostc.getISINGDAWCLOSE().equals("Y")) {
-            isingdawcloseCheckBox.setChecked(true);
-        }
-        if (n_rostc.getISLEAKAGEOFBARN().equals("Y")) {
-            isleakageofbarnCheckBox.setChecked(true);
-        }
-        if (n_rostc.getISDRAIN().equals("Y")) {
-            isdrainCheckBox.setChecked(true);
-        }
-        latedateTextView.setText(n_rostc.getLATEDATE());
-        positionlateTextView.setText(n_rostc.getPOSITIONLATE());
-        takeactionlateTextView.setText(n_rostc.getTAKEACTIONLATE());
-        temperatureTextView.setText(n_rostc.getTEMPERATURE());
-        wetTextView.setText(n_rostc.getWET());
-        if (n_rostc.getISLEAKAGEOFBARNLATE().equals("Y")) {
-            isleakageofbarnlateCheckBox.setChecked(true);
-        }
 
 
     }
@@ -184,17 +152,19 @@ public class N_rostcDetailsActivity extends BaseActivity {
     //提交按钮
     @OnClick(R.id.sbmittext_id)
     void setSubmitBtn() {
-        getLoadingDialog(getResources().getString(R.string.seaching_text)).show();
-        SubmitData(JsonUtils.encapsulationN_ROSTC(getN_rostc()));
-    }
+        if (isBoolean()) {
+            getLoadingDialog(getResources().getString(R.string.seaching_text)).show();
+            SubmitData(JsonUtils.encapsulationN_ROSTC(getN_rostc()));
+        }
 
+    }
 
     //选择当前人的货位号
     @OnClick(R.id.loc_text_id)
     void setLocTextView() {
         //跳转至选项值界面
-        Intent intent = new Intent(N_rostcDetailsActivity.this, ChooseActivity.class);
-        intent.putExtra("HOLDER", AccountUtils.getloginUserName(N_rostcDetailsActivity.this));
+        Intent intent = new Intent(N_rostcAddActivity.this, ChooseActivity.class);
+        intent.putExtra("HOLDER", AccountUtils.getloginUserName(N_rostcAddActivity.this));
         startActivityForResult(intent, 0);
     }
 
@@ -256,7 +226,7 @@ public class N_rostcDetailsActivity extends BaseActivity {
         int iYear = objTime.get(Calendar.YEAR);
         int iMonth = objTime.get(Calendar.MONTH);
         int iDay = objTime.get(Calendar.DAY_OF_MONTH);
-        datePickerDialog = new DatePickerDialog(this, new N_rostcDetailsActivity.datelistener(), iYear, iMonth, iDay);
+        datePickerDialog = new DatePickerDialog(this, new N_rostcAddActivity.datelistener(), iYear, iMonth, iDay);
     }
 
 
@@ -285,13 +255,13 @@ public class N_rostcDetailsActivity extends BaseActivity {
 
             if (layoutnum == R.id.beforedate_text_id) {
                 beforedateText.setText(sb);
-                getLoadingDialog(getResources().getString(R.string.seaching_text));
+                getLoadingDialog(getResources().getString(R.string.seaching_text)).show();
                 setWeather(sb.toString());
             }
             if (layoutnum == R.id.latedate_text_id) {
                 latedateTextView.setText(sb);
-                getLoadingDialog(getResources().getString(R.string.seaching_text));
-                setAWeather(sb.toString(), n_rostc.getLOC());
+                getLoadingDialog(getResources().getString(R.string.seaching_text)).show();
+                setAWeather(sb.toString(), locTextView.getText().toString());
             }
         }
     }
@@ -302,7 +272,7 @@ public class N_rostcDetailsActivity extends BaseActivity {
         new AsyncTask<String, String, String>() {
             @Override
             protected String doInBackground(String... strings) {
-                String reviseresult = AndroidClientService.postWEATHER(N_rostcDetailsActivity.this, beforedate);
+                String reviseresult = AndroidClientService.postWEATHER(N_rostcAddActivity.this, beforedate);
                 return reviseresult;
             }
 
@@ -325,7 +295,7 @@ public class N_rostcDetailsActivity extends BaseActivity {
         new AsyncTask<String, String, String>() {
             @Override
             protected String doInBackground(String... strings) {
-                String reviseresult = AndroidClientService.postAweather(N_rostcDetailsActivity.this, beforedate, loc);
+                String reviseresult = AndroidClientService.postAweather(N_rostcAddActivity.this, beforedate, loc);
                 return reviseresult;
             }
 
@@ -334,6 +304,7 @@ public class N_rostcDetailsActivity extends BaseActivity {
                 super.onPostExecute(s);
                 mLoadingDialog.dismiss();
                 Log.e(TAG, "s=" + s);
+
                 temperatureTextView.setText(jxwetData(s)[0]);
                 wetTextView.setText(jxwetData(s)[1]);
 
@@ -357,9 +328,9 @@ public class N_rostcDetailsActivity extends BaseActivity {
 
                 @Override
                 public void onSuccess(Results data, int totalPages, int currentPage) {
-                    ArrayList<ALNDOMAIN> item = JsonUtils.parsingALNDOMAIN(N_rostcDetailsActivity.this, data.getResultlist());
+                    ArrayList<ALNDOMAIN> item = JsonUtils.parsingALNDOMAIN(N_rostcAddActivity.this, data.getResultlist());
                     if (item == null && item.isEmpty()) {
-                        MessageUtils.showMiddleToast(N_rostcDetailsActivity.this, getString(R.string.qiangyang_type_text));
+                        MessageUtils.showMiddleToast(N_rostcAddActivity.this, getString(R.string.qiangyang_type_text));
                     } else {
                         types = new String[item.size()];
                         for (int i = 0; i < item.size(); i++) {
@@ -370,7 +341,7 @@ public class N_rostcDetailsActivity extends BaseActivity {
                             showShareBottomDialog(title, types, textview);
 
                         } else {
-                            MessageUtils.showMiddleToast(N_rostcDetailsActivity.this, getString(R.string.qiangyang_type_text));
+                            MessageUtils.showMiddleToast(N_rostcAddActivity.this, getString(R.string.qiangyang_type_text));
                         }
 
                     }
@@ -393,9 +364,9 @@ public class N_rostcDetailsActivity extends BaseActivity {
     private void showShareBottomDialog(String title, final String[] typesitem, final TextView textview) {
         if (null != shareBottomDialog) {
             shareBottomDialog.cancel();
-            shareBottomDialog=null;
+            shareBottomDialog = null;
         }
-        shareBottomDialog = new ShareBottomDialog(N_rostcDetailsActivity.this, typesitem, null);
+        shareBottomDialog = new ShareBottomDialog(N_rostcAddActivity.this, typesitem, null);
 
 
         shareBottomDialog.title(title)//
@@ -457,7 +428,7 @@ public class N_rostcDetailsActivity extends BaseActivity {
         new AsyncTask<String, String, String>() {
             @Override
             protected String doInBackground(String... strings) {
-                String reviseresult = AndroidClientService.postN_rostc(N_rostcDetailsActivity.this, json);
+                String reviseresult = AndroidClientService.postN_rostc(N_rostcAddActivity.this, json);
                 return reviseresult;
             }
 
@@ -465,16 +436,18 @@ public class N_rostcDetailsActivity extends BaseActivity {
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 mLoadingDialog.dismiss();
-                MessageUtils.showMiddleToast(N_rostcDetailsActivity.this, s);
+                MessageUtils.showMiddleToast(N_rostcAddActivity.this, s);
                 finish();
             }
         }.execute();
+
 
     }
 
 
     //封装获取到的数据
     private N_ROSTC getN_rostc() {
+        N_ROSTC n_rostc = new N_ROSTC();
         n_rostc.setLOC(locTextView.getText().toString());//货位号
         n_rostc.setBEFOREDATE(beforedateText.getText().toString());//风雨前（日期）
         if (isbfdrainageCheckBox.isChecked()) {
@@ -515,6 +488,44 @@ public class N_rostcDetailsActivity extends BaseActivity {
         } else {
             n_rostc.setISLEAKAGEOFBARNLATE("N");
         }
+        n_rostc.setEXAMINER(AccountUtils.getloginUserName(N_rostcAddActivity.this)); //检查人
+        n_rostc.setROSTCNUM("");//编号
         return n_rostc;
+    }
+
+    //判断必填项
+    private boolean isBoolean() {
+        if (locTextView.getText().toString().isEmpty()) {
+            MessageUtils.showErrorMessage(N_rostcAddActivity.this, "货位号");
+            return false;
+        } else if (beforedateText.getText().toString().isEmpty()) {
+            MessageUtils.showErrorMessage(N_rostcAddActivity.this, "日期");
+            return false;
+        } else if (isingdawcloseCheckBox.isChecked() || isleakageofbarnCheckBox.isChecked() || isdrainCheckBox.isChecked()) {
+            if (positioningTextView.getText().toString().isEmpty()) {
+                MessageUtils.showErrorMessage(N_rostcAddActivity.this, "发放部位");
+                return false;
+            }
+            if (takeactioningTextView.getText().toString().isEmpty()) {
+                MessageUtils.showErrorMessage(N_rostcAddActivity.this, "采取措施");
+                return false;
+            }
+        } else if (latedateTextView.getText().toString().isEmpty()) {
+            MessageUtils.showErrorMessage(N_rostcAddActivity.this, "日期");
+            return false;
+        } else if (isleakageofbarnlateCheckBox.isChecked()) {
+            if (positionlateTextView.getText().toString().isEmpty()) {
+                MessageUtils.showErrorMessage(N_rostcAddActivity.this, "发放部位");
+                return false;
+            }
+            if (takeactionlateTextView.getText().toString().isEmpty()) {
+                MessageUtils.showErrorMessage(N_rostcAddActivity.this, "采取措施");
+                return false;
+            }
+
+        }
+        return true;
+
+
     }
 }

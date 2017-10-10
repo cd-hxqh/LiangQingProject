@@ -22,58 +22,55 @@ import android.widget.TextView;
 
 import com.zcl.hxqh.liangqingmanagement.R;
 import com.zcl.hxqh.liangqingmanagement.adapter.BaseQuickAdapter;
-import com.zcl.hxqh.liangqingmanagement.adapter.PersonAdapter;
+import com.zcl.hxqh.liangqingmanagement.adapter.N_foodjobAdapter;
 import com.zcl.hxqh.liangqingmanagement.api.HttpManager;
 import com.zcl.hxqh.liangqingmanagement.api.HttpRequestHandler;
 import com.zcl.hxqh.liangqingmanagement.api.JsonUtils;
 import com.zcl.hxqh.liangqingmanagement.bean.Results;
-import com.zcl.hxqh.liangqingmanagement.model.PERSON;
+import com.zcl.hxqh.liangqingmanagement.model.N_FOODJOB;
+import com.zcl.hxqh.liangqingmanagement.until.AccountUtils;
 import com.zcl.hxqh.liangqingmanagement.until.MessageUtils;
 import com.zcl.hxqh.liangqingmanagement.view.widght.SwipeRefreshLayout;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
- * 人员选项值
- **/
+ * Created by Administrator on 2017/2/15.
+ * 出入仓告知记录
+ */
 
-public class PersonChooseActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener {
-
-    private static final String TAG = "PersonChooseActivity";
-
-    /**
-     * 标题*
-     */
-    private TextView titleTextView;
-    /**
-     * 返回按钮
-     */
-    private ImageView backImageView;
-
+public class N_foodjobActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener {
+    private static final String TAG = "N_foodjobActivity";
+    @Bind(R.id.title_back_id)
+    ImageView backImageView;//返回按钮
+    @Bind(R.id.title_name)
+    TextView titleTextView;//标题
     LinearLayoutManager layoutManager;
 
+    @Bind(R.id.title_add)
+    ImageView addImageView;//新增
 
-    /**
-     * RecyclerView*
-     */
-    public RecyclerView recyclerView;
-    /**
-     * 暂无数据*
-     */
-    private LinearLayout nodatalayout;
-    /**
-     * 界面刷新*
-     */
-    private SwipeRefreshLayout refresh_layout = null;
+    @Bind(R.id.recyclerView_id)
+    RecyclerView recyclerView; //RecyclerView
+    @Bind(R.id.have_not_data_id)
+    LinearLayout nodatalayout; //暂无数据
+    @Bind(R.id.swipe_container)
+    SwipeRefreshLayout refresh_layout;//界面刷新
+    @Bind(R.id.search_edit)
+    EditText search; //编辑框
+
     /**
      * 适配器*
      */
-    private PersonAdapter storeinfolistadapter;
-    /**
-     * 编辑框*
-     */
-    private EditText search;
+    private N_foodjobAdapter n_foodjobAdapter;
+
+
     /**
      * 查询条件*
      */
@@ -81,49 +78,32 @@ public class PersonChooseActivity extends BaseActivity implements SwipeRefreshLa
     private int page = 1;
     private int currPage = 0;
 
-    ArrayList<PERSON> items = new ArrayList<PERSON>();
 
-    private String holder;
+    ArrayList<N_FOODJOB> items = new ArrayList<N_FOODJOB>();
 
-    private String condition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_xxz_list);
-        initData();
+        setContentView(R.layout.activity_list);
+        ButterKnife.bind(this);
         findViewById();
         initView();
-
-    }
-
-    private void initData() {
-//        holder=getIntent().getExtras().getString("HOLDER");
-        if (getIntent().hasExtra("condition")) {
-            condition = getIntent().getExtras().getString("condition");
-        }
     }
 
 
     @Override
     protected void findViewById() {
-        backImageView = (ImageView) findViewById(R.id.title_back_id);
-        titleTextView = (TextView) findViewById(R.id.title_name);
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView_id);
-        refresh_layout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-        nodatalayout = (LinearLayout) findViewById(R.id.have_not_data_id);
-        search = (EditText) findViewById(R.id.search_edit);
-
-
     }
 
     @Override
     protected void initView() {
-        backImageView.setOnClickListener(backImageViewOnClickListener);
-        titleTextView.setText(R.string.xxz_text);
+        titleTextView.setText(R.string.n_foodjob_text);
+        addImageView.setImageResource(R.drawable.ic_add);
+        addImageView.setVisibility(View.VISIBLE);
         setSearchEdit();
 
-        layoutManager = new LinearLayoutManager(PersonChooseActivity.this);
+        layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         layoutManager.scrollToPosition(0);
         recyclerView.setLayoutManager(layoutManager);
@@ -137,44 +117,41 @@ public class PersonChooseActivity extends BaseActivity implements SwipeRefreshLa
         refresh_layout.setOnRefreshListener(this);
         refresh_layout.setOnLoadListener(this);
 
-        initAdapter(new ArrayList<PERSON>());
-        items = new ArrayList<>();
+        refresh_layout.setRefreshing(true);
+        initAdapter(new ArrayList<N_FOODJOB>());
         getData(searchText);
     }
 
-
-    private View.OnClickListener backImageViewOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            finish();
-        }
-    };
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
+    //返回按钮
+    @OnClick(R.id.title_back_id)
+    void setBackImageView() {
+        finish();
     }
+
+    //新增按钮
+    @OnClick(R.id.title_add)
+    void setAddImageView() {
+        Intent intent = new Intent(N_foodjobActivity.this, N_rostcAddActivity.class);
+        startActivityForResult(intent, 0);
+    }
+
 
     @Override
     public void onLoad() {
         if (currPage == page) {
-            MessageUtils.showMiddleToast(PersonChooseActivity.this, getString(R.string.hint_all_data_text));
+            MessageUtils.showMiddleToast(N_foodjobActivity.this, getString(R.string.hint_all_data_text));
             refresh_layout.setLoading(false);
         } else {
             page++;
             getData(searchText);
         }
-
     }
 
     @Override
     public void onRefresh() {
         page = 1;
-        initAdapter(new ArrayList<PERSON>());
+        initAdapter(new ArrayList<N_FOODJOB>());
         getData(searchText);
-
     }
 
 
@@ -192,12 +169,11 @@ public class PersonChooseActivity extends BaseActivity implements SwipeRefreshLa
                     // 先隐藏键盘
                     ((InputMethodManager) search.getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
                             .hideSoftInputFromWindow(
-                                    getCurrentFocus()
+                                    N_foodjobActivity.this.getCurrentFocus()
                                             .getWindowToken(),
                                     InputMethodManager.HIDE_NOT_ALWAYS);
                     searchText = search.getText().toString();
-                    storeinfolistadapter.removeAll(items);
-                    items = new ArrayList<PERSON>();
+                    n_foodjobAdapter.removeAll(n_foodjobAdapter.getData());
                     nodatalayout.setVisibility(View.GONE);
                     refresh_layout.setRefreshing(true);
                     page = 1;
@@ -214,13 +190,7 @@ public class PersonChooseActivity extends BaseActivity implements SwipeRefreshLa
      * 获取数据*
      */
     private void getData(String search) {
-        String url;
-        if (null == condition) {
-            url = HttpManager.getPerson(search, page, 20);
-        } else {
-            url = HttpManager.getCRPerson(search, condition, page, 20);
-        }
-        HttpManager.getDataPagingInfo(PersonChooseActivity.this, url, new HttpRequestHandler<Results>() {
+        HttpManager.getDataPagingInfo(N_foodjobActivity.this, HttpManager.getN_FOODJOB(search, AccountUtils.getloginUserName(N_foodjobActivity.this), page, 20), new HttpRequestHandler<Results>() {
             @Override
             public void onSuccess(Results results) {
                 Log.i(TAG, "data=" + results);
@@ -228,9 +198,8 @@ public class PersonChooseActivity extends BaseActivity implements SwipeRefreshLa
 
             @Override
             public void onSuccess(Results results, int totalPages, int currentPage) {
-                Log.e(TAG, "currentPage=" + currentPage + ",totalPages=" + totalPages);
                 currPage = currentPage;
-                ArrayList<PERSON> item = JsonUtils.parsingPERSON(results.getResultlist());
+                ArrayList<N_FOODJOB> item = JsonUtils.parsingN_FOODJOB(results.getResultlist());
                 refresh_layout.setRefreshing(false);
                 refresh_layout.setLoading(false);
                 if (item == null || item.isEmpty()) {
@@ -238,8 +207,6 @@ public class PersonChooseActivity extends BaseActivity implements SwipeRefreshLa
                 } else {
                     addData(item);
                     nodatalayout.setVisibility(View.GONE);
-
-
                 }
             }
 
@@ -256,19 +223,18 @@ public class PersonChooseActivity extends BaseActivity implements SwipeRefreshLa
     /**
      * 获取数据*
      */
-    private void initAdapter(final List<PERSON> list) {
-        storeinfolistadapter = new PersonAdapter(PersonChooseActivity.this, R.layout.list_person_item, list);
-        recyclerView.setAdapter(storeinfolistadapter);
-        storeinfolistadapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+    private void initAdapter(final List<N_FOODJOB> list) {
+        n_foodjobAdapter = new N_foodjobAdapter(N_foodjobActivity.this, R.layout.list_item_n_foodjob, list);
+        recyclerView.setAdapter(n_foodjobAdapter);
+        n_foodjobAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = getIntent();
-                PERSON person = (PERSON) storeinfolistadapter.getData().get(position);
-                intent.putExtra("displayname", person.getDISPLAYNAME());
-                intent.putExtra("personid", person.getPERSONID());
-                setResult(1000, intent);
-                finish();
-
+                intent.setClass(N_foodjobActivity.this, N_foodjobDetailsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("n_foodjob", (Serializable) n_foodjobAdapter.getData().get(position));
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 0);
             }
         });
     }
@@ -276,7 +242,8 @@ public class PersonChooseActivity extends BaseActivity implements SwipeRefreshLa
     /**
      * 添加数据*
      */
-    private void addData(final List<PERSON> list) {
-        storeinfolistadapter.addData(list);
+    private void addData(final List<N_FOODJOB> list) {
+        n_foodjobAdapter.addData(list);
     }
+
 }

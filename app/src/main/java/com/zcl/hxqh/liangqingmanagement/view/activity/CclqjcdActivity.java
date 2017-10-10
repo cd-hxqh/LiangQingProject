@@ -76,5 +76,11 @@ public class CclqjcdActivity extends BaseActivity {
         Intent intent = new Intent(CclqjcdActivity.this, N_rostcActivity.class);
         startActivityForResult(intent, 0);
     }
+    //出入仓告知记录
+    @OnClick(R.id.n_foodjob_text_id)
+    void setN_FOODJOBTextOnClickListener() {
+        Intent intent = new Intent(CclqjcdActivity.this, N_foodjobActivity.class);
+        startActivityForResult(intent, 0);
+    }
 
 }

@@ -76,6 +76,7 @@ public class N_rostcActivity extends BaseActivity implements SwipeRefreshLayout.
      */
     private String searchText = "";
     private int page = 1;
+    private int currPage = 0;
 
 
     ArrayList<N_ROSTC> items = new ArrayList<N_ROSTC>();
@@ -100,7 +101,6 @@ public class N_rostcActivity extends BaseActivity implements SwipeRefreshLayout.
         titleTextView.setText(R.string.fyx_text);
         addImageView.setImageResource(R.drawable.ic_add);
         addImageView.setVisibility(View.VISIBLE);
-//        addImageView.setOnClickListener(addImageOnClickListener);
         setSearchEdit();
 
         layoutManager = new LinearLayoutManager(this);
@@ -128,27 +128,29 @@ public class N_rostcActivity extends BaseActivity implements SwipeRefreshLayout.
         finish();
     }
 
-
-//    private View.OnClickListener addImageOnClickListener = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            Intent intent = getIntent();
-//            intent.setClass(N_rostcActivity.this, JyAddActivity.class);
-//            intent.putExtra("invusenum", invusenum);
-//            startActivityForResult(intent, 0);
-//        }
-//    };
+    //新增按钮
+    @OnClick(R.id.title_add)
+    void setAddImageView() {
+        Intent intent = new Intent(N_rostcActivity.this, N_rostcAddActivity.class);
+        startActivityForResult(intent, 0);
+    }
 
 
     @Override
     public void onLoad() {
-        page++;
-        getData(searchText);
+        if (page == currPage) {
+            MessageUtils.showMiddleToast(N_rostcActivity.this, getString(R.string.hint_all_data_text));
+            refresh_layout.setLoading(false);
+        } else {
+            page++;
+            getData(searchText);
+        }
     }
 
     @Override
     public void onRefresh() {
         page = 1;
+        initAdapter(new ArrayList<N_ROSTC>());
         getData(searchText);
     }
 
@@ -196,6 +198,7 @@ public class N_rostcActivity extends BaseActivity implements SwipeRefreshLayout.
 
             @Override
             public void onSuccess(Results results, int totalPages, int currentPage) {
+                currPage = currentPage;
                 ArrayList<N_ROSTC> item = JsonUtils.parsingN_ROSTC(results.getResultlist());
                 refresh_layout.setRefreshing(false);
                 refresh_layout.setLoading(false);
@@ -203,12 +206,7 @@ public class N_rostcActivity extends BaseActivity implements SwipeRefreshLayout.
                     nodatalayout.setVisibility(View.VISIBLE);
                 } else {
 
-                    if (page == 1) {
-                        initAdapter(new ArrayList<N_ROSTC>());
-                    }
-                    if (page == currentPage) {
-                        MessageUtils.showMiddleToast(N_rostcActivity.this, getString(R.string.hint_all_data_text));
-                    }
+
                     addData(item);
                     nodatalayout.setVisibility(View.GONE);
 

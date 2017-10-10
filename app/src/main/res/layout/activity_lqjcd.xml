@@ -108,18 +108,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="invisible">
+                android:orientation="vertical">
 
 
                 <TextView
+                    android:id="@+id/n_foodjob_text_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawablePadding="@dimen/dimen_5"
-                    android:drawableTop="@drawable/ic_fyx"
+                    android:drawableTop="@drawable/ic_n_foodjob"
                     android:gravity="center"
-                    android:text="@string/sbssjc_text"></TextView>
+                    android:text="@string/n_foodjob_text"></TextView>
 
             </LinearLayout>
 

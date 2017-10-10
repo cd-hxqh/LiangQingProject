@@ -10,7 +10,7 @@ public class N_ROSTC extends Entity{
     public String ISBFDRAINAGE;//排水通畅 (前)
     public String ISDRAIN;//水沟通畅(中)
     public String ISINGDAWCLOSE;//门窗关好(中)
-    public String ISLEAKAGEOFBARN;//
+    public String ISLEAKAGEOFBARN;//仓房渗漏?(中)
     public String ISLEAKAGEOFBARNLATE;//仓房无渗漏(后)
     public String LATEDATE;//风雨后日期
     public String LOC;//位置

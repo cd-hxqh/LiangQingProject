@@ -289,6 +289,16 @@ public class HttpManager {
         return "{'appid':'" + Constants.PERSON_APPID + "','objectname':'" + Constants.PERSON_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'PERSONID DESC','sinorsearch':{'PERSONID':'" + value + "','DISPLAYNAME':'" + value + "','TITLE':'" + value + "','DEPARTMENT':'" + value + "'}}";
     }
 
+
+    //设置出入仓人员选择接口
+    public static String getCRPerson(String value, String condition, int curpage, int showcount) {
+        if (value.equals("")) {
+            return "{'appid':'" + Constants.PERSON_APPID + "','objectname':'" + Constants.PERSON_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'PERSONID DESC','condition':{" + condition + "}}";
+        }
+        return "{'appid':'" + Constants.PERSON_APPID + "','objectname':'" + Constants.PERSON_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'PERSONID DESC','condition':{" + condition + "},'sinorsearch':{'PERSONID':'" + value + "','DISPLAYNAME':'" + value + "','TITLE':'" + value + "','DEPARTMENT':'" + value + "'}}";
+    }
+
+
     /**
      * 查询附件的接口
      */
@@ -330,9 +340,20 @@ public class HttpManager {
      */
     public static String getN_ROSTC(String value, String examiner, int curpage, int showcount) {
         if (value.equals("")) {
-            return "{'appid':'" + Constants.N_GRAINJC_APP + "','objectname':'" + Constants.N_ROSTC_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'BEFOREDATE DESC','condition':{'STATUS':'!=归档','EXAMINER':'=" + examiner + "'}}";
+            return "{'appid':'" + Constants.N_GRAINJC_APP + "','objectname':'" + Constants.N_ROSTC_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'ROSTCNUM DESC','condition':{'STATUS':'!=归档','EXAMINER':'=" + examiner + "'}}";
         }
-        return "{'appid':'" + Constants.N_GRAINJC_APP + "','objectname':'" + Constants.N_ROSTC_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'BEFOREDATE DESC','condition':{'STATUS':'!=归档','EXAMINER':'=" + examiner + "'},'sinorsearch':{'LOC':'" + value + "','BEFOREDATE':'" + value + "','LATEDATE':'" + value + "'}}";
+        return "{'appid':'" + Constants.N_GRAINJC_APP + "','objectname':'" + Constants.N_ROSTC_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'ROSTCNUM DESC','condition':{'STATUS':'!=归档','EXAMINER':'=" + examiner + "'},'sinorsearch':{'LOC':'" + value + "','BEFOREDATE':'" + value + "','LATEDATE':'" + value + "'}}";
+    }
+
+
+    /**
+     * 出入仓告知记录
+     */
+    public static String getN_FOODJOB(String value, String examiner, int curpage, int showcount) {
+        if (value.equals("")) {
+            return "{'appid':'" + Constants.N_GRAINJC_APP + "','objectname':'" + Constants.N_FOODJOB_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'REPORTDATE DESC','condition':{'STATUS':'!=归档','HOLDER':'=" + examiner + "'}}";
+        }
+        return "{'appid':'" + Constants.N_GRAINJC_APP + "','objectname':'" + Constants.N_FOODJOB_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'REPORTDATE DESC','condition':{'STATUS':'!=归档','HOLDER':'=" + examiner + "'},'sinorsearch':{'LOC':'" + value + "','REPORTDATE':'" + value + "','HOLDER':'" + value + "','FOODJOBNUM':'" + value + "'}}";
     }
 
 
@@ -433,7 +454,7 @@ public class HttpManager {
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString) {
                 Results result = JsonUtils.parsingResults(cxt, responseString);
 
-                SafeHandler.onSuccess(handler, result, result.getCurpage(), result.getShowcount());
+                SafeHandler.onSuccess(handler, result, result.getShowcount(), result.getCurpage());
             }
 
         });

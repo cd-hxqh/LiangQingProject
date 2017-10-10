@@ -20,6 +20,35 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hwh_text"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+
+                <TextView
+                    android:id="@+id/loc_text_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:background="@color/transparent"
+                    android:drawableRight="@drawable/ic_right"
+                    android:gravity="right"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+
+
+            </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -171,10 +200,9 @@
                 android:layout_height="@dimen/dimens_line"
                 android:background="@drawable/line"></View>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="@dimen/dimen_10">
 
@@ -182,6 +210,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
                     android:text="@string/positioning_text"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
@@ -190,18 +219,30 @@
                     android:id="@+id/positioning_text_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="35dp"
                     android:background="@color/transparent"
                     android:gravity="right"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
-            </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/positioning_image_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_right" />
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimens_line"
                 android:background="@drawable/line"></View>
 
-            <LinearLayout
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -209,8 +250,11 @@
                 android:padding="@dimen/dimen_10">
 
                 <TextView
+                    android:id="@+id/takeactioning_title_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
                     android:text="@string/takeactioning_text"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
@@ -219,12 +263,22 @@
                     android:id="@+id/takeactioning_text_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dimen_5"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="35dp"
+                    android:layout_toRightOf="@id/takeactioning_title_id"
                     android:background="@color/transparent"
                     android:gravity="center|right"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
-            </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/takeactioning_image_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_right" />
+            </RelativeLayout>
 
             <View
                 android:id="@+id/cartasknum_view_id"
@@ -370,7 +424,7 @@
                 android:layout_height="@dimen/dimens_line"
                 android:background="@drawable/line"></View>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -378,9 +432,12 @@
                 android:padding="@dimen/dimen_10">
 
                 <TextView
+                    android:id="@+id/positionlate_title_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/positioning_text"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/takeactioning_text"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
 
@@ -388,18 +445,29 @@
                     android:id="@+id/positionlate_text_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="35dp"
+                    android:layout_toRightOf="@id/positionlate_title_id"
                     android:background="@color/transparent"
-                    android:gravity="right"
+                    android:gravity="center|right"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
-            </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/positionlate_image_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_right" />
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimens_line"
                 android:background="@drawable/line"></View>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -407,8 +475,11 @@
                 android:padding="@dimen/dimen_10">
 
                 <TextView
+                    android:id="@+id/takeactionlate_title_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
                     android:text="@string/takeactioning_text"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
@@ -417,11 +488,22 @@
                     android:id="@+id/takeactionlate_text_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="35dp"
+                    android:layout_toRightOf="@id/takeactionlate_title_id"
                     android:background="@color/transparent"
-                    android:gravity="right"
+                    android:gravity="center|right"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
-            </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/takeactionlate_image_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_right" />
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"

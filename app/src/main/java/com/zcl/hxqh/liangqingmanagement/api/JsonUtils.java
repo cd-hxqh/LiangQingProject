@@ -14,6 +14,7 @@ import com.zcl.hxqh.liangqingmanagement.model.INVUSELINE;
 import com.zcl.hxqh.liangqingmanagement.model.N_CAR;
 import com.zcl.hxqh.liangqingmanagement.model.N_CARLINE;
 import com.zcl.hxqh.liangqingmanagement.model.N_CARTASK;
+import com.zcl.hxqh.liangqingmanagement.model.N_FOODJOB;
 import com.zcl.hxqh.liangqingmanagement.model.N_GRAINJC;
 import com.zcl.hxqh.liangqingmanagement.model.N_INSTRUCSTASK;
 import com.zcl.hxqh.liangqingmanagement.model.N_INSTRUCTIONS;
@@ -600,7 +601,6 @@ public class JsonUtils {
     }
 
 
-
     /**
      * 实际领用
      */
@@ -646,6 +646,7 @@ public class JsonUtils {
         }
 
     }
+
     /**
      * 计划领用
      */
@@ -691,6 +692,7 @@ public class JsonUtils {
         }
 
     }
+
     /**
      * 计划领用
      */
@@ -1492,9 +1494,51 @@ public class JsonUtils {
     }
 
 
+    /**
+     *  出入仓告知记录
+     **/
+    public static ArrayList<N_FOODJOB> parsingN_FOODJOB(String data) {
+        ArrayList<N_FOODJOB> list = null;
+        N_FOODJOB n_foodjob = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            JSONObject jsonObject;
+            list = new ArrayList<N_FOODJOB>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                n_foodjob = new N_FOODJOB();
+                jsonObject = jsonArray.getJSONObject(i);
+                Field[] field = n_foodjob.getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
+                for (int j = 0; j < field.length; j++) {     //遍历所有属性
+                    field[j].setAccessible(true);
+                    String name = field[j].getName();    //获取属性的名字
+                    if (jsonObject.has(name) && jsonObject.getString(name) != null && !jsonObject.getString(name).equals("")) {
+                        try {
+                            // 调用getter方法获取属性值
+                            Method getOrSet = n_foodjob.getClass().getMethod("get" + name);
+                            Object value = getOrSet.invoke(n_foodjob);
+                            if (value == null) {
+                                //调用setter方法设属性值
+                                Class[] parameterTypes = new Class[1];
+                                parameterTypes[0] = field[j].getType();
+                                getOrSet = n_foodjob.getClass().getDeclaredMethod("set" + name, parameterTypes);
+                                getOrSet.invoke(n_foodjob, jsonObject.getString(name));
+                            }
 
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
 
+                }
+                list.add(n_foodjob);
+            }
+            return list;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
 
+    }
 
 
     /**
@@ -1563,5 +1607,64 @@ public class JsonUtils {
         return jsonObject.toString();
     }
 
+    /**
+     * 封装N_ROSTC风雨雪三查
+     **/
+    public static String encapsulationN_ROSTC(N_ROSTC n_rostc) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            if (n_rostc.getISINGDAWCLOSE().equals("Y")) { //门窗关好(中)
+                jsonObject.put("ISINGDAWCLOSE", true);
+            } else {
+                jsonObject.put("ISINGDAWCLOSE", false);
+            }
+
+            jsonObject.put("TAKEACTIONING", n_rostc.getTAKEACTIONING()); //采取措施(风雨中)
+            jsonObject.put("TAKEACTIONLATE", n_rostc.getTAKEACTIONLATE());//采取措施(风雨后)
+            if (n_rostc.getISBEFORDAWCLOSE().equals("Y")) {//门窗关好(前)
+                jsonObject.put("ISBEFORDAWCLOSE", true);
+            } else {
+                jsonObject.put("ISBEFORDAWCLOSE", false);
+            }
+            jsonObject.put("BEFOREDATE", n_rostc.getBEFOREDATE()); //风雨前日期
+            if (n_rostc.getISLEAKAGEOFBARNLATE().equals("Y")) {//仓房无渗漏(后)
+                jsonObject.put("ISLEAKAGEOFBARNLATE", true);
+            } else {
+                jsonObject.put("ISLEAKAGEOFBARNLATE", false);
+            }
+
+            jsonObject.put("POSITIONLATE", n_rostc.getPOSITIONLATE());//发生部位(风雨后)
+            jsonObject.put("LATEDATE", n_rostc.getLATEDATE());//风雨后日期
+            if (n_rostc.getISLEAKAGEOFBARN().equals("Y")) {//仓房渗漏?(中)
+                jsonObject.put("ISLEAKAGEOFBARN", true);
+            } else {
+                jsonObject.put("ISLEAKAGEOFBARN", false);
+            }
+
+            jsonObject.put("LOC", n_rostc.getLOC()); //货位号
+            jsonObject.put("WEATHER", n_rostc.getWEATHER());//天气
+            if (n_rostc.getISDRAIN().equals("Y")) {//水沟通畅(中)
+                jsonObject.put("ISDRAIN", true);
+            } else {
+                jsonObject.put("ISDRAIN", false);
+            }
+
+            jsonObject.put("POSITIONING", n_rostc.getPOSITIONING());//发生部位(风雨中)
+            jsonObject.put("WET", n_rostc.getWET());////湿度(保留整数)
+            if (n_rostc.getISBFDRAINAGE().equals("Y")) {//水沟通畅(中)
+                jsonObject.put("ISBFDRAINAGE", true);
+            } else {
+                jsonObject.put("ISBFDRAINAGE", false);
+            }
+            jsonObject.put("ROSTCNUM", n_rostc.getROSTCNUM());
+            jsonObject.put("EXAMINER", n_rostc.getEXAMINER());
+            jsonObject.put("TEMPERATURE", n_rostc.getTEMPERATURE());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.i(TAG, "jsonObject=" + "[" + jsonObject.toString() + "]");
+        return "[" + jsonObject.toString() + "]";
+    }
 
 }

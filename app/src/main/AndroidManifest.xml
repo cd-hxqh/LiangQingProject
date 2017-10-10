@@ -312,6 +312,18 @@
             android:name=".view.activity.N_rostcDetailsActivity"
             android:label="N_rostcDetailsActivity"
             android:theme="@style/SampleTheme"></activity>
+        <activity
+            android:name=".view.activity.N_rostcAddActivity"
+            android:label="N_rostcAddActivity"
+            android:theme="@style/SampleTheme"></activity>
+        <activity
+            android:name=".view.activity.N_foodjobActivity"
+            android:label="N_foodjobActivity"
+            android:theme="@style/SampleTheme"></activity>
+        <activity
+            android:name=".view.activity.N_foodjobDetailsActivity"
+            android:label="N_foodjobDetailsActivity"
+            android:theme="@style/SampleTheme"></activity>
     </application>
 
 </manifest>
