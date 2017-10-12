@@ -183,9 +183,9 @@ public class HttpManager {
      */
     public static String getJinJiWORKORDER(String value, String reportedby, int curpage, int showcount) {
         if (value.equals("")) {
-            return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.WORKORDER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WORKORDERID DESC','condition':{'WORKTYPE':'EM','REPORTEDBY':'" + reportedby + "'}}";
+            return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.WORKORDER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WORKORDERID DESC','condition':{'WORKTYPE':'=EM','REPORTEDBY':'=" + reportedby + "'}}";
         }
-        return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.WORKORDER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WORKORDERID DESC','condition':{'WORKTYPE':'EM','REPORTEDBY':'" + reportedby + "'},'sinorsearch':{'WONUM':'" + value + "','DESCRIPTION':'" + value + "'}}";
+        return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.WORKORDER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WORKORDERID DESC','condition':{'WORKTYPE':'=EM','REPORTEDBY':'=" + reportedby + "'},'sinorsearch':{'WONUM':'" + value + "','DESCRIPTION':'" + value + "'}}";
     }
 
     /**
@@ -193,6 +193,13 @@ public class HttpManager {
      */
     public static String getALNDOMAIN(String DOMAINID) {
         return "{'appid':'" + Constants.ALNDOMAIN_APPID + "','objectname':'" + Constants.ALNDOMAIN_NAME + "','option':'read','condition':{'DOMAINID':'=" + DOMAINID + "'}}";
+    }
+
+    /**
+     * 安全须知选项值
+     */
+    public static String getALNDOMAIN1(String DOMAINID) {
+        return "{'appid':'" + Constants.ALNDOMAIN_APPID + "','objectname':'" + Constants.ALNDOMAIN_NAME + "','option':'read','orderby':'ALNDOMAINID ASC','condition':{'DOMAINID':'=" + DOMAINID + "'}}";
     }
 
     /**

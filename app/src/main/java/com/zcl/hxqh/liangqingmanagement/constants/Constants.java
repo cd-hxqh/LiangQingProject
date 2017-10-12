@@ -295,5 +295,6 @@ public class Constants {
     /**风雨雪三查**/
     public static final String POSITIONING = "POSITIONING";//发生部位
     public static final String TAKEACTIONING = "TAKEACTIONING";//采取措施
+    public static final String AQXM = "AQXM";//安全告知项目
 
 }

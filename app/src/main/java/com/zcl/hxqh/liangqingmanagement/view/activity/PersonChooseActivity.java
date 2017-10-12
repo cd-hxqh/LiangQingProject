@@ -196,8 +196,7 @@ public class PersonChooseActivity extends BaseActivity implements SwipeRefreshLa
                                             .getWindowToken(),
                                     InputMethodManager.HIDE_NOT_ALWAYS);
                     searchText = search.getText().toString();
-                    storeinfolistadapter.removeAll(items);
-                    items = new ArrayList<PERSON>();
+                    storeinfolistadapter.removeAll(storeinfolistadapter.getData());
                     nodatalayout.setVisibility(View.GONE);
                     refresh_layout.setRefreshing(true);
                     page = 1;

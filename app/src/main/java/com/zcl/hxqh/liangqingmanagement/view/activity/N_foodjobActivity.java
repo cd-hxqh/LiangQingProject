@@ -131,7 +131,7 @@ public class N_foodjobActivity extends BaseActivity implements SwipeRefreshLayou
     //新增按钮
     @OnClick(R.id.title_add)
     void setAddImageView() {
-        Intent intent = new Intent(N_foodjobActivity.this, N_rostcAddActivity.class);
+        Intent intent = new Intent(N_foodjobActivity.this, N_foodjobAddActivity.class);
         startActivityForResult(intent, 0);
     }
 

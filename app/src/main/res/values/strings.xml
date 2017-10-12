@@ -474,7 +474,7 @@
     <string name="fyx_after_text">风雨雪后检查</string>
     <string name="temperature_text">仓温:</string>
     <string name="wet_text">仓湿:</string>
-    <string name="isleakageofbarnlate_text">仓房无渗漏?</string>
+    <string name="isleakageofbarnlate_text">仓房渗漏?</string>
     <string name="scjl_text">三查记录</string>
     <string name="add_jl_text">新增记录</string>
     <!--出入仓告知记录-->
@@ -489,4 +489,12 @@
     <string name="teller_text">被告知人:</string>
     <string name="chief_text">带班负责人:</string>
     <string name="jlxq_text">记录详情</string>
+    <string name="zynr_text">作业内容</string>
+    <string name="userxz_text">	1、库区内不得吸烟，严禁酒后上岗作业。\n2、五级风以上禁止户外登高作业。\n3、进入筒仓必须腰系安全绳，头戴安全帽，仓外需有两人以上负责安保。\n4、筒仓出入仓作业时任何人不得进入仓内。\n5、出仓拆除挡粮板或疏通粮食时，操作人员必须腰系有效长度的安全绳。\n6、 设备通电合闸前经确认作业人员已处于安全位置。\n7、气调（充氮）储粮仓出粮时，需检测氧气含量，合格后方可作业。\n8、 熏蒸后仓房散气经检测未达标的，不得作业。\n9、 上下露天囤作业人员必须按要求着装、使用专用梯子，并系好安全绳。\n10、其它现场作业须告知的安全事项。</string>
+    <string name="aqjcxm_text">安全检查项目\n1、电源 2、输送机械 3、清杂机 4、除尘设备 5、灌包机 6、登高作业平台 7、电瓶车 8、叉车 9、安全绳 10、防尘口罩 </string>
+    <string name="yhxz_text">用户须知</string>
+    <string name="axgzxm_text">安全告知项目</string>
+    <string name="axjcxm_text">安全检查项目</string>
+
+
 </resources>

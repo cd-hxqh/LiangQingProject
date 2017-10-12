@@ -839,7 +839,7 @@ public class AndroidClientService {
 
 
     /**
-     * 提交新建的数据
+     * 提交风雨雪新建或修改的数据
      */
     public static String postN_rostc(Context context, String json) {
         Log.e(TAG,"json="+json);
@@ -849,6 +849,63 @@ public class AndroidClientService {
         soapEnvelope.dotNet = true;
         SoapObject soapReq = new SoapObject(NAMESPACE, "n_grainsrostc");
         soapReq.addProperty("jsons", json);//json
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException | XmlPullParserException e) {
+            return null;
+        }
+        String webResult = null;
+        try {
+            webResult = soapEnvelope.getResponse().toString();
+            Log.i(TAG, "webResult=" + webResult);
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return webResult;
+    }
+
+    /**
+     * 提交出入仓新建或修改的数据
+     */
+    public static String postN_foodjob(Context context, String json) {
+        Log.e(TAG,"json="+json);
+        String ip_adress = AccountUtils.getIpAddress(context) + Constants.lqwebserviceURL;
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "n_grainsfoodjob");
+        soapReq.addProperty("jsons", json);//json
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException | XmlPullParserException e) {
+            return null;
+        }
+        String webResult = null;
+        try {
+            webResult = soapEnvelope.getResponse().toString();
+            Log.i(TAG, "webResult=" + webResult);
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return webResult;
+    }
+
+
+    /**
+     * 获取人员数据
+     */
+    public static String getPersionData(Context context, String type) {
+        Log.e(TAG,"type="+type);
+        String ip_adress = AccountUtils.getIpAddress(context) + Constants.lqwebserviceURL;
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "n_grainsperson");
+        soapReq.addProperty("type", type);//json
         soapEnvelope.setOutputSoapObject(soapReq);
         HttpTransportSE httpTransport = new HttpTransportSE(ip_adress, timeOut);
         try {

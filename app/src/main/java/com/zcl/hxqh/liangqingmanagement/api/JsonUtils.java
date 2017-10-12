@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.zcl.hxqh.liangqingmanagement.bean.LoginResults;
 import com.zcl.hxqh.liangqingmanagement.bean.Results;
+import com.zcl.hxqh.liangqingmanagement.bean.TemPERSON;
 import com.zcl.hxqh.liangqingmanagement.constants.Constants;
 import com.zcl.hxqh.liangqingmanagement.model.ALNDOMAIN;
 import com.zcl.hxqh.liangqingmanagement.model.Asset;
@@ -1495,7 +1496,7 @@ public class JsonUtils {
 
 
     /**
-     *  出入仓告知记录
+     * 出入仓告知记录
      **/
     public static ArrayList<N_FOODJOB> parsingN_FOODJOB(String data) {
         ArrayList<N_FOODJOB> list = null;
@@ -1667,4 +1668,78 @@ public class JsonUtils {
         return "[" + jsonObject.toString() + "]";
     }
 
+
+    /**
+     * 封装出入仓记录
+     **/
+    public static String encapsulationN_FOODJOB(N_FOODJOB n_foodjob) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("CHIEF", n_foodjob.getCHIEF()); //带班负责人
+            jsonObject.put("CONTENT", n_foodjob.getCONTENT());//作业内容
+            jsonObject.put("REMARK", n_foodjob.getREMARK()); //安全检查项目
+            jsonObject.put("AQXM", n_foodjob.getAQXM());//安全告知项目
+            jsonObject.put("REPORTDATE", n_foodjob.getREPORTDATE());//作业日期
+            jsonObject.put("FOODJOBNUM", n_foodjob.getFOODJOBNUM()); //编号
+            jsonObject.put("TELLER", n_foodjob.getTELLER());//被告知人
+            jsonObject.put("SAFER", n_foodjob.getSAFER());//安全员
+            jsonObject.put("HOLDER", n_foodjob.getHOLDER());//现场保管员
+            jsonObject.put("TELL", n_foodjob.getTELL());//告知人
+            jsonObject.put("LOC", n_foodjob.getLOC());//货位号
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.i(TAG, "jsonObject=" + "[" + jsonObject.toString() + "]");
+        return "[" + jsonObject.toString() + "]";
+    }
+
+
+    /**
+     * 人员查询
+     */
+    public static ArrayList<TemPERSON> parsingTemPERSON(String data) {
+        Log.e(TAG,"data="+data);
+        ArrayList<TemPERSON> list = null;
+        TemPERSON temperson = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            JSONObject jsonObject;
+            list = new ArrayList<TemPERSON>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                temperson = new TemPERSON();
+                jsonObject = jsonArray.getJSONObject(i);
+                Field[] field = temperson.getClass().getDeclaredFields();        //获取实体类的所有属性，返回Field数组
+                for (int j = 0; j < field.length; j++) {     //遍历所有属性
+                    field[j].setAccessible(true);
+                    String name = field[j].getName();    //获取属性的名字
+                    Log.e(TAG,"name="+name);
+                    if (jsonObject.has(name) && jsonObject.getString(name) != null && !jsonObject.getString(name).equals("")) {
+                        try {
+                            // 调用getter方法获取属性值
+                            Method getOrSet = temperson.getClass().getMethod("get" + name);
+                            Object value = getOrSet.invoke(temperson);
+                            if (value == null) {
+                                //调用setter方法设属性值
+                                Class[] parameterTypes = new Class[1];
+                                parameterTypes[0] = field[j].getType();
+                                getOrSet = temperson.getClass().getDeclaredMethod("set" + name, parameterTypes);
+                                getOrSet.invoke(temperson, jsonObject.getString(name));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+                list.add(temperson);
+            }
+            return list;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 }

@@ -30,8 +30,10 @@ import com.zcl.hxqh.liangqingmanagement.until.MessageUtils;
 import com.zcl.hxqh.liangqingmanagement.view.widght.ShareBottomDialog;
 import com.zcl.hxqh.liangqingmanagement.webserviceclient.AndroidClientService;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -41,8 +43,8 @@ import butterknife.OnClick;
 /**
  * 出入仓告知记录
  */
-public class N_foodjobDetailsActivity extends BaseActivity {
-    private static String TAG = "N_foodjobDetailsActivity";
+public class N_foodjobAddActivity extends BaseActivity {
+    private static String TAG = "N_foodjobAddActivity";
     private static final int TELL_CODE = 1000; //告知人
     private static final int SAFER_CODE = 1001; //安全员
     private static final int CHIEF_CODE = 1002; //带班负责人
@@ -84,7 +86,6 @@ public class N_foodjobDetailsActivity extends BaseActivity {
 
     protected FlippingLoadingDialog mLoadingDialog;
 
-    private N_FOODJOB n_foodjob;
 
     /**
      * 日期选择器
@@ -103,6 +104,7 @@ public class N_foodjobDetailsActivity extends BaseActivity {
     private BaseAnimatorSet mBasOut;
     private ShareBottomDialog shareBottomDialog;
 
+
     private String tell = ""; //告知人
     private String safer = ""; //安全员
     private String chief = "";//带班负责人
@@ -113,16 +115,12 @@ public class N_foodjobDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_n_foodjob_details);
         ButterKnife.bind(this);
-        geiIntentData();
         initView();
         findViewById();
         mBasIn = new BounceTopEnter();
         mBasOut = new SlideBottomExit();
     }
 
-    private void geiIntentData() {
-        n_foodjob = (N_FOODJOB) getIntent().getSerializableExtra("n_foodjob");
-    }
 
     @Override
     protected void findViewById() {
@@ -132,20 +130,12 @@ public class N_foodjobDetailsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        titleTextView.setText(R.string.jlxq_text);
+        titleTextView.setText(R.string.add_jl_text);
         submitBtn.setVisibility(View.VISIBLE);
-        locTextView.setText(n_foodjob.getLOC());
-        reportdateText.setText(n_foodjob.getREPORTDATE());
-        tellTextView.setText(n_foodjob.getTELLDISPLAYNAME());
-        aqxmTextView.setText(n_foodjob.getAQXM());
-        saferTextView.setText(n_foodjob.getSAFERDISPLAYNAME());
-        remarkTextView.setText(n_foodjob.getREMARK());
-        tellerTextView.setText(n_foodjob.getTELLER());
-        contentTextView.setText(n_foodjob.getCONTENT());
-        holderTextView.setText(n_foodjob.getHOLDERDISPLAYNAME());
-        chiefTextView.setText(n_foodjob.getCHIEFDISPLAYNAME());
-
-
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        String newDate = df.format(new Date());
+        reportdateText.setText(newDate);
+        holderTextView.setText(AccountUtils.getdisplayName(N_foodjobAddActivity.this));
     }
 
     //返回事件
@@ -158,7 +148,7 @@ public class N_foodjobDetailsActivity extends BaseActivity {
     //用户须知
     @OnClick(R.id.yfxz_text_id)
     void setyhxzOnClickListener() {
-        Intent intent = new Intent(N_foodjobDetailsActivity.this, User_instructionsActivity.class);
+        Intent intent = new Intent(N_foodjobAddActivity.this, User_instructionsActivity.class);
         startActivityForResult(intent, 0);
 
     }
@@ -167,11 +157,12 @@ public class N_foodjobDetailsActivity extends BaseActivity {
     //提交按钮
     @OnClick(R.id.sbmittext_id)
     void setSubmitBtn() {
+
         if (yfxzCheckBox.isChecked()) {
             getLoadingDialog(getResources().getString(R.string.seaching_text)).show();
             SubmitData(JsonUtils.encapsulationN_FOODJOB(getN_FOODJOB()));
         } else {
-            MessageUtils.showMiddleToast(N_foodjobDetailsActivity.this, "请阅读用户须知");
+            MessageUtils.showMiddleToast(N_foodjobAddActivity.this, "请阅读用户须知");
         }
     }
 
@@ -180,8 +171,8 @@ public class N_foodjobDetailsActivity extends BaseActivity {
     @OnClick(R.id.loc_text_id)
     void setLocTextView() {
         //跳转至选项值界面
-        Intent intent = new Intent(N_foodjobDetailsActivity.this, ChooseActivity.class);
-        intent.putExtra("HOLDER", AccountUtils.getloginUserName(N_foodjobDetailsActivity.this));
+        Intent intent = new Intent(N_foodjobAddActivity.this, ChooseActivity.class);
+        intent.putExtra("HOLDER", AccountUtils.getloginUserName(N_foodjobAddActivity.this));
         startActivityForResult(intent, 0);
     }
 
@@ -197,16 +188,17 @@ public class N_foodjobDetailsActivity extends BaseActivity {
     //告知人
     @OnClick(R.id.tell_text_id)
     void setTellTextView() {
-        Intent intent = new Intent(N_foodjobDetailsActivity.this, N_FoodPersonActivity.class);
+        Intent intent = new Intent(N_foodjobAddActivity.this, N_FoodPersonActivity.class);
         intent.putExtra("type", "TELL");
         startActivityForResult(intent, TELL_CODE);
+
 
     }
 
     //安全员
     @OnClick(R.id.safer_text_id)
     void setSaferTextView() {
-        Intent intent = new Intent(N_foodjobDetailsActivity.this, N_FoodPersonActivity.class);
+        Intent intent = new Intent(N_foodjobAddActivity.this, N_FoodPersonActivity.class);
         intent.putExtra("type", "SAFER");
         startActivityForResult(intent, SAFER_CODE);
 
@@ -215,7 +207,7 @@ public class N_foodjobDetailsActivity extends BaseActivity {
     //安全告知项目
     @OnClick(R.id.aqxm_text_id)
     void setAqxmTextView() {
-        Intent intent = new Intent(N_foodjobDetailsActivity.this, AlndomainChooseActivity.class);
+        Intent intent = new Intent(N_foodjobAddActivity.this, AlndomainChooseActivity.class);
         intent.putExtra("type", "AQXM");
         intent.putExtra("title", getString(R.string.axgzxm_text));
         startActivityForResult(intent, AQXM_CODE);
@@ -224,7 +216,7 @@ public class N_foodjobDetailsActivity extends BaseActivity {
     //安全检查项目
     @OnClick(R.id.remark_text_id)
     void setRemarkTextView() {
-        Intent intent = new Intent(N_foodjobDetailsActivity.this, AlndomainChooseActivity.class);
+        Intent intent = new Intent(N_foodjobAddActivity.this, AlndomainChooseActivity.class);
         intent.putExtra("type", "AQXM");
         intent.putExtra("title", getString(R.string.axjcxm_text));
         startActivityForResult(intent, REMARK_CODE);
@@ -233,12 +225,11 @@ public class N_foodjobDetailsActivity extends BaseActivity {
     //被告知人
     @OnClick(R.id.teller_text_id)
     void setTellerTextView() {
-        Intent intent = new Intent(N_foodjobDetailsActivity.this, N_FoodPersonActivity.class);
+        Intent intent = new Intent(N_foodjobAddActivity.this, N_FoodPersonActivity.class);
         intent.putExtra("type", "TELLER");
         startActivityForResult(intent, TELLER_CODE);
 
     }
-
 
     //作业内容
     @OnClick(R.id.content_text_id)
@@ -249,7 +240,7 @@ public class N_foodjobDetailsActivity extends BaseActivity {
     //带班负责人
     @OnClick(R.id.chief_text_id)
     void setChiefTextView() {
-        Intent intent = new Intent(N_foodjobDetailsActivity.this, N_FoodPersonActivity.class);
+        Intent intent = new Intent(N_foodjobAddActivity.this, N_FoodPersonActivity.class);
         intent.putExtra("type", "CHIEF");
         startActivityForResult(intent, CHIEF_CODE);
     }
@@ -267,9 +258,9 @@ public class N_foodjobDetailsActivity extends BaseActivity {
 
                 @Override
                 public void onSuccess(Results data, int totalPages, int currentPage) {
-                    ArrayList<ALNDOMAIN> item = JsonUtils.parsingALNDOMAIN(N_foodjobDetailsActivity.this, data.getResultlist());
+                    ArrayList<ALNDOMAIN> item = JsonUtils.parsingALNDOMAIN(N_foodjobAddActivity.this, data.getResultlist());
                     if (item == null && item.isEmpty()) {
-                        MessageUtils.showMiddleToast(N_foodjobDetailsActivity.this, getString(R.string.qiangyang_type_text));
+                        MessageUtils.showMiddleToast(N_foodjobAddActivity.this, getString(R.string.qiangyang_type_text));
                     } else {
                         types = new String[item.size()];
                         for (int i = 0; i < item.size(); i++) {
@@ -280,7 +271,7 @@ public class N_foodjobDetailsActivity extends BaseActivity {
                             showShareBottomDialog(title, types, textview);
 
                         } else {
-                            MessageUtils.showMiddleToast(N_foodjobDetailsActivity.this, getString(R.string.qiangyang_type_text));
+                            MessageUtils.showMiddleToast(N_foodjobAddActivity.this, getString(R.string.qiangyang_type_text));
                         }
 
                     }
@@ -305,7 +296,7 @@ public class N_foodjobDetailsActivity extends BaseActivity {
             shareBottomDialog.cancel();
             shareBottomDialog = null;
         }
-        shareBottomDialog = new ShareBottomDialog(N_foodjobDetailsActivity.this, typesitem, null);
+        shareBottomDialog = new ShareBottomDialog(N_foodjobAddActivity.this, typesitem, null);
 
 
         shareBottomDialog.title(title)//
@@ -342,7 +333,7 @@ public class N_foodjobDetailsActivity extends BaseActivity {
         int iYear = objTime.get(Calendar.YEAR);
         int iMonth = objTime.get(Calendar.MONTH);
         int iDay = objTime.get(Calendar.DAY_OF_MONTH);
-        datePickerDialog = new DatePickerDialog(this, new N_foodjobDetailsActivity.datelistener(), iYear, iMonth, iDay);
+        datePickerDialog = new DatePickerDialog(this, new N_foodjobAddActivity.datelistener(), iYear, iMonth, iDay);
     }
 
 
@@ -419,12 +410,12 @@ public class N_foodjobDetailsActivity extends BaseActivity {
     }
 
 
-    //提交更新的信息
+    //提交新建的信息
     private void SubmitData(final String json) {
         new AsyncTask<String, String, String>() {
             @Override
             protected String doInBackground(String... strings) {
-                String reviseresult = AndroidClientService.postN_foodjob(N_foodjobDetailsActivity.this, json);
+                String reviseresult = AndroidClientService.postN_foodjob(N_foodjobAddActivity.this, json);
                 return reviseresult;
             }
 
@@ -432,15 +423,17 @@ public class N_foodjobDetailsActivity extends BaseActivity {
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 mLoadingDialog.dismiss();
-                MessageUtils.showMiddleToast(N_foodjobDetailsActivity.this, s);
+                MessageUtils.showMiddleToast(N_foodjobAddActivity.this, s);
                 finish();
             }
         }.execute();
 
     }
 
+
     //封装填写的数据
     private N_FOODJOB getN_FOODJOB() {
+        N_FOODJOB n_foodjob = new N_FOODJOB();
         n_foodjob.setLOC(locTextView.getText().toString()); //货位号
         n_foodjob.setREPORTDATE(reportdateText.getText().toString()); //作业日期
         n_foodjob.setTELL(tell); //告知人
@@ -449,8 +442,9 @@ public class N_foodjobDetailsActivity extends BaseActivity {
         n_foodjob.setREMARK(remarkTextView.getText().toString()); //安全检查项目
         n_foodjob.setTELLER(tellerTextView.getText().toString()); //被告知人
         n_foodjob.setCONTENT(contentTextView.getText().toString()); //作业内容
-        n_foodjob.setHOLDER(AccountUtils.getloginUserName(N_foodjobDetailsActivity.this)); //作业内容
+        n_foodjob.setHOLDER(AccountUtils.getloginUserName(N_foodjobAddActivity.this)); //作业内容
         n_foodjob.setCHIEF(chief); //代办负责人
+        n_foodjob.setFOODJOBNUM("");//编号
         return n_foodjob;
     }
 

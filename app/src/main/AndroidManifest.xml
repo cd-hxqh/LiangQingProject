@@ -324,6 +324,22 @@
             android:name=".view.activity.N_foodjobDetailsActivity"
             android:label="N_foodjobDetailsActivity"
             android:theme="@style/SampleTheme"></activity>
+        <activity
+            android:name=".view.activity.User_instructionsActivity"
+            android:label="User_instructionsActivity"
+            android:theme="@style/SampleTheme"></activity>
+        <activity
+            android:name=".view.activity.N_foodjobAddActivity"
+            android:label="N_foodjobAddActivity"
+            android:theme="@style/SampleTheme"></activity>
+        <activity
+            android:name=".view.activity.N_FoodPersonActivity"
+            android:label="N_FoodPersonActivity"
+            android:theme="@style/SampleTheme"></activity>
+        <activity
+            android:name=".view.activity.AlndomainChooseActivity"
+            android:label="AlndomainChooseActivity"
+            android:theme="@style/SampleTheme"></activity>
     </application>
 
 </manifest>
